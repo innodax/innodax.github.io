@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakty — FokusRoll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .contact-cards { display: flex; flex-direction: column; gap: 16px; }
+    .contact-card {
+      background: var(--gray);
+      border-radius: 12px;
+      padding: 20px 24px;
+      border: 1px solid var(--evil-gray);
+      display: flex; gap: 16px; align-items: center;
+      text-decoration: none;
+      transition: outline-color 0.2s;
+    }
+    .contact-card:hover { outline-color: var(--hot-orange); }
+    .contact-card .icon {
+      width: 44px; height: 44px;
+      background: rgba(251,169,44,0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .contact-card strong { display: block; font-size: 0.85rem; font-weight: 700; color: var(--white); }
+    .contact-card span { font-size: 0.875rem; color: var(--light-gray); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--light-gray); }
+    .form-group input,
+    .form-group textarea {
+      background: var(--gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--hot-orange); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      display: inline-flex;
+      padding: 13px 28px;
+      background: var(--hot-orange);
+      color: var(--black);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: opacity 0.15s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { opacity: 0.88; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <img src="https://fokusroll.wz.cz/fr_logo.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='🎲'" />
+        </div>
+        <span class="nav-logo-text">Fokus<span>Roll</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="about.html">O akci</a></li>
+        <li><a href="about_tournament.html">O turnaji</a></li>
+        <li><a href="about_rpgs.html">Doprovodný program</a></li>
+        <li><a href="contact.html" class="active">Kontakty</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="registration.html" class="nav-cta">Registrace</a>
+        <a href="login.html" class="nav-login">Přihlášení</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-drawer" id="drawer">
+    <a href="about.html" onclick="closeDrawer()">O akci</a>
+    <a href="about_tournament.html" onclick="closeDrawer()">O turnaji</a>
+    <a href="about_rpgs.html" onclick="closeDrawer()">Doprovodný program</a>
+    <a href="contact.html" class="active" onclick="closeDrawer()">Kontakty</a>
+    <div class="drawer-auth">
+      <a href="registration.html" class="drawer-cta" onclick="closeDrawer()">Registrace</a>
+      <a href="login.html" class="drawer-login" onclick="closeDrawer()">Přihlášení</a>
+    </div>
+  </div>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="section-label">Kontakty</span>
+      <h1>Máte <span>otázku?</span></h1>
+      <p>Napište nám — rádi odpovíme na dotazy ohledně registrace, turnaje i programu.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-cards">
+          <h2 style="margin-bottom:24px">Kde nás <span>najdete?</span></h2>
+          <a href="#" class="contact-card">
+            <div class="icon">✉️</div>
+            <div>
+              <strong>E-mail</strong>
+              <span class="placeholder">Doplňte e-mailovou adresu.</span>
+            </div>
+          </a>
+          <a href="#" class="contact-card">
+            <div class="icon">📘</div>
+            <div>
+              <strong>Facebook</strong>
+              <span class="placeholder">Doplňte odkaz na Facebook stránku.</span>
+            </div>
+          </a>
+          <a href="#" class="contact-card">
+            <div class="icon">📍</div>
+            <div>
+              <strong>Místo konání</strong>
+              <span class="placeholder">Doplňte adresu.</span>
+            </div>
+          </a>
+        </div>
+
+        <div>
+          <h2 style="margin-bottom:24px">Napište <span>nám</span></h2>
+          <form class="contact-form" onsubmit="return false">
+            <div class="form-group">
+              <label for="name">Jméno</label>
+              <input type="text" id="name" name="name" placeholder="Vaše jméno" />
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="vas@email.cz" />
+            </div>
+            <div class="form-group">
+              <label for="message">Zpráva</label>
+              <textarea id="message" name="message" placeholder="Vaše zpráva..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Odeslat zprávu</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-brand">
+        <div class="footer-brand-icon">🎲</div>
+        <span class="footer-brand-text">Fokus<span>Roll</span></span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="about.html">O akci</a></li>
+        <li><a href="about_tournament.html">O turnaji</a></li>
+        <li><a href="about_rpgs.html">Doprovodný program</a></li>
+        <li><a href="contact.html">Kontakty</a></li>
+        <li><a href="registration.html">Registrace</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

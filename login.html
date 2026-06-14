@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Přihlášení — FokusRoll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .login-wrap {
+      min-height: calc(100vh - var(--nav-height));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--nav-height) + 40px) 24px 60px;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(251,169,44,0.07) 0%, transparent 70%);
+    }
+    .login-box {
+      background: var(--gray);
+      border-radius: 18px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid var(--evil-gray);
+    }
+    .login-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 32px;
+    }
+    .login-logo-icon {
+      width: 36px; height: 36px;
+      background: var(--hot-orange);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .login-logo-text { font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .login-logo-text span { color: var(--hot-orange); }
+
+    .login-box h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .login-box .subtitle { font-size: 0.875rem; color: var(--light-gray); margin-bottom: 28px; }
+
+    .login-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--light-gray); }
+    .form-group input {
+      background: var(--dark-gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+      width: 100%;
+    }
+    .form-group input:focus { border-color: var(--hot-orange); }
+
+    .form-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+    .form-footer a { color: var(--hot-orange); text-decoration: none; }
+    .form-footer a:hover { text-decoration: underline; }
+
+    .login-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--hot-orange);
+      color: var(--black);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: opacity 0.15s;
+      margin-top: 4px;
+    }
+    .login-submit:hover { opacity: 0.88; }
+
+    .login-divider {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--evil-gray);
+      margin: 4px 0;
+      position: relative;
+    }
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 38%;
+      height: 1px;
+      background: var(--evil-gray);
+    }
+    .login-divider::before { left: 0; }
+    .login-divider::after { right: 0; }
+
+    .login-register {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      margin-top: 24px;
+    }
+    .login-register a { color: var(--hot-orange); text-decoration: none; font-weight: 600; }
+    .login-register a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <img src="https://fokusroll.wz.cz/fr_logo.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='🎲'" />
+        </div>
+        <span class="nav-logo-text">Fokus<span>Roll</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="about.html">O akci</a></li>
+        <li><a href="about_tournament.html">O turnaji</a></li>
+        <li><a href="about_rpgs.html">Doprovodný program</a></li>
+        <li><a href="contact.html">Kontakty</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="registration.html" class="nav-cta">Registrace</a>
+        <a href="login.html" class="nav-login active">Přihlášení</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-drawer" id="drawer">
+    <a href="about.html" onclick="closeDrawer()">O akci</a>
+    <a href="about_tournament.html" onclick="closeDrawer()">O turnaji</a>
+    <a href="about_rpgs.html" onclick="closeDrawer()">Doprovodný program</a>
+    <a href="contact.html" onclick="closeDrawer()">Kontakty</a>
+    <div class="drawer-auth">
+      <a href="registration.html" class="drawer-cta" onclick="closeDrawer()">Registrace</a>
+      <a href="login.html" class="drawer-login" onclick="closeDrawer()">Přihlášení</a>
+    </div>
+  </div>
+
+  <div class="login-wrap">
+    <div class="login-box">
+      <a href="index.html" class="login-logo">
+        <div class="login-logo-icon">🎲</div>
+        <span class="login-logo-text">Fokus<span>Roll</span></span>
+      </a>
+      <h1>Přihlásit se</h1>
+      <p class="subtitle">Zadejte své přihlašovací údaje.</p>
+
+      <form class="login-form" onsubmit="return false">
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="vas@email.cz" autocomplete="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Heslo</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <div class="form-footer">
+          <label style="display:flex;align-items:center;gap:6px;color:var(--light-gray);cursor:pointer">
+            <input type="checkbox" name="remember" style="accent-color:var(--hot-orange)" /> Zapamatovat
+          </label>
+          <a href="#">Zapomenuté heslo?</a>
+        </div>
+        <button type="submit" class="login-submit">Přihlásit se</button>
+      </form>
+
+      <p class="login-register">Ještě nemáte účet? <a href="registration.html">Registrujte se</a></p>
+    </div>
+  </div>
+
+  <script src="nav.js"></script>
+</body>
+</html>

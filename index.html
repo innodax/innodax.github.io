@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FokusRoll — Tabletop RPG Tournament</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--nav-height) + 48px) 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1549056572-75914d5d5fd4?q=80&w=1064&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.82) 0%,
+        rgba(0,0,0,0.6) 55%,
+        rgba(0,0,0,0.25) 100%
+      );
+      z-index: 1;
+    }
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: rgba(251,169,44,0.15);
+      border: 1px solid rgba(251,169,44,0.5);
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--hot-orange);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+    }
+    .hero h1 span { color: var(--hot-orange); }
+    .hero-desc { font-size: 1.1rem; color: rgba(255,255,255,0.85); max-width: 480px; margin-bottom: 28px; text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--beige);
+      font-weight: 500;
+    }
+    .hero-meta-item .icon {
+      width: 32px; height: 32px;
+      background: var(--gray);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+
+    /* ─── TEASER CARDS ─── */
+    .teaser-section { padding: var(--section-pad); }
+    .teaser-section h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 32px; }
+    .teaser-section h2 span { color: var(--hot-orange); }
+    .teaser-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 720px) { .teaser-cards { grid-template-columns: 1fr; } }
+    .teaser-card {
+      background: var(--gray);
+      border-radius: 14px;
+      padding: 28px;
+      border: 1px solid var(--evil-gray);
+      text-decoration: none;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: outline-color 0.2s, transform 0.2s;
+    }
+    .teaser-card:hover { outline-color: var(--hot-orange); transform: translateY(-3px); }
+    .teaser-card-icon { font-size: 2rem; }
+    .teaser-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); }
+    .teaser-card p { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; flex: 1; }
+    .teaser-card-link { font-size: 0.85rem; font-weight: 600; color: var(--hot-orange); margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <img src="https://fokusroll.wz.cz/fr_logo.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='🎲'" />
+        </div>
+        <span class="nav-logo-text">Fokus<span>Roll</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="about.html">O akci</a></li>
+        <li><a href="about_tournament.html">O turnaji</a></li>
+        <li><a href="about_rpgs.html">Doprovodný program</a></li>
+        <li><a href="contact.html">Kontakty</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="registration.html" class="nav-cta">Registrace</a>
+        <a href="login.html" class="nav-login">Přihlášení</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-drawer" id="drawer">
+    <a href="about.html" onclick="closeDrawer()">O akci</a>
+    <a href="about_tournament.html" onclick="closeDrawer()">O turnaji</a>
+    <a href="about_rpgs.html" onclick="closeDrawer()">Doprovodný program</a>
+    <a href="contact.html" onclick="closeDrawer()">Kontakty</a>
+    <div class="drawer-auth">
+      <a href="registration.html" class="drawer-cta" onclick="closeDrawer()">Registrace</a>
+      <a href="login.html" class="drawer-login" onclick="closeDrawer()">Přihlášení</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">⚔️ Turnaj v Jeskyních a Dracích</div>
+        <h1>Fokus<span>Roll</span><br/>2026</h1>
+        <p class="hero-desc">Komorní larpy, šerm, lukostřelba, deskové hry, nerf, RPG hry a kdo ví co ještě…</p>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <div class="icon">📅</div>
+            <span>11. – 13. 3. 2026</span>
+          </div>
+          <div class="hero-meta-item">
+            <div class="icon">📍</div>
+            <span>SVČ Fokus, Nový Jičín</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="registration.html" class="btn-primary">Registrovat se</a>
+          <a href="about.html" class="btn-secondary">O akci →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TEASER CARDS -->
+  <section class="teaser-section">
+    <div class="container">
+      <h2>Vše o <span>FokusRoll</span></h2>
+      <div class="teaser-cards">
+        <a href="about.html" class="teaser-card">
+          <div class="teaser-card-icon">🏰</div>
+          <h3>O akci</h3>
+          <p class="placeholder">Doplňte krátký perex — co je FokusRoll a pro koho je určen.</p>
+          <span class="teaser-card-link">Více o akci →</span>
+        </a>
+        <a href="about_tournament.html" class="teaser-card">
+          <div class="teaser-card-icon">⚔️</div>
+          <h3>O turnaji</h3>
+          <p class="placeholder">Doplňte krátký perex — formát turnaje, pravidla, ceny.</p>
+          <span class="teaser-card-link">Více o turnaji →</span>
+        </a>
+        <a href="about_rpgs.html" class="teaser-card">
+          <div class="teaser-card-icon">🎭</div>
+          <h3>Doprovodný program</h3>
+          <p class="placeholder">Doplňte krátký perex — co dalšího se na akci děje.</p>
+          <span class="teaser-card-link">Celý program →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <h2>Přihlaste se ještě dnes!</h2>
+    <p class="placeholder" style="background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2);color:rgba(0,0,0,0.55)">
+      ✏️ Doplňte motivační větu — deadline registrace nebo počet volných míst.
+    </p>
+    <br/>
+    <a href="registration.html" class="btn-dark">Registrovat se →</a>
+  </section>
+
+  <!-- SPONSORS -->
+  <section class="sponsors">
+    <h3>Partneři a sponzoři</h3>
+    <div class="sponsors-logos">
+      <a href="https://www.chaosium.com" class="sponsor-logo" target="_blank" rel="noopener">
+        <img src="https://fokusroll.wz.cz/chaosium_logo.png" alt="Chaosium" />
+      </a>
+      <a href="https://www.imago.cz" class="sponsor-logo" target="_blank" rel="noopener">
+        <img src="https://fokusroll.wz.cz/imago_velke.svg" alt="Imago" />
+      </a>
+      <a href="https://www.jeskyneadraci.cz" class="sponsor-logo" target="_blank" rel="noopener">
+        <img src="https://fokusroll.wz.cz/jad_logo.png" alt="Jeskyně a draci" />
+      </a>
+      <a href="https://www.fokusnj.cz" class="sponsor-logo" target="_blank" rel="noopener">
+        <img src="https://fokusroll.wz.cz/fokus_logo.png" alt="Fokus" />
+      </a>
+      <span class="sponsor-logo" style="cursor:default">
+        <img src="https://fokusroll.wz.cz/pm_logo.png" alt="PM" />
+      </span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-brand">
+        <div class="footer-brand-icon">🎲</div>
+        <span class="footer-brand-text">Fokus<span>Roll</span></span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="about.html">O akci</a></li>
+        <li><a href="about_tournament.html">O turnaji</a></li>
+        <li><a href="about_rpgs.html">Doprovodný program</a></li>
+        <li><a href="contact.html">Kontakty</a></li>
+        <li><a href="registration.html">Registrace</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O akci — FokusRoll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Page header ── */
+    .page-header { padding-bottom: 28px; }
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--hot-orange);
+      line-height: 1;
+    }
+
+    /* ── Section ── */
+    .about-section { padding-top: 40px; }
+    .about-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-top: 56px;
+      margin-bottom: 20px;
+    }
+    .details-body h2:first-child { margin-top: 0; }
+
+    /* ── Fact cards ── */
+    .fact-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 720px) { .fact-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 400px) { .fact-cards { grid-template-columns: 1fr; } }
+    .fact-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
+      border-radius: 16px;
+      padding: 22px 22px 24px;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-top: 2px solid var(--hot-orange);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .fact-label {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      align-items: center;
+      gap: 8px;
+    }
+    .fact-label ion-icon { font-size: 1rem; color: var(--hot-orange); display: block; }
+    .fact-label strong {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--hot-orange);
+      line-height: 1;
+      margin: 0;
+    }
+    .fact-card span {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.25;
+      margin-top: 12px;
+    }
+    .fact-sub {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* ── Alert box ── */
+    .alert {
+      background: linear-gradient(145deg, rgba(251,169,44,0.1) 0%, rgba(251,169,44,0.03) 100%);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 48px;
+      border: 1px solid rgba(251,169,44,0.12);
+      border-top: 2px solid var(--hot-orange);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(251,169,44,0.08) inset;
+    }
+    .alert-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--hot-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .alert-title ion-icon { width: 16px; height: 16px; flex-shrink: 0; display: block; }
+    .alert ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .alert li { font-size: 0.9rem; color: var(--light-gray); display: flex; align-items: baseline; gap: 8px; }
+    .alert li::before { content: '—'; color: var(--hot-orange); flex-shrink: 0; }
+    .alert strong { color: var(--white); }
+
+    /* ── Accordion ── */
+    .accordion { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
+    .acc-item {
+      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-top: 2px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
+    }
+    .acc-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .acc-trigger:hover { background: rgba(255,255,255,0.03); }
+    .acc-arrow { font-size: 0.7rem; color: var(--white); transition: transform 0.2s; flex-shrink: 0; opacity: 0.4; }
+    .acc-trigger.open .acc-arrow { transform: rotate(180deg); opacity: 0.8; }
+    .acc-body { display: none; padding: 0 22px 22px; border-top: 1px solid rgba(255,255,255,0.07); }
+    .acc-body.open { display: block; }
+    .acc-body p { color: var(--light-gray); font-size: 0.9rem; line-height: 1.75; margin-top: 16px; margin-bottom: 0; }
+    .acc-body p + p { margin-top: 12px; }
+    .acc-body strong { color: var(--white); }
+    .acc-body a { color: var(--hot-orange); }
+    .acc-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .acc-list li { font-size: 0.9rem; color: var(--light-gray); padding-left: 14px; position: relative; }
+    .acc-list li::before { content: '—'; color: var(--hot-orange); position: absolute; left: 0; }
+    .acc-warning { color: var(--hot-orange); font-weight: 600; margin-top: 16px; }
+    .acc-menu { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; margin-bottom: 4px; }
+    .acc-menu-day strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--hot-orange); margin-bottom: 6px; }
+    .acc-menu-day p { margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <img src="https://fokusroll.wz.cz/fr_logo.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='🎲'" />
+        </div>
+        <span class="nav-logo-text">Fokus<span>Roll</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="about.html" class="active">O akci</a></li>
+        <li><a href="about_tournament.html">O turnaji</a></li>
+        <li><a href="about_rpgs.html">Doprovodný program</a></li>
+        <li><a href="contact.html">Kontakty</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="registration.html" class="nav-cta">Registrace</a>
+        <a href="login.html" class="nav-login">Přihlášení</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-drawer" id="drawer">
+    <a href="about.html" class="active" onclick="closeDrawer()">O akci</a>
+    <a href="about_tournament.html" onclick="closeDrawer()">O turnaji</a>
+    <a href="about_rpgs.html" onclick="closeDrawer()">Doprovodný program</a>
+    <a href="contact.html" onclick="closeDrawer()">Kontakty</a>
+    <div class="drawer-auth">
+      <a href="registration.html" class="drawer-cta" onclick="closeDrawer()">Registrace</a>
+      <a href="login.html" class="drawer-login" onclick="closeDrawer()">Přihlášení</a>
+    </div>
+  </div>
+
+  <header class="page-header">
+    <div class="container">
+      <h1>O <span>akci</span></h1>
+    </div>
+  </header>
+
+  <section class="section about-section">
+    <div class="container">
+
+      <!-- Fact cards -->
+      <div class="fact-cards">
+        <div class="fact-card">
+          <div class="fact-label">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <strong>Termín</strong>
+          </div>
+          <span>Pá 27. 3. – Ne 29. 3. 2026</span>
+          <small class="fact-sub">Brány dobrodružství se otevřou v pátek večer. První kostky se roztočí v 19:00. Poslední kapitola příběhu bude dopsána v neděli ve 13:00.</small>
+        </div>
+        <div class="fact-card">
+          <div class="fact-label">
+            <ion-icon name="location-outline"></ion-icon>
+            <strong>Místo</strong>
+          </div>
+          <span>SVČ Fokus, Nový Jičín</span>
+          <small class="fact-sub">K Nemocnici 1082/23, Nový Jičín</small>
+        </div>
+        <div class="fact-card">
+          <div class="fact-label">
+            <ion-icon name="time-outline"></ion-icon>
+            <strong>Příjezd</strong>
+          </div>
+          <span>Pátek 16:00–18:30</span>
+          <small class="fact-sub">Do Fokusu můžete vstoupit od 16:00. Poslední možnost registrace je v 18:30, poté už se družiny vydají vstříc svému osudu.</small>
+        </div>
+        <div class="fact-card">
+          <div class="fact-label">
+            <ion-icon name="flag-outline"></ion-icon>
+            <strong>Vyhodnocení</strong>
+          </div>
+          <span>Neděle 15:00–16:00</span>
+          <small class="fact-sub">Ohlédneme se za uplynulým víkendem, vyhodnotíme turnaj, rozdáme ocenění a zjistíme, kdo se zapíše do kronik jako hrdina a legenda.</small>
+        </div>
+      </div>
+
+      <!-- Important rules -->
+      <div class="alert">
+        <div class="alert-title"><ion-icon name="warning-outline"></ion-icon> Životně důležité info</div>
+        <ul>
+          <li><span>V průběhu celé akce platí <strong>zákaz konzumace alkoholu</strong> a jiných návykových látek.</span></li>
+          <li><span>Kuřáci mohou <strong>kouřit mimo areál SVČ</strong>.</span></li>
+          <li><span>Platí přísný <strong>zákaz vstupu psů</strong> na akci — bez výjimek.</span></li>
+        </ul>
+      </div>
+
+      <!-- Podrobnosti -->
+      <div class="details-body">
+
+        <h2>Účast a registrace</h2>
+        <div class="accordion">
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="dorazit">Kdy mám dorazit? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="dorazit">
+              <p>Na místo můžete dorazit už od 16:00.</p>
+              <p>V 18:00 prosím buďte na místě, abyste stihli registraci. Nejpozději v 18:30 byste již měli být přítomni na zahájení akce.</p>
+              <p>V prostorách SVČ Fokus budou ještě probíhat některé kroužky, proto prosíme o trpělivost během příjezdu. Uděláme vše pro to, aby se program rozběhl podle plánu.</p>
+              <p>Závěrečné vyhodnocení turnaje proběhne v neděli mezi 15:00 a 16:00.</p>
+              <p>Po vyhlášení výsledků bude následovat také krátká reflexe turnaje. Pokud vás budou zajímat neobjevené části příběhu, alternativní řešení nebo otázky k dobrodružství, rádi vám vše zodpovíme.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="registrace">Jak funguje registrace? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="registrace">
+              <p>Po dokončení registrace v systému SVČ Fokus vám na e-mail přijde přihláška.</p>
+              <p>Přihlášku si prosím vytiskněte, vyplňte a přineste s sebou na registraci.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="mladiství">Co musí vědět účastníci do 18 let? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="mladiství">
+              <p>Pokud budete chtít během akce opustit areál SVČ Fokus, musíte mít podepsaný souhlas zákonného zástupce.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2>Ubytování a zázemí</h2>
+        <div class="accordion">
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="spani">Kde budu spát? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="spani">
+              <p>Přespání v prostorách SVČ Fokus je zahrnuto v ceně akce. Stačí si přivézt vlastní karimatku a spacák.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="zazemi">Jaké je zázemí na místě? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="zazemi">
+              <p>V prostorách SVČ Fokus budete mít po celou dobu akce k dispozici:</p>
+              <ul class="acc-list">
+                <li>sociální zařízení,</li>
+                <li>sprchy,</li>
+                <li>mikrovlnnou troubu,</li>
+                <li>rychlovarnou konvici.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="vlastni-ubyt">Chci vlastní ubytování. Jaké mám možnosti? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="vlastni-ubyt">
+              <p>Pokud preferujete vlastní ubytování, můžete využít některé z okolních zařízení. Ubytování mimo SVČ Fokus není součástí ceny akce.</p>
+              <ul class="acc-list">
+                <li>Hotel Praha</li>
+                <li>Penzion U Dubu</li>
+                <li>Hotel Abácie</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h2>Co si vzít s sebou</h2>
+        <div class="accordion">
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="na-prespan">Co budu potřebovat na přespání? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="na-prespan">
+              <p>Pokud plánujete přespat v prostorách SVČ Fokus, nezapomeňte si přivézt:</p>
+              <ul class="acc-list">
+                <li>karimatku,</li>
+                <li>spacák,</li>
+                <li>přezůvky.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="na-hrani">Co budu potřebovat na hraní? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="na-hrani">
+              <p>Na samotné hraní doporučujeme také vlastní kostky, tužku a další oblíbené herní pomůcky.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2>Vstupné a stravování</h2>
+        <div class="accordion">
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="vikend">Kolik stojí víkendová vstupenka? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="vikend">
+              <p>Cena za celý víkend činí <strong>600 Kč</strong>.</p>
+              <p>V ceně je zahrnuto:</p>
+              <ul class="acc-list">
+                <li>účast v turnaji Jeskyně a draci,</li>
+                <li>kompletní doprovodný program,</li>
+                <li>pitný režim po celou dobu akce,</li>
+                <li>možnost přespání v prostorách SVČ Fokus.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="sobota">Co když chci jen sobotní program? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="sobota">
+              <p>Pokud se chcete zúčastnit pouze sobotního programu, cena činí <strong>200 Kč</strong> a platí se na místě v hotovosti.</p>
+              <p>V ceně je zahrnuto:</p>
+              <ul class="acc-list">
+                <li>doprovodný program,</li>
+                <li>až dvě RPG hry nebo larpy dle nabídky,</li>
+                <li>deskové hry, NERF aréna, larpový šerm, lukostřelba,</li>
+                <li>pitný režim,</li>
+                <li>možnost přespání v prostorách SVČ Fokus.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="stravovani">Jak funguje stravování? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="stravovani">
+              <p>Pitný režim (káva, čaj a voda) je pro všechny účastníky zahrnut v základní ceně.</p>
+              <p>Za příplatek <strong>300 Kč</strong> vám zajistíme stravování po celou dobu akce. Stravování začíná páteční večeří a končí nedělním obědem. Celková cena vstupenky se stravou je tedy <strong>900 Kč</strong>.</p>
+              <p class="acc-warning">Zájem o stravování je nutné potvrdit již při registraci. Příplatek za jídlo se doplácí na místě v hotovosti.</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-trigger" data-acc="jidelnicek">Co se bude jíst? <span class="acc-arrow">▼</span></button>
+            <div class="acc-body" id="jidelnicek">
+              <div class="acc-menu">
+                <div class="acc-menu-day">
+                  <strong>Pátek</strong>
+                  <p><em>Večeře</em> — bramborový guláš s chlebem</p>
+                </div>
+                <div class="acc-menu-day">
+                  <strong>Sobota</strong>
+                  <p><em>Snídaně</em> — švédský stůl (sýr, salám, vejce, párky, máslo, pečivo, chléb…)</p>
+                  <p><em>Oběd</em> — čočková polévka, moravský vrabec, zelí, houskový knedlík</p>
+                  <p><em>Večeře</em> — boloňská omáčka, těstoviny, sýr</p>
+                </div>
+                <div class="acc-menu-day">
+                  <strong>Neděle</strong>
+                  <p><em>Snídaně</em> — švédský stůl (jogurty, ovesná kaše, müsli, mléko, džem, pečivo…)</p>
+                  <p><em>Oběd</em> — drůbeží polévka, kuřecí rizoto se zeleninou, sýr, okurka</p>
+                </div>
+              </div>
+              <p><em>Změna jídelníčku vyhrazena.</em></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Travel -->
+      <h2>Info k cestování</h2>
+      <div class="accordion">
+        <div class="acc-item">
+          <button class="acc-trigger" data-acc="autem">Autem <span class="acc-arrow">▼</span></button>
+          <div class="acc-body" id="autem">
+            <p>Pokud přijedete autem, nabízí se dostatek místa k parkování v blízkosti SVČ Fokus. První možnost k parkování je podél ulice Janáčkovy sady u vjezdu do SVČ. Hned za střediskem je park a vedle něj další parkoviště. V případě nedostatku místa je možné stát také u blízké knihovny, kde je o víkendech neomezené parkování.</p>
+            <p>Viz <a href="https://mapy.cz" target="_blank" rel="noopener">mapy.cz</a>. Verzi pro Google Maps najdete v textu.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-trigger" data-acc="vlakem">Vlakem <span class="acc-arrow">▼</span></button>
+          <div class="acc-body" id="vlakem">
+            <p>Při cestě vlakem se dopravíte do stanice Suchdol nad Odrou (stanice např. frekventovaného spoje společnosti RegioJet na trati Ostrava–Brno aj.), kde přesednete na místní spoj do Nového Jičína. Ten vás za pár minut doveze na stanici Nový Jičín město. Odtud stačí dojít necelý kilometr přímo na SVČ Fokus.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-trigger" data-acc="autobusem">Autobusem <span class="acc-arrow">▼</span></button>
+          <div class="acc-body" id="autobusem">
+            <p>Z blízkých větších měst (např. Ostrava) můžete přijet autobusem na místní autobusové nádraží. Tyto spoje bývají poměrně frekventované a dobře dostupné. Staví zde i autobus společnosti RegioJet na pravidelné lince Ostrava–Brno. Z autobusového nádraží pak stačí dojít necelý kilometr přímo na SVČ Fokus.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-brand">
+        <div class="footer-brand-icon">🎲</div>
+        <span class="footer-brand-text">Fokus<span>Roll</span></span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="about.html">O akci</a></li>
+        <li><a href="about_tournament.html">O turnaji</a></li>
+        <li><a href="about_rpgs.html">Doprovodný program</a></li>
+        <li><a href="contact.html">Kontakty</a></li>
+        <li><a href="registration.html">Registrace</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script>
+    // Accordion
+    document.querySelectorAll('.acc-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.acc;
+        const body = document.getElementById(id);
+        const isOpen = btn.classList.contains('open');
+        btn.classList.toggle('open', !isOpen);
+        body.classList.toggle('open', !isOpen);
+      });
+    });
+
+  </script>
+</body>
+</html>
