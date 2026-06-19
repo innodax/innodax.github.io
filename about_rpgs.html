@@ -9,139 +9,582 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .program-card {
-      background: var(--gray);
-      border-radius: 14px;
+    /* ── Alert ── */
+    .alert {
+      background: linear-gradient(145deg, rgba(251,169,44,0.1) 0%, rgba(251,169,44,0.03) 100%);
+      border-radius: 16px;
+      padding: 22px 24px;
+      border: 1px solid rgba(251,169,44,0.12);
+      border-top: 2px solid var(--hot-orange);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(251,169,44,0.08) inset;
+    }
+    .alert strong { color: var(--white); }
+    .alert p { font-size: 0.9rem; color: var(--light-gray); line-height: 1.7; margin: 0; }
+    .alert p + p { margin-top: 8px; }
+
+    /* ── Accordion ── */
+    .accordion { display: flex; flex-direction: column; gap: 10px; }
+    .acc-item {
+      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-top: 2px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
       overflow: hidden;
-      border: 1px solid var(--evil-gray);
-      transition: outline-color 0.2s, transform 0.2s;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
     }
-    .program-card:hover { outline-color: var(--hot-orange); transform: translateY(-3px); }
-    .program-card-thumb {
-      height: 120px;
-      background: var(--dark-gray);
+    .acc-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .acc-trigger:hover { background: rgba(255,255,255,0.03); }
+    .acc-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hot-orange); display: block; margin-bottom: 3px; }
+    .acc-arrow { font-size: 0.7rem; color: var(--white); transition: transform 0.2s; flex-shrink: 0; opacity: 0.4; }
+    .acc-trigger.open .acc-arrow { transform: rotate(180deg); opacity: 0.8; }
+    .acc-body { display: none; padding: 0 22px 22px; border-top: 1px solid rgba(255,255,255,0.07); }
+    .acc-body.open { display: block; }
+    .acc-body p { color: var(--light-gray); font-size: 0.9rem; line-height: 1.75; margin-top: 16px; margin-bottom: 0; }
+    .acc-body p + p { margin-top: 12px; }
+    .acc-body strong { color: var(--white); }
+    .acc-body a { color: var(--hot-orange); font-weight: 600; }
+
+    /* ── Registration steps ── */
+    .reg-steps { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+    .reg-step { display: flex; gap: 16px; align-items: flex-start; }
+    .reg-step-num {
+      min-width: 30px; height: 30px;
+      background: var(--hot-orange);
+      color: var(--black);
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 2.5rem;
-      border-bottom: 1px solid var(--evil-gray);
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
-    .program-card-body { padding: 20px; }
-    .program-card-body h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-    .program-card-body p { font-size: 0.85rem; color: var(--light-gray); }
+    .reg-step-text { font-size: 0.9rem; color: var(--light-gray); line-height: 1.65; }
+    .reg-step-text strong { color: var(--white); }
+
+    /* ── Schedule link ── */
+    .schedule-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      padding: 11px 20px;
+      background: rgba(251,169,44,0.1);
+      border: 1px solid rgba(251,169,44,0.35);
+      border-radius: 8px;
+      color: var(--hot-orange);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .schedule-link:hover { background: rgba(251,169,44,0.18); }
+
+    /* ── RPG card grid ── */
+    .rpg-card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 32px;
+    }
+    @media (max-width: 1000px) { .rpg-card-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 680px)  { .rpg-card-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px)  { .rpg-card-grid { grid-template-columns: 1fr; } }
+
+    .rpg-card {
+      background: var(--gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s;
+    }
+    .rpg-card:hover { transform: translateY(-2px); }
+    .rpg-card-thumb {
+      height: 110px;
+      background: var(--dark-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      border-bottom: 1px solid var(--evil-gray);
+      flex-shrink: 0;
+    }
+    .rpg-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .rpg-card-body {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .rpg-card-system {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hot-orange);
+      margin-bottom: 4px;
+    }
+    .rpg-card-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+    }
+    .rpg-card-desc {
+      font-size: 0.78rem;
+      color: var(--light-gray);
+      line-height: 1.55;
+      margin-top: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .rpg-card-gm {
+      font-size: 0.72rem;
+      color: var(--light-gray);
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--evil-gray);
+    }
+    .rpg-card-gm strong { color: rgba(255,255,255,0.5); font-weight: 600; }
+
+    /* ── Free program cards ── */
+    .free-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    @media (max-width: 720px) { .free-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .free-grid { grid-template-columns: 1fr; } }
+    .free-card {
+      background: var(--dark-gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 14px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .free-card-icon { font-size: 2rem; }
+    .free-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); }
+    .free-card p { font-size: 0.85rem; color: var(--light-gray); line-height: 1.65; }
   </style>
 </head>
 <body>
 
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="nav-logo-icon">
-          <img src="https://fokusroll.wz.cz/fr_logo.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='🎲'" />
-        </div>
-        <span class="nav-logo-text">Fokus<span>Roll</span></span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="about.html">O akci</a></li>
-        <li><a href="about_tournament.html">O turnaji</a></li>
-        <li><a href="about_rpgs.html" class="active">Doprovodný program</a></li>
-        <li><a href="contact.html">Kontakty</a></li>
-      </ul>
-      <div class="nav-actions">
-        <a href="registration.html" class="nav-cta">Registrace</a>
-        <a href="login.html" class="nav-login">Přihlášení</a>
-      </div>
-      <button class="nav-burger" id="burger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <div class="nav-drawer" id="drawer">
-    <a href="about.html" onclick="closeDrawer()">O akci</a>
-    <a href="about_tournament.html" onclick="closeDrawer()">O turnaji</a>
-    <a href="about_rpgs.html" class="active" onclick="closeDrawer()">Doprovodný program</a>
-    <a href="contact.html" onclick="closeDrawer()">Kontakty</a>
-    <div class="drawer-auth">
-      <a href="registration.html" class="drawer-cta" onclick="closeDrawer()">Registrace</a>
-      <a href="login.html" class="drawer-login" onclick="closeDrawer()">Přihlášení</a>
-    </div>
-  </div>
+  <div id="nav-placeholder"></div>
 
   <header class="page-header">
     <div class="container">
       <span class="section-label">Doprovodný program</span>
       <h1>Víc než jen <span>turnaj</span></h1>
-      <p class="placeholder">✏️ Doplňte krátký perex — co dalšího se na akci děje kromě turnaje.</p>
+      <p>Doprovodný program je otevřen komukoliv — i mimo turnaj v Jeskyních a dracích. Všechny aktivity probíhají v&nbsp;<strong style="color:var(--white)">sobotu 28. 3. odpoledne a večer</strong>.</p>
     </div>
   </header>
 
+  <!-- REGISTRACE -->
   <section class="section">
     <div class="container">
-      <span class="section-label">Program</span>
-      <h2>Co vás <span>čeká?</span></h2>
-      <p class="section-lead placeholder">✏️ Doplňte úvod k doprovodnému programu.</p>
-      <div class="cards-grid">
-        <div class="program-card">
-          <div class="program-card-thumb">🎭</div>
-          <div class="program-card-body">
-            <h3 class="placeholder">Název aktivity 1</h3>
-            <p class="placeholder" style="margin-top:8px">Krátký popis aktivity.</p>
+      <span class="section-label">Účast</span>
+      <h2>Jak se <span>přihlásit?</span></h2>
+
+      <div class="alert">
+        <p><strong>Většina programu</strong> je dostupná bez registrace — viz sekce Volný doprovodný program. Na <strong>larp Ostrov</strong> a <strong>nesoutěžní RPG hry</strong> je potřeba se předem registrovat.</p>
+      </div>
+
+      <div class="reg-steps">
+        <div class="reg-step">
+          <div class="reg-step-num">1</div>
+          <div class="reg-step-text">Vyplňte jméno, příjmení, e-mail a tel. číslo.</div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-num">2</div>
+          <div class="reg-step-text">Zadejte své zkušenosti s RPG a příslušnou hrou.</div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-num">3</div>
+          <div class="reg-step-text">Vyberte si hry z nabídky. Lze hrát <strong>až 2 RPG hry</strong>, nebo <strong>1 larp + 1 RPG</strong>, nebo <strong>oba larpy</strong>.</div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-num">4</div>
+          <div class="reg-step-text">V sobotu 28. 3. dorazte na Fokus Roll, zapište se na recepci a zaplaťte <strong>200 Kč v hotovosti</strong>. Účastníci turnaje v JaD nedoplácejí nic.</div>
+        </div>
+      </div>
+
+      <div class="alert" style="margin-top:24px">
+        <p><strong>Pozor!</strong> Pokud jste se k nesoutěžní RPG hře zaregistrovali jako celá družina v přednostní registraci, pohlídejte si, aby se vám hry s dalším programem nekřížily.</p>
+      </div>
+
+      <div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+        <a href="#" class="schedule-link">📅 Podrobný harmonogram — Google tabulka</a>
+        <span style="font-size:0.82rem;color:var(--light-gray)">Registrace pro jednotlivce: <strong style="color:var(--white)">neděle 15. 2. v 19:00</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LARPY -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Larpy</span>
+      <h2>Živé hraní <span>rolí</span></h2>
+      <p class="section-lead">Dva larpy — na oba je nutná předchozí registrace.</p>
+
+      <div class="accordion" style="margin-top:32px">
+
+        <div class="acc-item">
+          <button class="acc-trigger" data-acc="ostrov">
+            <div><span class="acc-label">Larp</span>Ostrov</div>
+            <span class="acc-arrow">▼</span>
+          </button>
+          <div class="acc-body" id="ostrov">
+            <p>Podrobnosti budou brzy k dispozici.</p>
           </div>
         </div>
-        <div class="program-card">
-          <div class="program-card-thumb">🛒</div>
-          <div class="program-card-body">
-            <h3 class="placeholder">Název aktivity 2</h3>
-            <p class="placeholder" style="margin-top:8px">Krátký popis aktivity.</p>
+
+        <div class="acc-item">
+          <button class="acc-trigger" data-acc="kobyly">
+            <div><span class="acc-label">Larp</span>U střelené kobyly</div>
+            <span class="acc-arrow">▼</span>
+          </button>
+          <div class="acc-body" id="kobyly">
+            <p>Jeden saloon, sedm westernových archetypů, které tam společně zavřel šerif. Jeden z nich tam nepatří. Jeden z nich půjde na jistou smrt. A pokud se jim nepodaří správně určit, kdo to je, vybere si šerif jednoho náhodně.</p>
+            <p>U střelené kobyly je ukázka, co by se stalo, kdyby se weird western potkal s Among Us. Potkává se v něm sedm westernových postav, které jsou tak archetypální, že jim ani na jméno nezbylo. Hlavní je nebrat nic z toho vážně — pak si můžete vymyslet cokoliv!</p>
+            <p style="margin-top:16px"><a href="https://larpovadatabaze.cz/larp/u-strelene-kobyly/cs/2420" target="_blank" rel="noopener">Larpová databáze →</a></p>
           </div>
         </div>
-        <div class="program-card">
-          <div class="program-card-thumb">🎨</div>
-          <div class="program-card-body">
-            <h3 class="placeholder">Název aktivity 3</h3>
-            <p class="placeholder" style="margin-top:8px">Krátký popis aktivity.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NESOUTEZNI RPG -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Nesoutěžní RPG</span>
+      <h2>Vyberte si <span>hru</span></h2>
+      <p class="section-lead">23 her od zkušených GameMasterů. Na RPG hry je nutná předchozí registrace.</p>
+
+      <div class="rpg-card-grid" style="margin-top:32px">
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/fallout.png" alt="Fallout: Patrioti Velké války" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Fallout RPG</span>
+            <h3 class="rpg-card-title">Patrioti Velké války</h3>
+            <p class="rpg-card-desc">Pustina, Vault 91 a komunita, která potřebuje vaši pomoc. Postavy i kostky k dispozici.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Rostislav „Cheo" Zlámal</p>
           </div>
         </div>
-        <div class="program-card">
-          <div class="program-card-thumb">🍺</div>
-          <div class="program-card-body">
-            <h3 class="placeholder">Název aktivity 4</h3>
-            <p class="placeholder" style="margin-top:8px">Krátký popis aktivity.</p>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/echo-predeni.jpg" alt="Cats of Catthulhu: Echo Předení" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Cats of Catthulhu</span>
+            <h3 class="rpg-card-title">Echo Předení</h3>
+            <p class="rpg-card-desc">Kosmický horor hraný za kočky. Odhalte záhadné šeptání, které pronásleduje vaši lidskou rodinu.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Ravi</p>
           </div>
         </div>
-        <div class="program-card">
-          <div class="program-card-thumb">🎲</div>
-          <div class="program-card-body">
-            <h3 class="placeholder">Název aktivity 5</h3>
-            <p class="placeholder" style="margin-top:8px">Krátký popis aktivity.</p>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/delta-green.jpeg" alt="Delta Green" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Delta Green</span>
+            <h3 class="rpg-card-title">Delta Green</h3>
+            <p class="rpg-card-desc">Tajná vládní organizace čelí nadpřirozeným hrozbám. Temný špionážní thriller s mytologií Cthulhu.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Martin „Emvee" Vančura</p>
           </div>
         </div>
-        <div class="program-card">
-          <div class="program-card-thumb">🏆</div>
-          <div class="program-card-body">
-            <h3 class="placeholder">Název aktivity 6</h3>
-            <p class="placeholder" style="margin-top:8px">Krátký popis aktivity.</p>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Alice-is-Missing.jpg" alt="Alice is Missing" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Alice is Missing</span>
+            <h3 class="rpg-card-title">Alice is Missing</h3>
+            <p class="rpg-card-desc">Narativní hra bez mluvení — veškerá komunikace probíhá přes textové zprávy v reálném čase.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Martin „Emvee" Vančura</p>
           </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Jarda_alien.png" alt="Alien RPG: The Hunt" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Alien RPG</span>
+            <h3 class="rpg-card-title">The Hunt</h3>
+            <p class="rpg-card-desc">Napínavé sci-fi přežití v duchu filmové série. Jen jedna otázka: dokážete se dostat ven?</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jarda Slámečka</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Smrq_candela_obscura.jpg" alt="Candela Obscura" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Candela Obscura</span>
+            <h3 class="rpg-card-title">Candela Obscura</h3>
+            <p class="rpg-card-desc">Gotický horor z přelomu 19. a 20. století. Investigativní vyšetřování záhadných jevů.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Radim „Smrq" Trčálek</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Count_pirati.jpg" alt="Omega: Se zkříženými hnáty" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Omega</span>
+            <h3 class="rpg-card-title">Se zkříženými hnáty</h3>
+            <p class="rpg-card-desc">Western v post-apokalyptickém světě. Přežití, střety a specifický český černý humor.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Ivo „Count" Karkoška</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Dan_Walking_dead.jpg" alt="The Walking Dead: The Wolves' Den" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">The Walking Dead Universe RPG</span>
+            <h3 class="rpg-card-title">The Wolves' Den</h3>
+            <p class="rpg-card-desc">Survival horor v zombie apokalypse. Sociální drama a morální dilemata na pozadí konce světa.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Dan Fojtík</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/sluzebnici-jezera.jpeg" alt="Call of Cthulhu: Služebníci jezera" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Call of Cthulhu</span>
+            <h3 class="rpg-card-title">Služebníci jezera</h3>
+            <p class="rpg-card-desc">Kosmický horor dle H. P. Lovecrafta. Dokážete odhalit pravdu, aniž byste přišli o rozum?</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Mrkew</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Mrkew_coc_uz_jen_cernota.png" alt="Call of Cthulhu: Už jen černota" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Call of Cthulhu</span>
+            <h3 class="rpg-card-title">Už jen černota</h3>
+            <p class="rpg-card-desc">Druhé sezení Mrkewa v univerzu Lovecrafta. Temnota, záhady a hranice lidského rozumu.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Mrkew</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Jirka_coc_afflicted.webp" alt="Call of Cthulhu: Afflicted" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Call of Cthulhu</span>
+            <h3 class="rpg-card-title">Afflicted</h3>
+            <p class="rpg-card-desc">Klasický lovecraftovský horor. Investigátoři, kteří se pouštějí do toho, čeho by raději nechali.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jirka Kozelský</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Jirka_coc_murder_shack.jpg" alt="Call of Cthulhu: Murder Shack" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Call of Cthulhu</span>
+            <h3 class="rpg-card-title">Murder Shack</h3>
+            <p class="rpg-card-desc">Záhada vraždy na odlehlém místě. Horor s detektivním nádechem v lovecraftovském světě.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jirka Kozelský</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Jamal_jeden_prsten.png" alt="Jeden Prsten" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">The One Ring</span>
+            <h3 class="rpg-card-title">Jeden Prsten</h3>
+            <p class="rpg-card-desc">Epické fantasy v Tolkienově Středozemi. Hrdinové, cesty a přátelství větší než jakékoli nebezpečí.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jaroslav „Jamal" Malinkovič</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Sharka_cats.jpg" alt="Cats! The Conspurracy" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Cats! The Conspurracy</span>
+            <h3 class="rpg-card-title">Zachraňte koťátko Ryana</h3>
+            <p class="rpg-card-desc">Lehká kočičí komedie s konspiracemi. Zachraňte koťátko dřív, než je pozdě!</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Šárka</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Elfax_bladesy.png" alt="Blades in the Dark" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Blades in the Dark</span>
+            <h3 class="rpg-card-title">Blades in the Dark</h3>
+            <p class="rpg-card-desc">Skupinka zlodějů v gotickém průmyslovém měste Duskvol. Heisty, frakce a temné ulice.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Michal „Elfax" Šácha</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Rovan_fate.png" alt="Fate: Květný háj" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Fate</span>
+            <h3 class="rpg-card-title">Květný háj</h3>
+            <p class="rpg-card-desc">Autorské zasazení na systému Fate. Příběh, kde aspekty postav rozhodují o osudu světa.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Roman „Rovan" Vantuch</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Vojta_WeirdWest_Deadlands.png" alt="Deadlands: The Weird West" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Deadlands</span>
+            <h3 class="rpg-card-title">The Weird West</h3>
+            <p class="rpg-card-desc">Western s horrorem a magií. Divoký západ, kde nemrtví a nadpřirozeno číhají za každým rohem.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Vojtěch Marek</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Deusn_DnD.png" alt="D&D: Stará srdce, staré vzpomínky" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Dungeons &amp; Dragons</span>
+            <h3 class="rpg-card-title">Stará srdce, staré vzpomínky</h3>
+            <p class="rpg-card-desc">Klasické fantasy D&amp;D dobrodružství. Pro pamětníky i nováčky — meče, kouzla a příběh.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jaroslav „Deusn" Noga</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Sniper_chram_nadeje.png" alt="Chrám naděje" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Chrám naděje</span>
+            <h3 class="rpg-card-title">Chrám naděje</h3>
+            <p class="rpg-card-desc">Podrobnosti o hře a systému budou brzy upřesněny.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> František „Sniper" Neznaj</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Log_prisera.png" alt="Příšera týdne: Démon na North Valley High" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Příšera týdne</span>
+            <h3 class="rpg-card-title">Démon na North Valley High</h3>
+            <p class="rpg-card-desc">Střední škola v malém americkém městě. Ale co ten podivný nový učitel a záhadné události?</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Michael „Log 1=0" Kolařík</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Starec_mazes.jpeg" alt="Mazes RPG: Probuzení panství Willowby" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Mazes RPG</span>
+            <h3 class="rpg-card-title">Probuzení panství Willowby</h3>
+            <p class="rpg-card-desc">Dungeon crawler s osobitým stylem. Tajemné panství, záhady skryté v jeho zdech a dávné prokletí.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jan „Stařec" Hykel</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Ada_tarrot_weaver.jpg" alt="TarotWeaver" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">TarotWeaver</span>
+            <h3 class="rpg-card-title">TarotWeaver</h3>
+            <p class="rpg-card-desc">Narativní hra, kde tarotové karty utváří příběh. Každý tah přinese nečekaný zvrat osudu.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Áďa Marková</p>
+          </div>
+        </div>
+
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/rpg/Karel_family_of_blades.png" alt="A Family of Blades" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">A Family of Blades</span>
+            <h3 class="rpg-card-title">A Family of Blades</h3>
+            <p class="rpg-card-desc">Rodinná sága šermířů. Loajalita, zrada a zákulisní intriky v rodě, kde každý nosí zbraň.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Karel Doleček</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VOLNY PROGRAM -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Volný program</span>
+      <h2>Bez <span>registrace</span></h2>
+      <p class="section-lead">Tyto aktivity jsou přístupné komukoliv — bez registrace, v rámci vstupenky na akci.</p>
+
+      <div class="free-grid">
+        <div class="free-card">
+          <div class="free-card-icon">⚔️</div>
+          <h3>Dřevárnický šerm</h3>
+          <p>Vyzkoušejte si šerm na vlastní kůži — ukážeme vám zbraně a poradíme, jak na to. Bojuje se jen měkčenými zbraněmi, takže se nemusíte ničeho bát.</p>
+        </div>
+        <div class="free-card">
+          <div class="free-card-icon">🏹</div>
+          <h3>Lukostřelba</h3>
+          <p>Klasická lukostřelba pod vedením zkušených střelců — pro začátečníky i pokročilé.</p>
+        </div>
+        <div class="free-card">
+          <div class="free-card-icon">🔫</div>
+          <h3>NERF</h3>
+          <p>Akční přestřelky s pěnovými projektily pro všechny věkové kategorie.</p>
+        </div>
+        <div class="free-card">
+          <div class="free-card-icon">🎲</div>
+          <h3>Deskové hry</h3>
+          <p>Velký výběr deskových her k zapůjčení a zahrání přímo na místě.</p>
+        </div>
+        <div class="free-card">
+          <div class="free-card-icon">🚀</div>
+          <h3>Artemis</h3>
+          <p>Simulátor vesmírné lodi — staňte se posádkou a společně zvládejte mise.</p>
+        </div>
+        <div class="free-card">
+          <div class="free-card-icon">🌍</div>
+          <h3>Minitarium</h3>
+          <p>Přenosné planetárium v miniformátu — unikátní zážitek pro zvídavé duše.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <footer>
-    <div class="footer-inner">
-      <a href="index.html" class="footer-brand">
-        <div class="footer-brand-icon">🎲</div>
-        <span class="footer-brand-text">Fokus<span>Roll</span></span>
-      </a>
-      <ul class="footer-links">
-        <li><a href="about.html">O akci</a></li>
-        <li><a href="about_tournament.html">O turnaji</a></li>
-        <li><a href="about_rpgs.html">Doprovodný program</a></li>
-        <li><a href="contact.html">Kontakty</a></li>
-        <li><a href="registration.html">Registrace</a></li>
-      </ul>
-    </div>
-  </footer>
+  <section class="cta-banner">
+    <h2>Chcete se zúčastnit?</h2>
+    <a href="registration.html" class="btn-dark" style="margin-top:16px">Registrovat se →</a>
+  </section>
+
+  <div id="footer-placeholder"></div>
 
   <script src="nav.js"></script>
+  <script src="footer.js"></script>
+  <script>
+    document.querySelectorAll('.acc-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const body = document.getElementById(btn.dataset.acc);
+        const isOpen = btn.classList.contains('open');
+        btn.classList.toggle('open', !isOpen);
+        body.classList.toggle('open', !isOpen);
+      });
+    });
+  </script>
 </body>
 </html>

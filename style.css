@@ -444,17 +444,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.45;
-  transition: opacity 0.2s;
   text-decoration: none;
+  transition: filter 0.25s;
 }
-.sponsor-logo:hover { opacity: 1; }
 .sponsor-logo img {
   height: 36px;
   width: auto;
   max-width: 120px;
   object-fit: contain;
   filter: brightness(0) invert(1);
+  opacity: 0.9;
+  transition: filter 0.25s, opacity 0.25s;
+}
+.sponsor-logo:hover img {
+  filter: none;
+  opacity: 1;
 }
 
 /* ─── FOOTER ─── */
@@ -475,11 +479,12 @@ footer {
 .footer-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .footer-brand-icon {
   width: 30px; height: 30px;
-  background: var(--hot-orange);
   border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
   font-size: 15px;
+  overflow: hidden;
 }
+.footer-brand-icon img { width: 100%; height: 100%; object-fit: contain; }
 .footer-brand-text { font-size: 1rem; font-weight: 700; color: var(--white); }
 .footer-brand-text span { color: var(--hot-orange); }
 .footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }

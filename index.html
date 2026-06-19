@@ -9,6 +9,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* ─── NAV (transparent, index only) ─── */
+    .nav {
+      background: transparent;
+      border-bottom-color: transparent;
+    }
+    .nav.scrolled {
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(10px);
+      border-bottom-color: transparent;
+    }
+    .nav-logo-text { color: var(--white); }
+    .nav-logo-text span { color: var(--hot-orange); }
+    .nav-links a { color: var(--hot-orange); }
+    .nav-links a::after { background: var(--hot-orange); }
+    .nav-links a.active { background: rgba(251,169,44,0.15); border-color: rgba(251,169,44,0.35); }
+    .nav-login { color: var(--white); }
+    .nav-login:hover { background: rgba(255,255,255,0.1); }
+    .nav-cta { background: var(--hot-orange); color: var(--black); }
+    .nav-burger span { background: var(--white); }
+    .nav-drawer { background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); border-bottom-color: transparent; }
+    .nav-drawer a { color: var(--hot-orange); }
+    .nav-drawer a::after { background: var(--hot-orange); }
+    .nav-drawer a.active { background: rgba(251,169,44,0.15); }
+    .drawer-login { background: rgba(255,255,255,0.08); color: var(--white); }
+    .drawer-login:hover { background: rgba(255,255,255,0.14); }
+
     /* ─── HERO ─── */
     .hero {
       min-height: 100vh;
@@ -18,13 +44,12 @@
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: '';
+    .hero-video {
       position: absolute;
       inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1549056572-75914d5d5fd4?q=80&w=1064&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       z-index: 0;
     }
     .hero::after {
@@ -118,43 +143,13 @@
 </head>
 <body>
 
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="nav-logo-icon">
-          <img src="https://fokusroll.wz.cz/fr_logo.png" alt="" onerror="this.style.display='none';this.parentElement.textContent='🎲'" />
-        </div>
-        <span class="nav-logo-text">Fokus<span>Roll</span></span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="about.html">O akci</a></li>
-        <li><a href="about_tournament.html">O turnaji</a></li>
-        <li><a href="about_rpgs.html">Doprovodný program</a></li>
-        <li><a href="contact.html">Kontakty</a></li>
-      </ul>
-      <div class="nav-actions">
-        <a href="registration.html" class="nav-cta">Registrace</a>
-        <a href="login.html" class="nav-login">Přihlášení</a>
-      </div>
-      <button class="nav-burger" id="burger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <div class="nav-drawer" id="drawer">
-    <a href="about.html" onclick="closeDrawer()">O akci</a>
-    <a href="about_tournament.html" onclick="closeDrawer()">O turnaji</a>
-    <a href="about_rpgs.html" onclick="closeDrawer()">Doprovodný program</a>
-    <a href="contact.html" onclick="closeDrawer()">Kontakty</a>
-    <div class="drawer-auth">
-      <a href="registration.html" class="drawer-cta" onclick="closeDrawer()">Registrace</a>
-      <a href="login.html" class="drawer-login" onclick="closeDrawer()">Přihlášení</a>
-    </div>
-  </div>
+  <div id="nav-placeholder"></div>
 
   <!-- HERO -->
   <section class="hero">
+    <video class="hero-video" autoplay muted playsinline>
+      <source src="video/hero.mp4" type="video/mp4">
+    </video>
     <div class="hero-inner">
       <div class="hero-text">
         <div class="hero-badge">⚔️ Turnaj v Jeskyních a Dracích</div>
@@ -221,39 +216,23 @@
     <h3>Partneři a sponzoři</h3>
     <div class="sponsors-logos">
       <a href="https://www.chaosium.com" class="sponsor-logo" target="_blank" rel="noopener">
-        <img src="https://fokusroll.wz.cz/chaosium_logo.png" alt="Chaosium" />
+        <img src="img/sponsors/chaosium-logo.png" alt="Chaosium" />
       </a>
       <a href="https://www.imago.cz" class="sponsor-logo" target="_blank" rel="noopener">
-        <img src="https://fokusroll.wz.cz/imago_velke.svg" alt="Imago" />
+        <img src="img/sponsors/imago-logo.svg" alt="Imago" />
       </a>
       <a href="https://www.jeskyneadraci.cz" class="sponsor-logo" target="_blank" rel="noopener">
-        <img src="https://fokusroll.wz.cz/jad_logo.png" alt="Jeskyně a draci" />
+        <img src="img/sponsors/jad-logo.png" alt="Jeskyně a draci" />
       </a>
       <a href="https://www.fokusnj.cz" class="sponsor-logo" target="_blank" rel="noopener">
-        <img src="https://fokusroll.wz.cz/fokus_logo.png" alt="Fokus" />
+        <img src="img/sponsors/fokus-logo.png" alt="Fokus" />
       </a>
-      <span class="sponsor-logo" style="cursor:default">
-        <img src="https://fokusroll.wz.cz/pm_logo.png" alt="PM" />
-      </span>
     </div>
   </section>
 
-  <footer>
-    <div class="footer-inner">
-      <a href="index.html" class="footer-brand">
-        <div class="footer-brand-icon">🎲</div>
-        <span class="footer-brand-text">Fokus<span>Roll</span></span>
-      </a>
-      <ul class="footer-links">
-        <li><a href="about.html">O akci</a></li>
-        <li><a href="about_tournament.html">O turnaji</a></li>
-        <li><a href="about_rpgs.html">Doprovodný program</a></li>
-        <li><a href="contact.html">Kontakty</a></li>
-        <li><a href="registration.html">Registrace</a></li>
-      </ul>
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
 
   <script src="nav.js"></script>
+  <script src="footer.js"></script>
 </body>
 </html>
