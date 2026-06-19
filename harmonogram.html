@@ -37,23 +37,16 @@
     .cal-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:12px; border:1px solid rgba(255,255,255,0.07); }
     .cal-inner { display:flex; flex-direction:column; }
 
-    .cal-header { display:flex; position:sticky; top:0; z-index:5; background:var(--dark-gray); border-bottom:1px solid rgba(255,255,255,0.08); }
+    .cal-header { display:flex; position:sticky; top:0; z-index:5; background:var(--gray); border-bottom:1px solid rgba(255,255,255,0.08); }
     .cal-header-spacer { width:var(--lw); flex-shrink:0; border-right:1px solid rgba(255,255,255,0.06); }
-    .cal-hour-label { width:var(--hw); flex-shrink:0; font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.28); padding:9px 0 9px 8px; border-left:1px dashed rgba(255,255,255,0.07); box-sizing:border-box; }
+    .cal-hour-label { width:var(--hw); flex-shrink:0; font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.28); padding:9px 0 9px 8px; border-left:1px dashed rgba(255,255,255,0.07); border-bottom:1px solid rgba(255,255,255,0.08); box-sizing:border-box; }
 
-    .cal-track { display:flex; min-height:56px; border-bottom:1px solid rgba(255,255,255,0.04); }
+    .cal-track { display:flex; min-height:56px; border-bottom:1px solid rgba(255,255,255,0.09); }
     .cal-track:last-child { border-bottom:none; }
-    .cal-track-label { width:var(--lw); flex-shrink:0; padding:6px 12px 6px 12px; display:flex; align-items:center; position:sticky; left:0; z-index:3; background:var(--dark-gray); border-right:1px solid rgba(255,255,255,0.06); }
+    .cal-track-label { width:var(--lw); flex-shrink:0; padding:6px 12px 6px 12px; display:flex; align-items:center; position:sticky; left:0; z-index:3; background:var(--gray); border-right:1px solid rgba(255,255,255,0.06); }
     .cl-room { font-size:0.7rem; font-weight:800; letter-spacing:0.01em; line-height:1.25; }
     .cl-gm   { font-size:0.58rem; margin-top:2px; opacity:0.45; font-weight:500; }
 
-    .label-turnaj .cl-room { color:var(--hot-orange); }
-    .label-rpg    .cl-room { color:#63b3ed; }
-    .label-larp   .cl-room { color:#9ae6b4; }
-    .label-volny  .cl-room { color:#b794f4; }
-    .label-food   .cl-room { color:rgba(255,255,255,0.38); }
-
-    /* barvy podle patra */
     .label-prizemi   .cl-room { color:#63b3ed; }
     .label-patro1    .cl-room { color:#9ae6b4; }
     .label-pristavba .cl-room { color:#a0aec0; }
@@ -61,8 +54,10 @@
 
     .cal-track-content {
       position:relative; flex-shrink:0;
-      background-image:repeating-linear-gradient(90deg,transparent,transparent calc(var(--hw) - 1px),rgba(255,255,255,0.04) calc(var(--hw) - 1px),rgba(255,255,255,0.04) var(--hw));
+      border-bottom:1px solid rgba(255,255,255,0.09);
+      background-image:repeating-linear-gradient(90deg,transparent,transparent calc(var(--hw) - 1px),rgba(255,255,255,0.08) calc(var(--hw) - 1px),rgba(255,255,255,0.08) var(--hw));
     }
+    .cal-track:last-child .cal-track-content { border-bottom:none; }
 
     .cal-sep { min-height:26px; }
     .cal-sep .cal-track-label { font-size:0.58rem; letter-spacing:0.09em; text-transform:uppercase; color:rgba(255,255,255,0.2); font-weight:700; }
@@ -573,7 +568,7 @@
 
 
       <!--
-        NEDĚLE 29. 3.   8:00–16:00   8 h × 120 px = 960 px
+        NEDĚLE 29. 3.   8:00–16:00   9 h × 120 px = 1080 px
         left = (H–8)×120 + M×2
       -->
       <div class="cal-day" id="nedele">
