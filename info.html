@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Praktické info — FokusRoll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 720px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-block {
+      background: var(--dark-gray);
+      border-radius: 14px;
+      padding: 28px;
+      border: 1px solid var(--evil-gray);
+    }
+    .info-block-icon {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+    }
+    .info-block h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .info-block p {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      line-height: 1.6;
+    }
+    .info-block .placeholder {
+      margin-top: 10px;
+    }
+
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .info-list li {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      padding-left: 16px;
+      position: relative;
+    }
+    .info-list li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: var(--hot-orange);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="nav-placeholder"></div>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="section-label">Praktické info</span>
+      <h1>Vše, co <span>potřebujete vědět</span></h1>
+      <p>Informace o místě konání, dopravě, ubytování a dalších praktických věcech.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2 style="margin-bottom:32px">Místo <span>konání</span></h2>
+      <div class="info-grid" style="margin-bottom:56px">
+        <div class="info-block">
+          <div class="info-block-icon">📍</div>
+          <h3>Adresa</h3>
+          <span class="placeholder">Doplňte adresu místa konání.</span>
+        </div>
+        <div class="info-block">
+          <div class="info-block-icon">🗓️</div>
+          <h3>Termín</h3>
+          <p>Pátek – Neděle<br />Doplňte datum konání.</p>
+        </div>
+      </div>
+
+      <h2 style="margin-bottom:32px">Doprava</h2>
+      <div class="info-grid" style="margin-bottom:56px">
+        <div class="info-block">
+          <div class="info-block-icon">🚂</div>
+          <h3>Veřejná doprava</h3>
+          <span class="placeholder">Doplňte informace o spojení.</span>
+        </div>
+        <div class="info-block">
+          <div class="info-block-icon">🚗</div>
+          <h3>Autem</h3>
+          <span class="placeholder">Doplňte informace o parkování.</span>
+        </div>
+      </div>
+
+      <h2 style="margin-bottom:32px">Ubytování</h2>
+      <div class="info-grid" style="margin-bottom:56px">
+        <div class="info-block">
+          <div class="info-block-icon">🏠</div>
+          <h3>Ubytování na místě</h3>
+          <span class="placeholder">Doplňte informace o ubytování na místě konání.</span>
+        </div>
+        <div class="info-block">
+          <div class="info-block-icon">🏨</div>
+          <h3>Okolní ubytování</h3>
+          <span class="placeholder">Doplňte tipy na okolní ubytování (hotely, penziony, AirBnB).</span>
+        </div>
+      </div>
+
+      <h2 style="margin-bottom:32px">Stravování</h2>
+      <div class="info-grid" style="margin-bottom:56px">
+        <div class="info-block">
+          <div class="info-block-icon">🍽️</div>
+          <h3>Catering na místě</h3>
+          <span class="placeholder">Doplňte informace o stravování a občerstvení.</span>
+        </div>
+        <div class="info-block">
+          <div class="info-block-icon">☕</div>
+          <h3>Nápoje</h3>
+          <span class="placeholder">Doplňte informace o dostupnosti nápojů.</span>
+        </div>
+      </div>
+
+      <h2 style="margin-bottom:32px">Co vzít <span>s sebou</span></h2>
+      <div class="info-block">
+        <ul class="info-list">
+          <li>Vlastní kostky (D4, D6, D8, D10, D12, D20)</li>
+          <li>Papír a tužku na poznámky</li>
+          <li>Platný doklad totožnosti</li>
+          <li class="placeholder" style="padding-left:0;list-style:none">Doplňte další položky.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+</body>
+</html>
