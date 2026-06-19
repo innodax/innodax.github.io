@@ -6,7 +6,7 @@
   <title>Doprovodný program — FokusRoll</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
     /* ── Alert ── */
@@ -108,32 +108,39 @@
     @media (max-width: 420px)  { .rpg-card-grid { grid-template-columns: 1fr; } }
 
     .rpg-card {
-      background: var(--gray);
-      border: 1px solid var(--evil-gray);
-      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-top: 2px solid var(--hot-orange);
+      border-radius: 16px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
       transition: transform 0.18s;
     }
-    .rpg-card:hover { transform: translateY(-2px); }
+    .rpg-card:hover { transform: translateY(-3px); }
     .rpg-card-thumb {
-      height: 110px;
+      height: 120px;
       background: var(--dark-gray);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.4rem;
-      border-bottom: 1px solid var(--evil-gray);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       flex-shrink: 0;
     }
     .rpg-card-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: grayscale(1) brightness(0.85);
+      transition: filter 0.35s ease;
+    }
+    .rpg-card:hover .rpg-card-thumb img {
+      filter: none;
     }
     .rpg-card-body {
-      padding: 12px 14px 14px;
+      padding: 14px 16px 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -144,19 +151,20 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--hot-orange);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
     .rpg-card-title {
-      font-size: 0.875rem;
-      font-weight: 700;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.04em;
       color: var(--white);
-      line-height: 1.3;
+      line-height: 1.2;
     }
     .rpg-card-desc {
       font-size: 0.78rem;
       color: var(--light-gray);
       line-height: 1.55;
-      margin-top: 6px;
+      margin-top: 7px;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
@@ -168,31 +176,17 @@
       color: var(--light-gray);
       margin-top: 10px;
       padding-top: 8px;
-      border-top: 1px solid var(--evil-gray);
+      border-top: 1px solid rgba(255,255,255,0.07);
     }
-    .rpg-card-gm strong { color: rgba(255,255,255,0.5); font-weight: 600; }
+    .rpg-card-gm strong { color: rgba(255,255,255,0.45); font-weight: 600; }
 
-    /* ── Free program cards ── */
-    .free-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 32px;
+    .free-program-grid .rpg-card:hover { transform: none; }
+    .free-program-grid .rpg-card-desc {
+      display: block;
+      -webkit-line-clamp: unset;
+      overflow: visible;
     }
-    @media (max-width: 720px) { .free-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 480px) { .free-grid { grid-template-columns: 1fr; } }
-    .free-card {
-      background: var(--dark-gray);
-      border: 1px solid var(--evil-gray);
-      border-radius: 14px;
-      padding: 24px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .free-card-icon { font-size: 2rem; }
-    .free-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); }
-    .free-card p { font-size: 0.85rem; color: var(--light-gray); line-height: 1.65; }
+
   </style>
 </head>
 <body>
@@ -207,46 +201,6 @@
     </div>
   </header>
 
-  <!-- REGISTRACE -->
-  <section class="section">
-    <div class="container">
-      <span class="section-label">Účast</span>
-      <h2>Jak se <span>přihlásit?</span></h2>
-
-      <div class="alert">
-        <p><strong>Většina programu</strong> je dostupná bez registrace — viz sekce Volný doprovodný program. Na <strong>larp Ostrov</strong> a <strong>nesoutěžní RPG hry</strong> je potřeba se předem registrovat.</p>
-      </div>
-
-      <div class="reg-steps">
-        <div class="reg-step">
-          <div class="reg-step-num">1</div>
-          <div class="reg-step-text">Vyplňte jméno, příjmení, e-mail a tel. číslo.</div>
-        </div>
-        <div class="reg-step">
-          <div class="reg-step-num">2</div>
-          <div class="reg-step-text">Zadejte své zkušenosti s RPG a příslušnou hrou.</div>
-        </div>
-        <div class="reg-step">
-          <div class="reg-step-num">3</div>
-          <div class="reg-step-text">Vyberte si hry z nabídky. Lze hrát <strong>až 2 RPG hry</strong>, nebo <strong>1 larp + 1 RPG</strong>, nebo <strong>oba larpy</strong>.</div>
-        </div>
-        <div class="reg-step">
-          <div class="reg-step-num">4</div>
-          <div class="reg-step-text">V sobotu 28. 3. dorazte na Fokus Roll, zapište se na recepci a zaplaťte <strong>200 Kč v hotovosti</strong>. Účastníci turnaje v JaD nedoplácejí nic.</div>
-        </div>
-      </div>
-
-      <div class="alert" style="margin-top:24px">
-        <p><strong>Pozor!</strong> Pokud jste se k nesoutěžní RPG hře zaregistrovali jako celá družina v přednostní registraci, pohlídejte si, aby se vám hry s dalším programem nekřížily.</p>
-      </div>
-
-      <div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
-        <a href="#" class="schedule-link">📅 Podrobný harmonogram — Google tabulka</a>
-        <span style="font-size:0.82rem;color:var(--light-gray)">Registrace pro jednotlivce: <strong style="color:var(--white)">neděle 15. 2. v 19:00</strong></span>
-      </div>
-    </div>
-  </section>
-
   <!-- LARPY -->
   <section class="section section-alt">
     <div class="container">
@@ -254,27 +208,25 @@
       <h2>Živé hraní <span>rolí</span></h2>
       <p class="section-lead">Dva larpy — na oba je nutná předchozí registrace.</p>
 
-      <div class="accordion" style="margin-top:32px">
+      <div class="rpg-card-grid" style="margin-top:32px;grid-template-columns:repeat(2,1fr)">
 
-        <div class="acc-item">
-          <button class="acc-trigger" data-acc="ostrov">
-            <div><span class="acc-label">Larp</span>Ostrov</div>
-            <span class="acc-arrow">▼</span>
-          </button>
-          <div class="acc-body" id="ostrov">
-            <p>Podrobnosti budou brzy k dispozici.</p>
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/larp/pirate-treasure-island.jpg" alt="Ostrov" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Larp</span>
+            <h3 class="rpg-card-title">Ostrov</h3>
+            <p class="rpg-card-desc">Guvernér je zavražděn, Anglie zuří, piráti šíří zvěsti o pokladu a usedlíci touží hájit vlastní zájmy. Je načase rozhodnout o osudu pirátského ostrova!</p>
+            <p class="rpg-card-gm"><a href="https://larpovadatabaze.cz/larp/ostrov/cs/54407" target="_blank" rel="noopener" style="color:var(--hot-orange);font-weight:600">Larpová databáze →</a></p>
           </div>
         </div>
 
-        <div class="acc-item">
-          <button class="acc-trigger" data-acc="kobyly">
-            <div><span class="acc-label">Larp</span>U střelené kobyly</div>
-            <span class="acc-arrow">▼</span>
-          </button>
-          <div class="acc-body" id="kobyly">
-            <p>Jeden saloon, sedm westernových archetypů, které tam společně zavřel šerif. Jeden z nich tam nepatří. Jeden z nich půjde na jistou smrt. A pokud se jim nepodaří správně určit, kdo to je, vybere si šerif jednoho náhodně.</p>
-            <p>U střelené kobyly je ukázka, co by se stalo, kdyby se weird western potkal s Among Us. Potkává se v něm sedm westernových postav, které jsou tak archetypální, že jim ani na jméno nezbylo. Hlavní je nebrat nic z toho vážně — pak si můžete vymyslet cokoliv!</p>
-            <p style="margin-top:16px"><a href="https://larpovadatabaze.cz/larp/u-strelene-kobyly/cs/2420" target="_blank" rel="noopener">Larpová databáze →</a></p>
+        <div class="rpg-card">
+          <div class="rpg-card-thumb"><img src="img/larp/saloon.jpeg" alt="U střelené kobyly" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Larp</span>
+            <h3 class="rpg-card-title">U střelené kobyly</h3>
+            <p class="rpg-card-desc">Jeden saloon, sedm westernových archetypů, které tam společně zavřel šerif. Weird western potká Among Us — a hlavní je nebrat nic z toho vážně.</p>
+            <p class="rpg-card-gm"><a href="https://larpovadatabaze.cz/larp/u-strelene-kobyly/cs/2420" target="_blank" rel="noopener" style="color:var(--hot-orange);font-weight:600">Larpová databáze →</a></p>
           </div>
         </div>
 
@@ -287,7 +239,7 @@
     <div class="container">
       <span class="section-label">Nesoutěžní RPG</span>
       <h2>Vyberte si <span>hru</span></h2>
-      <p class="section-lead">23 her od zkušených GameMasterů. Na RPG hry je nutná předchozí registrace.</p>
+      <p class="section-lead">23 her od zkušených GameMasterů — předchozí registrace nutná.</p>
 
       <div class="rpg-card-grid" style="margin-top:32px">
 
@@ -532,37 +484,96 @@
       <h2>Bez <span>registrace</span></h2>
       <p class="section-lead">Tyto aktivity jsou přístupné komukoliv — bez registrace, v rámci vstupenky na akci.</p>
 
-      <div class="free-grid">
-        <div class="free-card">
-          <div class="free-card-icon">⚔️</div>
-          <h3>Dřevárnický šerm</h3>
-          <p>Vyzkoušejte si šerm na vlastní kůži — ukážeme vám zbraně a poradíme, jak na to. Bojuje se jen měkčenými zbraněmi, takže se nemusíte ničeho bát.</p>
+      <div class="rpg-card-grid free-program-grid" style="margin-top:32px;grid-template-columns:repeat(3,1fr)">
+
+        <div class="rpg-card">
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Volný program</span>
+            <h3 class="rpg-card-title">Dřevárnický šerm</h3>
+            <p class="rpg-card-desc">Ke hrám na hrdiny neodmyslitelně patří šerm. Že jste to nikdy nezkoušeli a nikdo vás to neučil? Rádi vám ukážeme naše zbraně, necháme vás si vše vyzkoušet a poradíme, jak na to. Bojuje se jen měkčenými zbraněmi, takže nehrozí, že byste si mohli ublížit.</p>
+          </div>
         </div>
-        <div class="free-card">
-          <div class="free-card-icon">🏹</div>
-          <h3>Lukostřelba</h3>
-          <p>Klasická lukostřelba pod vedením zkušených střelců — pro začátečníky i pokročilé.</p>
+
+        <div class="rpg-card">
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Volný program</span>
+            <h3 class="rpg-card-title">Lukostřelba</h3>
+            <p class="rpg-card-desc">Chtěli byste umět střílet z luku jako vaši hraničáři? Nebo už sami střílíte a rádi byste své dovednosti otestovali? Ať jste na tom jakkoliv, přijďte si zastřílet — rádi vám vše poradíme a předvedeme.</p>
+          </div>
         </div>
-        <div class="free-card">
-          <div class="free-card-icon">🔫</div>
-          <h3>NERF</h3>
-          <p>Akční přestřelky s pěnovými projektily pro všechny věkové kategorie.</p>
+
+        <div class="rpg-card">
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Volný program</span>
+            <h3 class="rpg-card-title">NERF</h3>
+            <p class="rpg-card-desc">Pokud vás baví něco akčního, NERF aréna je přímo pro vás. Zastřílíte si jak proti sobě, tak proti terči, zaběháte si a užijete spoustu zábavy. Nic k tomu nepotřebujete — vše máme připraveno na místě.</p>
+          </div>
         </div>
-        <div class="free-card">
-          <div class="free-card-icon">🎲</div>
-          <h3>Deskové hry</h3>
-          <p>Velký výběr deskových her k zapůjčení a zahrání přímo na místě.</p>
+
+        <div class="rpg-card">
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Volný program</span>
+            <h3 class="rpg-card-title">Deskové hry</h3>
+            <p class="rpg-card-desc">V průběhu celého sobotního odpoledne budete mít na výběr z velkého počtu deskových her, jež si budete moct ve volných chvílích zahrát. Stačí říct — rádi vám cokoliv zapůjčíme.</p>
+          </div>
         </div>
-        <div class="free-card">
-          <div class="free-card-icon">🚀</div>
-          <h3>Artemis</h3>
-          <p>Simulátor vesmírné lodi — staňte se posádkou a společně zvládejte mise.</p>
+
+        <div class="rpg-card">
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Volný program</span>
+            <h3 class="rpg-card-title">Artemis</h3>
+            <p class="rpg-card-desc">Videohra pro pět hráčů, v níž se ujmete role člena posádky vesmírné lodi. Každý si vybere specializaci — navigátor, operátor zbraní nebo kapitán. Spolupráce je klíčová: přežijete monstra, mlhoviny, minová pole i nepřátelské flotily a objevíte nekonečné hvězdné obzory.</p>
+          </div>
         </div>
-        <div class="free-card">
-          <div class="free-card-icon">🌍</div>
-          <h3>Minitarium</h3>
-          <p>Přenosné planetárium v miniformátu — unikátní zážitek pro zvídavé duše.</p>
+
+        <div class="rpg-card">
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Volný program</span>
+            <h3 class="rpg-card-title">Minitarium</h3>
+            <p class="rpg-card-desc">Vyrábíme figurky a herní doplňky pro DnD a další RPG — pečlivě, s důrazem na detail a funkčnost u stolu. Najdete u nás ultra-detailní modely i levnější kusy pro velké armády. Nezapomeňte se zastavit u pravidel RPG her, příslušenství a ručně vyráběných kostek!</p>
+          </div>
         </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRACE -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Účast</span>
+      <h2>Jak se <span>přihlásit?</span></h2>
+
+      <div class="alert">
+        <p><strong>Většina programu</strong> je dostupná bez registrace — viz sekce Volný doprovodný program. Na <strong>larp Ostrov</strong> a <strong>nesoutěžní RPG hry</strong> je potřeba se předem registrovat.</p>
+      </div>
+
+      <div class="reg-steps">
+        <div class="reg-step">
+          <div class="reg-step-num">1</div>
+          <div class="reg-step-text">Vyplňte jméno, příjmení, e-mail a tel. číslo.</div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-num">2</div>
+          <div class="reg-step-text">Zadejte své zkušenosti s RPG a příslušnou hrou.</div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-num">3</div>
+          <div class="reg-step-text">Vyberte si hry z nabídky. Lze hrát <strong>až 2 RPG hry</strong>, nebo <strong>1 larp + 1 RPG</strong>, nebo <strong>oba larpy</strong>.</div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-num">4</div>
+          <div class="reg-step-text">V sobotu 28. 3. dorazte na Fokus Roll, zapište se na recepci a zaplaťte <strong>200 Kč v hotovosti</strong>. Účastníci turnaje v JaD nedoplácejí nic.</div>
+        </div>
+      </div>
+
+      <div class="alert" style="margin-top:24px">
+        <p><strong>Pozor!</strong> Pokud jste se k nesoutěžní RPG hře zaregistrovali jako celá družina v přednostní registraci, pohlídejte si, aby se vám hry s dalším programem nekřížily.</p>
+      </div>
+
+      <div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+        <a href="#" class="schedule-link">📅 Podrobný harmonogram — Google tabulka</a>
+        <span style="font-size:0.82rem;color:var(--light-gray)">Registrace pro jednotlivce: <strong style="color:var(--white)">neděle 15. 2. v 19:00</strong></span>
       </div>
     </div>
   </section>

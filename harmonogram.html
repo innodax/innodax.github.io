@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harmonogram — FokusRoll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .day-tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+    .day-tab {
+      padding:8px 22px; border-radius:99px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:none; color:var(--light-gray);
+      font-family:'Inter',sans-serif; font-size:0.82rem;
+      font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
+      cursor:pointer; transition:background 0.15s,color 0.15s,border-color 0.15s;
+    }
+    .day-tab.active,.day-tab:hover { background:var(--hot-orange); border-color:var(--hot-orange); color:var(--black); }
+
+    .cal-legend { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:20px; }
+    .legend-item { display:flex; align-items:center; gap:6px; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--light-gray); }
+    .legend-dot { width:10px; height:10px; border-radius:3px; }
+    .dot-turnaj { background:var(--hot-orange); }
+    .dot-rpg    { background:#63b3ed; }
+    .dot-larp   { background:#9ae6b4; }
+    .dot-volny  { background:#b794f4; }
+    .dot-food   { background:rgba(255,255,255,0.25); }
+
+    :root { --lw:148px; --hw:120px; }
+
+    .cal-day { display:none; }
+    .cal-day.active { display:block; }
+
+    .cal-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:12px; border:1px solid rgba(255,255,255,0.07); }
+    .cal-inner { display:flex; flex-direction:column; }
+
+    .cal-header { display:flex; position:sticky; top:0; z-index:5; background:var(--dark-gray); border-bottom:1px solid rgba(255,255,255,0.08); }
+    .cal-header-spacer { width:var(--lw); flex-shrink:0; border-right:1px solid rgba(255,255,255,0.06); }
+    .cal-hour-label { width:var(--hw); flex-shrink:0; font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.28); padding:9px 0 9px 8px; border-left:1px dashed rgba(255,255,255,0.07); box-sizing:border-box; }
+
+    .cal-track { display:flex; min-height:56px; border-bottom:1px solid rgba(255,255,255,0.04); }
+    .cal-track:last-child { border-bottom:none; }
+    .cal-track-label { width:var(--lw); flex-shrink:0; padding:6px 12px 6px 12px; display:flex; align-items:center; position:sticky; left:0; z-index:3; background:var(--dark-gray); border-right:1px solid rgba(255,255,255,0.06); }
+    .cl-room { font-size:0.7rem; font-weight:800; letter-spacing:0.01em; line-height:1.25; }
+    .cl-gm   { font-size:0.58rem; margin-top:2px; opacity:0.45; font-weight:500; }
+
+    .label-turnaj .cl-room { color:var(--hot-orange); }
+    .label-rpg    .cl-room { color:#63b3ed; }
+    .label-larp   .cl-room { color:#9ae6b4; }
+    .label-volny  .cl-room { color:#b794f4; }
+    .label-food   .cl-room { color:rgba(255,255,255,0.38); }
+
+    /* barvy podle patra */
+    .label-prizemi   .cl-room { color:#63b3ed; }
+    .label-patro1    .cl-room { color:#9ae6b4; }
+    .label-pristavba .cl-room { color:#a0aec0; }
+    .label-patro2    .cl-room { color:var(--hot-orange); }
+
+    .cal-track-content {
+      position:relative; flex-shrink:0;
+      background-image:repeating-linear-gradient(90deg,transparent,transparent calc(var(--hw) - 1px),rgba(255,255,255,0.04) calc(var(--hw) - 1px),rgba(255,255,255,0.04) var(--hw));
+    }
+
+    .cal-sep { min-height:26px; }
+    .cal-sep .cal-track-label { font-size:0.58rem; letter-spacing:0.09em; text-transform:uppercase; color:rgba(255,255,255,0.2); font-weight:700; }
+    .cal-sep .cal-track-content { background:rgba(255,255,255,0.018); }
+
+    .cal-card { position:absolute; top:5px; bottom:5px; border-radius:8px; padding:6px 9px; overflow:hidden; z-index:1; box-sizing:border-box; cursor:default; transition:filter 0.15s; }
+    .cal-card:hover { filter:brightness(1.2); }
+    .cal-card-title { font-family:'Bebas Neue',sans-serif; font-size:0.9rem; letter-spacing:0.03em; line-height:1.2; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .cal-card-sub { font-size:0.6rem; margin-top:2px; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:0.65; }
+
+    .card-turnaj { background:linear-gradient(135deg,rgba(251,169,44,.28),rgba(251,169,44,.1)); border:1px solid rgba(251,169,44,.32); border-top:2px solid var(--hot-orange); }
+    .card-rpg    { background:linear-gradient(135deg,rgba(99,179,237,.22),rgba(99,179,237,.08)); border:1px solid rgba(99,179,237,.26); border-top:2px solid #63b3ed; }
+    .card-larp   { background:linear-gradient(135deg,rgba(154,230,180,.22),rgba(154,230,180,.08)); border:1px solid rgba(154,230,180,.26); border-top:2px solid #9ae6b4; }
+    .card-volny  { background:linear-gradient(135deg,rgba(183,148,244,.2),rgba(183,148,244,.07)); border:1px solid rgba(183,148,244,.24); border-top:2px solid #b794f4; }
+    .card-food   { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-top:2px solid rgba(255,255,255,0.2); }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="section-label">Harmonogram</span>
+      <h1>Program <span>akce</span></h1>
+      <p>Přehled programu na celý víkend FokusRoll 2026.</p>
+    </div>
+  </header>
+
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="day-tabs">
+        <button class="day-tab" onclick="showDay('patek',this)">Pátek 27. 3.</button>
+        <button class="day-tab active" onclick="showDay('sobota',this)">Sobota 28. 3.</button>
+        <button class="day-tab" onclick="showDay('nedele',this)">Neděle 29. 3.</button>
+      </div>
+
+      <div class="cal-legend">
+        <div class="legend-item"><div class="legend-dot dot-turnaj"></div>Turnaj JaD</div>
+        <div class="legend-item"><div class="legend-dot dot-rpg"></div>Nesoutěžní RPG</div>
+        <div class="legend-item"><div class="legend-dot dot-larp"></div>Larpy</div>
+        <div class="legend-item"><div class="legend-dot dot-volny"></div>Volný program</div>
+        <div class="legend-item"><div class="legend-dot dot-food"></div>Stravování / Události</div>
+      </div>
+
+      <!--
+        PÁTEK 27. 3.   15:00–00:00   9 h × 120 px = 1080 px
+        left = (H–15)×120 + M×2
+      -->
+      <div class="cal-day" id="patek">
+        <div class="cal-scroll"><div class="cal-inner">
+          <div class="cal-header">
+            <div class="cal-header-spacer"></div>
+            <div class="cal-hour-label">15:00</div>
+            <div class="cal-hour-label">16:00</div><div class="cal-hour-label">17:00</div>
+            <div class="cal-hour-label">18:00</div><div class="cal-hour-label">19:00</div>
+            <div class="cal-hour-label">20:00</div><div class="cal-hour-label">21:00</div>
+            <div class="cal-hour-label">22:00</div><div class="cal-hour-label">23:00</div>
+          </div>
+
+          <!-- Pátek: start 15:00, 9 h × 120 px = 1080 px; left = (H−15)×120 -->
+
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Vstup</div><div class="cl-gm">přízemí</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <!-- 16:00-18:00 → left=(16-15)×120=120, w=240 -->
+              <div class="cal-card card-food" style="left:124px;width:232px">
+                <div class="cal-card-title">Registrace příchozích</div><div class="cal-card-sub">16:00 – 18:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Velký sál</div><div class="cl-gm">přízemí</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <!-- 18:00 → left=(18-15)×120=360, w=240 -->
+              <div class="cal-card card-food" style="left:364px;width:232px">
+                <div class="cal-card-title">Zahájení + Výdej večeře</div><div class="cal-card-sub">od cca 18:30</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">Přízemí — RPG místnosti</div><div class="cal-track-content" style="width:1080px"></div></div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Tatami</div><div class="cl-gm">Š. Kašparová</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <!-- 19:00-23:00 → left=(19-15)×120=480, w=480 -->
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">1. intervenční jednotka Ligy spojeného tvorstva</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Šatna I-A</div><div class="cl-gm">Elfax</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Erkrundská pětka</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Šatna I-B</div><div class="cl-gm">O. Mráz</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Post Mortem</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">1. patro — RPG místnosti</div><div class="cal-track-content" style="width:1080px"></div></div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-pristavba"><div><div class="cl-room">Přístavba</div><div class="cl-gm">Deusn</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Skupina negativních hejtrů</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-pristavba"><div><div class="cl-room">Šatna II-A</div><div class="cl-gm">Jamal</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Dice Dice Baby</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Ateliér 1</div><div class="cl-gm">V. Marek</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Mariborští rytíři</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Ateliér 2</div><div class="cl-gm">Á. Marková</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Fočus</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Taneční sál</div><div class="cl-gm">Č. Dědič</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Družina mocného VII</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Šatna II-B</div><div class="cl-gm">Buky</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Kapybaří sirotci</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">2. patro — RPG místnosti</div><div class="cal-track-content" style="width:1080px"></div></div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Šatna III</div><div class="cl-gm">Sniper</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">RPGP</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Zrcadl. sál</div><div class="cl-gm">Stařec</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Černobílá duha</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Kancelář 2</div><div class="cl-gm">Miky</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Řád očistného dýmu</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Ředitelna</div><div class="cl-gm">RoVan</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:484px;width:472px">
+                <div class="cal-card-title">Spolek přátel cizího majetku</div><div class="cal-card-sub">1. kolo turnaje · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+        </div></div>
+      </div><!-- /patek -->
+
+
+      <!--
+        SOBOTA 28. 3.   8:00–00:00   16 h × 120 px = 1920 px
+        left = (H–8)×120 + M×2
+      -->
+      <div class="cal-day active" id="sobota">
+        <div class="cal-scroll"><div class="cal-inner">
+          <div class="cal-header">
+            <div class="cal-header-spacer"></div>
+            <div class="cal-hour-label">8:00</div><div class="cal-hour-label">9:00</div>
+            <div class="cal-hour-label">10:00</div><div class="cal-hour-label">11:00</div>
+            <div class="cal-hour-label">12:00</div><div class="cal-hour-label">13:00</div>
+            <div class="cal-hour-label">14:00</div><div class="cal-hour-label">15:00</div>
+            <div class="cal-hour-label">16:00</div><div class="cal-hour-label">17:00</div>
+            <div class="cal-hour-label">18:00</div><div class="cal-hour-label">19:00</div>
+            <div class="cal-hour-label">20:00</div><div class="cal-hour-label">21:00</div>
+            <div class="cal-hour-label">22:00</div><div class="cal-hour-label">23:00</div>
+          </div>
+
+          <!-- Bažina -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Bažina</div><div class="cl-gm">přízemí</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-food" style="left:4px;width:112px">
+                <div class="cal-card-title">Výdej snídaně</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Velký sál -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Velký sál</div><div class="cl-gm">přízemí</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <!-- oběd 13:00 → left=600 -->
+              <div class="cal-card card-food" style="left:604px;width:112px">
+                <div class="cal-card-title">Výdej oběda</div>
+              </div>
+              <!-- šerm 14:00-17:00 → left=720, w=360 -->
+              <div class="cal-card card-volny" style="left:724px;width:352px">
+                <div class="cal-card-title">Volný šerm</div><div class="cal-card-sub">14:00 – 17:00</div>
+              </div>
+              <!-- večeře 18:00 → left=1200 -->
+              <div class="cal-card card-food" style="left:1204px;width:112px">
+                <div class="cal-card-title">Výdej večeře</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">Přízemí — RPG místnosti</div><div class="cal-track-content" style="width:1920px"></div></div>
+
+          <!-- Tatami / Šárka -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Tatami</div><div class="cl-gm">Š. Kašparová</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <!-- turnaj 9-13 → left=120, w=480 -->
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Družina mocného VII</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <!-- NERF 14-18 → left=720, w=480 -->
+              <div class="cal-card card-volny" style="left:724px;width:472px">
+                <div class="cal-card-title">NERF Aréna</div><div class="cal-card-sub">14:00 – 18:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Šatna I-A / Elfax -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Šatna I-A</div><div class="cl-gm">Elfax</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Kapybaří sirotci</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:724px;width:472px">
+                <div class="cal-card-title">Příšera týdne: Démon na North Valley High</div><div class="cal-card-sub">Log 1=0 · 14:00 – 18:00</div>
+              </div>
+              <!-- 19-23 → left=1320, w=480 -->
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">Blades in the Dark: Kšeft pro ďábla</div><div class="cal-card-sub">Elfax · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Šatna I-B / Ondřej -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Šatna I-B</div><div class="cl-gm">O. Mráz</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Skupina negativních hejtrů</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:724px;width:472px">
+                <div class="cal-card-title">CoC: Služebníci jezera</div><div class="cal-card-sub">Mrkew · 14:00 – 18:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">CoC: Už jen černota</div><div class="cal-card-sub">Mrkew · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">1. patro — RPG místnosti</div><div class="cal-track-content" style="width:1920px"></div></div>
+
+          <!-- Přístavba / Deusn — LARPY -->
+          <div class="cal-track">
+            <div class="cal-track-label label-pristavba"><div><div class="cl-room">Přístavba</div><div class="cl-gm">Deusn</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">RPGP</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-larp" style="left:724px;width:472px">
+                <div class="cal-card-title">Larp: U střelené kobyly</div><div class="cal-card-sub">14:00 – 18:00</div>
+              </div>
+              <div class="cal-card card-larp" style="left:1324px;width:472px">
+                <div class="cal-card-title">Larp: Ostrov</div><div class="cal-card-sub">19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Šatna II-A / Jamal -->
+          <div class="cal-track">
+            <div class="cal-track-label label-pristavba"><div><div class="cl-room">Šatna II-A</div><div class="cl-gm">Jamal</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Černobílá duha</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:724px;width:472px">
+                <div class="cal-card-title">Alien RPG: The Hunt</div><div class="cal-card-sub">Jarda Slámečka · 14:00 – 18:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">A Family of Blades</div><div class="cal-card-sub">Karel Doleček · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ateliér 1 / Vojtěch -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Ateliér 1</div><div class="cl-gm">V. Marek</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">1. intervenční jednotka</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">Deadlands: The Weird West</div><div class="cal-card-sub">Vojtěch Marek · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ateliér 2 / Áďa -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Ateliér 2</div><div class="cl-gm">Á. Marková</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Dice Dice Baby</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:724px;width:472px">
+                <div class="cal-card-title">Cats of Catthulhu: Echo Předení</div><div class="cal-card-sub">Ravi · 14:00 – 18:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">TarotWeaver</div><div class="cal-card-sub">Áďa Marková · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Taneční sál / Čeněk -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Taneční sál</div><div class="cl-gm">Č. Dědič</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Řád očistného dýmu</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:724px;width:472px">
+                <div class="cal-card-title">Delta Green</div><div class="cal-card-sub">Martin Emvee Vančura · 14:00 – 18:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">Cats: Zachraňte koťátko Ryana</div><div class="cal-card-sub">Šárka Kašparová · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Šatna II-B / Buky -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Šatna II-B</div><div class="cl-gm">Buky</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Mariborští rytíři</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:724px;width:472px">
+                <div class="cal-card-title">Candela Obscura</div><div class="cal-card-sub">Radim Smrq Trčálek · 14:00 – 18:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">D&amp;D: Stará srdce, staré vzpomínky</div><div class="cal-card-sub">Jaroslav Deusn Noga · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">2. patro — RPG místnosti</div><div class="cal-track-content" style="width:1920px"></div></div>
+
+          <!-- Šatna III / Sniper -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Šatna III</div><div class="cl-gm">Sniper</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Spolek přátel cizího majetku</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:724px;width:472px">
+                <div class="cal-card-title">Omega: Se zkříženými hnáty</div><div class="cal-card-sub">Ivo Count Karkoška · 14:00 – 18:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Zrcadlový sál / Stařec — odpočívárna -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Zrcadl. sál</div><div class="cl-gm">Stařec</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Erkrundská pětka</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-volny" style="left:724px;width:472px">
+                <div class="cal-card-title">Odpočívárna pro vypravěče</div><div class="cal-card-sub">14:00 – 18:00</div>
+              </div>
+              <div class="cal-card card-volny" style="left:1324px;width:472px">
+                <div class="cal-card-title">Odpočívárna pro vypravěče</div><div class="cal-card-sub">19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kancelář (bez GM) -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Kancelář</div><div class="cl-gm">2. patro</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-rpg" style="left:724px;width:472px">
+                <div class="cal-card-title">The Walking Dead: The Wolves' Den</div><div class="cal-card-sub">Dan Fojtík · 14:00 – 18:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">Jeden Prsten</div><div class="cal-card-sub">Jaroslav Jamal Malinkovič · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kancelář 2 / Miky -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Kancelář 2</div><div class="cl-gm">Miky</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Fočus</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">Mazes RPG: Probuzení panství Willowby</div><div class="cal-card-sub">Jan Stařec Hykel · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ředitelna -->
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Ředitelna</div><div class="cl-gm">M. Tomeček</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px">
+                <div class="cal-card-title">Post Mortem</div><div class="cal-card-sub">2. kolo turnaje · 9:00 – 13:00</div>
+              </div>
+              <div class="cal-card card-rpg" style="left:1324px;width:472px">
+                <div class="cal-card-title">Fate: Květný háj</div><div class="cal-card-sub">Roman Rovan Vantuch · 19:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">Volný program</div><div class="cal-track-content" style="width:1920px"></div></div>
+
+          <!-- Vestibul -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Vestibul</div><div class="cl-gm">přízemí</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <!-- 14:00-23:00 → left=720, w=1080 -->
+              <div class="cal-card card-volny" style="left:724px;width:1072px">
+                <div class="cal-card-title">Deskové hry + MH Miniatures + Minitarium</div><div class="cal-card-sub">14:00 – 23:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Atrium -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Atrium</div><div class="cl-gm">přízemí</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-volny" style="left:724px;width:472px">
+                <div class="cal-card-title">Volná lukostřelba</div><div class="cal-card-sub">14:00 – 18:00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PC místnost -->
+          <div class="cal-track">
+            <div class="cal-track-label label-pristavba"><div><div class="cl-room">PC místnost</div><div class="cl-gm">1. patro</div></div></div>
+            <div class="cal-track-content" style="width:1920px">
+              <div class="cal-card card-volny" style="left:724px;width:472px">
+                <div class="cal-card-title">Artemis: Spaceship Bridge Simulator</div><div class="cal-card-sub">14:00 – 18:00</div>
+              </div>
+            </div>
+          </div>
+
+        </div></div>
+      </div><!-- /sobota -->
+
+
+      <!--
+        NEDĚLE 29. 3.   8:00–16:00   8 h × 120 px = 960 px
+        left = (H–8)×120 + M×2
+      -->
+      <div class="cal-day" id="nedele">
+        <div class="cal-scroll"><div class="cal-inner">
+          <div class="cal-header">
+            <div class="cal-header-spacer"></div>
+            <div class="cal-hour-label">8:00</div><div class="cal-hour-label">9:00</div>
+            <div class="cal-hour-label">10:00</div><div class="cal-hour-label">11:00</div>
+            <div class="cal-hour-label">12:00</div><div class="cal-hour-label">13:00</div>
+            <div class="cal-hour-label">14:00</div><div class="cal-hour-label">15:00</div>
+            <div class="cal-hour-label">16:00</div>
+          </div>
+
+          <!-- Bažina -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Bažina</div><div class="cl-gm">přízemí</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-food" style="left:4px;width:112px">
+                <div class="cal-card-title">Výdej snídaně</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Velký sál -->
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Velký sál</div><div class="cl-gm">přízemí</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <!-- oběd 13:00 → left=600 -->
+              <div class="cal-card card-food" style="left:604px;width:112px">
+                <div class="cal-card-title">Výdej oběda</div>
+              </div>
+              <!-- vyhlášení 14:00-16:00 → left=720, w=240 -->
+              <div class="cal-card card-turnaj" style="left:724px;width:232px">
+                <div class="cal-card-title">Vyhlášení a reflexe turnaje</div><div class="cal-card-sub">14:00 – 16:00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">Přízemí — RPG místnosti</div><div class="cal-track-content" style="width:1080px"></div></div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Tatami</div><div class="cl-gm">Š. Kašparová</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Erkrundská pětka</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Šatna I-A</div><div class="cl-gm">Elfax</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Fočus</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-prizemi"><div><div class="cl-room">Šatna I-B</div><div class="cl-gm">O. Mráz</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Dice Dice Baby</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">1. patro — RPG místnosti</div><div class="cal-track-content" style="width:1080px"></div></div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-pristavba"><div><div class="cl-room">Přístavba</div><div class="cl-gm">Deusn</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Spolek přátel cizího majetku</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-pristavba"><div><div class="cl-room">Šatna II-A</div><div class="cl-gm">Jamal</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Družina mocného VII</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Ateliér 1</div><div class="cl-gm">V. Marek</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Řád očistného dýmu</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Ateliér 2</div><div class="cl-gm">Á. Marková</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Mariborští rytíři</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Taneční sál</div><div class="cl-gm">Č. Dědič</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Skupina negativních hejtrů</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-patro1"><div><div class="cl-room">Šatna II-B</div><div class="cl-gm">Buky</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Černobílá duha</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+
+          <div class="cal-track cal-sep"><div class="cal-track-label">2. patro — RPG místnosti</div><div class="cal-track-content" style="width:1080px"></div></div>
+
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Šatna III</div><div class="cl-gm">Sniper</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Kapybaří sirotci</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Zrcadl. sál</div><div class="cl-gm">Stařec</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">Post Mortem</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Kancelář 2</div><div class="cl-gm">Miky</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">RPGP</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+          <div class="cal-track">
+            <div class="cal-track-label label-patro2"><div><div class="cl-room">Ředitelna</div><div class="cl-gm">Demonica</div></div></div>
+            <div class="cal-track-content" style="width:1080px">
+              <div class="cal-card card-turnaj" style="left:124px;width:472px"><div class="cal-card-title">1. intervenční jednotka</div><div class="cal-card-sub">3. kolo turnaje · 9:00 – 13:00</div></div>
+            </div>
+          </div>
+
+        </div></div>
+      </div><!-- /nedele -->
+
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <h2>Chcete se zúčastnit?</h2>
+    <a href="registration.html" class="btn-dark" style="margin-top:16px">Registrovat se →</a>
+  </section>
+
+  <div id="footer-placeholder"></div>
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+  <script>
+    function showDay(id, btn) {
+      document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('active'));
+      document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

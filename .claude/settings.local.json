@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:fokusroll.wz.cz)"
+      "WebFetch(domain:fokusroll.wz.cz)",
+      "Bash(sudo apt-get install -y python3-openpyxl)",
+      "Read(//tmp/**)",
+      "Bash(cp '/home/innoda/Downloads/Harmonogram.xlsx' harm.xlsx)",
+      "Bash(unzip -o harm.xlsx -d harm_extracted)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 *)"
     ]
   }
 }

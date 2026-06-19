@@ -18,6 +18,7 @@ function closeDrawer() {
       <li><a href="about.html">O akci</a></li>
       <li><a href="about_tournament.html">O turnaji</a></li>
       <li><a href="about_rpgs.html">Doprovodný program</a></li>
+      <li><a href="harmonogram.html">Harmonogram</a></li>
       <li><a href="contact.html">Kontakty</a></li>
     </ul>
     <div class="nav-actions">
@@ -33,6 +34,7 @@ function closeDrawer() {
   <a href="about.html" onclick="closeDrawer()">O akci</a>
   <a href="about_tournament.html" onclick="closeDrawer()">O turnaji</a>
   <a href="about_rpgs.html" onclick="closeDrawer()">Doprovodný program</a>
+  <a href="harmonogram.html" onclick="closeDrawer()">Harmonogram</a>
   <a href="contact.html" onclick="closeDrawer()">Kontakty</a>
   <div class="drawer-auth">
     <a href="registration.html" class="drawer-cta" onclick="closeDrawer()">Registrace</a>
