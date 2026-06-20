@@ -22,45 +22,6 @@
     .alert p { font-size: 0.9rem; color: var(--light-gray); line-height: 1.7; margin: 0; }
     .alert p + p { margin-top: 8px; }
 
-    /* ── Accordion ── */
-    .accordion { display: flex; flex-direction: column; gap: 10px; }
-    .acc-item {
-      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-top: 2px solid rgba(255,255,255,0.18);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
-    }
-    .acc-trigger {
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 20px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--white);
-      text-align: left;
-      transition: background 0.15s;
-    }
-    .acc-trigger:hover { background: rgba(255,255,255,0.03); }
-    .acc-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hot-orange); display: block; margin-bottom: 3px; }
-    .acc-arrow { font-size: 0.7rem; color: var(--white); transition: transform 0.2s; flex-shrink: 0; opacity: 0.4; }
-    .acc-trigger.open .acc-arrow { transform: rotate(180deg); opacity: 0.8; }
-    .acc-body { display: none; padding: 0 22px 22px; border-top: 1px solid rgba(255,255,255,0.07); }
-    .acc-body.open { display: block; }
-    .acc-body p { color: var(--light-gray); font-size: 0.9rem; line-height: 1.75; margin-top: 16px; margin-bottom: 0; }
-    .acc-body p + p { margin-top: 12px; }
-    .acc-body strong { color: var(--white); }
-    .acc-body a { color: var(--hot-orange); font-weight: 600; }
-
     /* ── Registration steps ── */
     .reg-steps { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
     .reg-step { display: flex; gap: 16px; align-items: flex-start; }
@@ -77,24 +38,6 @@
     }
     .reg-step-text { font-size: 0.9rem; color: var(--light-gray); line-height: 1.65; }
     .reg-step-text strong { color: var(--white); }
-
-    /* ── Schedule link ── */
-    .schedule-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 28px;
-      padding: 11px 20px;
-      background: rgba(251,169,44,0.1);
-      border: 1px solid rgba(251,169,44,0.35);
-      border-radius: 8px;
-      color: var(--hot-orange);
-      font-size: 0.875rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-    .schedule-link:hover { background: rgba(251,169,44,0.18); }
 
     /* ── RPG card grid ── */
     .rpg-card-grid {
@@ -180,11 +123,290 @@
     }
     .rpg-card-gm strong { color: rgba(255,255,255,0.45); font-weight: 600; }
 
+    .free-program-grid .rpg-card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .free-program-grid .rpg-card {
+      background: var(--gray);
+      border: 1px solid var(--evil-gray);
+      box-shadow: none;
+      cursor: default;
+    }
     .free-program-grid .rpg-card:hover { transform: none; }
     .free-program-grid .rpg-card-desc {
       display: block;
       -webkit-line-clamp: unset;
       overflow: visible;
+    }
+
+    /* ── Scroll offset for anchors ── */
+    #sec-larpy, #sec-rpg, #sec-volny, #sec-registrace {
+      scroll-margin-top: calc(var(--nav-height) + 12px);
+    }
+
+    /* ── TOC mobile (collapsible, shown below 1680px) ── */
+    .toc-mobile { background: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    @media (min-width: 1680px) { .toc-mobile { display: none; } }
+
+    .toc-mobile-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 24px;
+      background: none;
+      border: none;
+      color: var(--light-gray);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .toc-mobile-toggle:hover { color: var(--white); }
+    .toc-toggle-chevron { transition: transform 0.2s; flex-shrink: 0; font-style: normal; }
+    .toc-mobile-toggle[aria-expanded="true"] .toc-toggle-chevron { transform: rotate(180deg); }
+
+    .toc-mobile-list {
+      list-style: none;
+      overflow: hidden;
+      max-height: 0;
+      padding: 0 24px;
+      transition: max-height 0.28s ease, padding 0.28s;
+    }
+    .toc-mobile-list.open { max-height: 400px; padding: 4px 24px 16px; }
+
+    .toc-mobile-link {
+      display: block;
+      padding: 8px 0;
+      color: var(--light-gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color 0.15s, padding-left 0.15s;
+    }
+    .toc-mobile-link:hover { color: var(--hot-orange); padding-left: 4px; }
+    .toc-mobile-list li:last-child .toc-mobile-link { border-bottom: none; }
+
+    /* ── TOC desktop (fixed sidebar, shown 1680px+) ── */
+    .toc-desktop {
+      display: none;
+      position: fixed;
+      right: 28px;
+      top: calc(var(--nav-height) + 44px);
+      width: 152px;
+      z-index: 50;
+    }
+    @media (min-width: 1680px) { .toc-desktop { display: block; } }
+
+    .toc-desktop-label {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--evil-gray);
+      margin-bottom: 10px;
+      padding-left: 12px;
+    }
+    .toc-desktop-list { list-style: none; border-left: 1px solid rgba(255,255,255,0.07); }
+    .toc-link {
+      display: block;
+      font-size: 0.74rem;
+      color: rgba(158,158,158,0.55);
+      text-decoration: none;
+      padding: 5px 0 5px 12px;
+      line-height: 1.35;
+      transition: color 0.15s, padding-left 0.15s;
+    }
+    .toc-link:hover { color: var(--light-gray); padding-left: 15px; }
+    .toc-link.active { color: var(--hot-orange); padding-left: 15px; border-left: 2px solid var(--hot-orange); margin-left: -1px; }
+
+    /* ── Clickable cards ── */
+    .rpg-card[data-activity] { cursor: pointer; }
+    .rpg-card-detail-hint {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--hot-orange);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.15s;
+    }
+    .rpg-card[data-activity]:hover .rpg-card-detail-hint { gap: 8px; }
+
+    /* ── Overlay ── */
+    .activity-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+    .activity-overlay.open { opacity: 1; pointer-events: auto; }
+
+    /* ── Modal ── */
+    .activity-modal {
+      position: relative;
+      background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, transparent 50%), var(--dark-gray);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 88vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.05) inset;
+      transform: scale(0.96) translateY(10px);
+      opacity: 0;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+      outline: none;
+    }
+    .activity-overlay.open .activity-modal { transform: scale(1) translateY(0); opacity: 1; }
+
+    .modal-close {
+      position: sticky;
+      top: 16px;
+      float: right;
+      margin: 16px 16px 0 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--light-gray);
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+      z-index: 10;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.16); color: var(--white); }
+
+    .modal-inner { display: grid; grid-template-columns: 1fr 280px; clear: both; }
+
+    .modal-text-col { padding: 8px 40px 40px; }
+
+    .modal-media-col {
+      padding: 40px 40px 40px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .modal-img-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--gray);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .modal-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .modal-type {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hot-orange);
+      background: rgba(251,169,44,0.1);
+      border: 1px solid rgba(251,169,44,0.25);
+      border-radius: 20px;
+      padding: 3px 11px;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.6rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+
+    .modal-tagline {
+      font-size: 0.95rem;
+      color: var(--light-gray);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .modal-tagline:empty { display: none; }
+
+    .modal-narrative {
+      background: var(--gray);
+      border-left: 3px solid var(--hot-orange);
+      border-radius: 0 10px 10px 0;
+      padding: 20px 24px;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .modal-narrative p + p { margin-top: 10px; }
+
+    .modal-desc { font-size: 0.9rem; color: var(--light-gray); line-height: 1.78; margin-bottom: 24px; }
+    .modal-desc p + p { margin-top: 12px; }
+    .modal-desc:empty { display: none; }
+
+    .modal-reg {
+      background: rgba(251,169,44,0.06);
+      border-left: 3px solid var(--hot-orange);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .modal-reg:empty { display: none; }
+
+    .modal-ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--hot-orange);
+      text-decoration: none;
+      transition: gap 0.15s;
+    }
+    .modal-ext-link:hover { gap: 10px; }
+    .modal-ext-link[href=""] { display: none; }
+
+    .modal-stats { display: flex; flex-direction: column; gap: 14px; }
+    .modal-stat-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--evil-gray);
+      margin-bottom: 2px;
+    }
+    .modal-stat-value { font-size: 0.875rem; font-weight: 600; color: var(--white); }
+
+    @media (max-width: 680px) {
+      .activity-overlay { padding: 0; align-items: flex-end; }
+      .activity-modal { border-radius: 20px 20px 0 0; max-height: 92vh; }
+      .modal-inner { grid-template-columns: 1fr; }
+      .modal-media-col { padding: 0; order: -1; }
+      .modal-text-col { padding: 20px 20px 32px; }
+      .modal-img-wrap { border-radius: 12px 12px 0 0; aspect-ratio: 16/9; }
     }
 
   </style>
@@ -201,32 +423,46 @@
     </div>
   </header>
 
+  <!-- TOC mobile -->
+  <div class="toc-mobile">
+    <button class="toc-mobile-toggle" id="toc-toggle" aria-expanded="false">
+      <span>Obsah stránky</span>
+      <span class="toc-toggle-chevron">▾</span>
+    </button>
+    <ul class="toc-mobile-list" id="toc-mobile-list">
+      <li><a href="#sec-larpy"      class="toc-mobile-link">Larpy</a></li>
+      <li><a href="#sec-rpg"        class="toc-mobile-link">Nesoutěžní RPG</a></li>
+      <li><a href="#sec-volny"      class="toc-mobile-link">Volný program</a></li>
+      <li><a href="#sec-registrace" class="toc-mobile-link">Jak se přihlásit</a></li>
+    </ul>
+  </div>
+
   <!-- LARPY -->
-  <section class="section section-alt">
+  <section class="section section-alt" id="sec-larpy">
     <div class="container">
       <span class="section-label">Larpy</span>
       <h2>Živé hraní <span>rolí</span></h2>
       <p class="section-lead">Dva larpy — na oba je nutná předchozí registrace.</p>
 
-      <div class="rpg-card-grid" style="margin-top:32px;grid-template-columns:repeat(2,1fr)">
+      <div class="rpg-card-grid" style="grid-template-columns:repeat(2,1fr)">
 
-        <div class="rpg-card">
+        <div class="rpg-card" data-activity="0">
           <div class="rpg-card-thumb"><img src="img/larp/pirate-treasure-island.jpg" alt="Ostrov" /></div>
           <div class="rpg-card-body">
             <span class="rpg-card-system">Larp</span>
             <h3 class="rpg-card-title">Ostrov</h3>
             <p class="rpg-card-desc">Guvernér je zavražděn, Anglie zuří, piráti šíří zvěsti o pokladu a usedlíci touží hájit vlastní zájmy. Je načase rozhodnout o osudu pirátského ostrova!</p>
-            <p class="rpg-card-gm"><a href="https://larpovadatabaze.cz/larp/ostrov/cs/54407" target="_blank" rel="noopener" style="color:var(--hot-orange);font-weight:600">Larpová databáze →</a></p>
+            <span class="rpg-card-detail-hint">Detail →</span>
           </div>
         </div>
 
-        <div class="rpg-card">
+        <div class="rpg-card" data-activity="1">
           <div class="rpg-card-thumb"><img src="img/larp/saloon.jpeg" alt="U střelené kobyly" /></div>
           <div class="rpg-card-body">
             <span class="rpg-card-system">Larp</span>
             <h3 class="rpg-card-title">U střelené kobyly</h3>
             <p class="rpg-card-desc">Jeden saloon, sedm westernových archetypů, které tam společně zavřel šerif. Weird western potká Among Us — a hlavní je nebrat nic z toho vážně.</p>
-            <p class="rpg-card-gm"><a href="https://larpovadatabaze.cz/larp/u-strelene-kobyly/cs/2420" target="_blank" rel="noopener" style="color:var(--hot-orange);font-weight:600">Larpová databáze →</a></p>
+            <span class="rpg-card-detail-hint">Detail →</span>
           </div>
         </div>
 
@@ -235,241 +471,264 @@
   </section>
 
   <!-- NESOUTEZNI RPG -->
-  <section class="section">
+  <section class="section" id="sec-rpg">
     <div class="container">
       <span class="section-label">Nesoutěžní RPG</span>
       <h2>Vyberte si <span>hru</span></h2>
       <p class="section-lead">23 her od zkušených GameMasterů — předchozí registrace nutná.</p>
 
-      <div class="rpg-card-grid" style="margin-top:32px">
+      <div class="rpg-card-grid">
 
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/fallout.png" alt="Fallout: Patrioti Velké války" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Fallout RPG</span>
-            <h3 class="rpg-card-title">Patrioti Velké války</h3>
-            <p class="rpg-card-desc">Pustina, Vault 91 a komunita, která potřebuje vaši pomoc. Postavy i kostky k dispozici.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Rostislav „Cheo" Zlámal</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/echo-predeni.jpg" alt="Cats of Catthulhu: Echo Předení" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Cats of Catthulhu</span>
-            <h3 class="rpg-card-title">Echo Předení</h3>
-            <p class="rpg-card-desc">Kosmický horor hraný za kočky. Odhalte záhadné šeptání, které pronásleduje vaši lidskou rodinu.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Ravi</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/delta-green.jpeg" alt="Delta Green" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Delta Green</span>
-            <h3 class="rpg-card-title">Delta Green</h3>
-            <p class="rpg-card-desc">Tajná vládní organizace čelí nadpřirozeným hrozbám. Temný špionážní thriller s mytologií Cthulhu.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Martin „Emvee" Vančura</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Alice-is-Missing.jpg" alt="Alice is Missing" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Alice is Missing</span>
-            <h3 class="rpg-card-title">Alice is Missing</h3>
-            <p class="rpg-card-desc">Narativní hra bez mluvení — veškerá komunikace probíhá přes textové zprávy v reálném čase.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Martin „Emvee" Vančura</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Jarda_alien.png" alt="Alien RPG: The Hunt" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Alien RPG</span>
-            <h3 class="rpg-card-title">The Hunt</h3>
-            <p class="rpg-card-desc">Napínavé sci-fi přežití v duchu filmové série. Jen jedna otázka: dokážete se dostat ven?</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jarda Slámečka</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Smrq_candela_obscura.jpg" alt="Candela Obscura" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Candela Obscura</span>
-            <h3 class="rpg-card-title">Candela Obscura</h3>
-            <p class="rpg-card-desc">Gotický horor z přelomu 19. a 20. století. Investigativní vyšetřování záhadných jevů.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Radim „Smrq" Trčálek</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Count_pirati.jpg" alt="Omega: Se zkříženými hnáty" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Omega</span>
-            <h3 class="rpg-card-title">Se zkříženými hnáty</h3>
-            <p class="rpg-card-desc">Western v post-apokalyptickém světě. Přežití, střety a specifický český černý humor.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Ivo „Count" Karkoška</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Dan_Walking_dead.jpg" alt="The Walking Dead: The Wolves' Den" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">The Walking Dead Universe RPG</span>
-            <h3 class="rpg-card-title">The Wolves' Den</h3>
-            <p class="rpg-card-desc">Survival horor v zombie apokalypse. Sociální drama a morální dilemata na pozadí konce světa.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Dan Fojtík</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/sluzebnici-jezera.jpeg" alt="Call of Cthulhu: Služebníci jezera" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Call of Cthulhu</span>
-            <h3 class="rpg-card-title">Služebníci jezera</h3>
-            <p class="rpg-card-desc">Kosmický horor dle H. P. Lovecrafta. Dokážete odhalit pravdu, aniž byste přišli o rozum?</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Mrkew</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Mrkew_coc_uz_jen_cernota.png" alt="Call of Cthulhu: Už jen černota" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Call of Cthulhu</span>
-            <h3 class="rpg-card-title">Už jen černota</h3>
-            <p class="rpg-card-desc">Druhé sezení Mrkewa v univerzu Lovecrafta. Temnota, záhady a hranice lidského rozumu.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Mrkew</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Jirka_coc_afflicted.webp" alt="Call of Cthulhu: Afflicted" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Call of Cthulhu</span>
-            <h3 class="rpg-card-title">Afflicted</h3>
-            <p class="rpg-card-desc">Klasický lovecraftovský horor. Investigátoři, kteří se pouštějí do toho, čeho by raději nechali.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jirka Kozelský</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Jirka_coc_murder_shack.jpg" alt="Call of Cthulhu: Murder Shack" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Call of Cthulhu</span>
-            <h3 class="rpg-card-title">Murder Shack</h3>
-            <p class="rpg-card-desc">Záhada vraždy na odlehlém místě. Horor s detektivním nádechem v lovecraftovském světě.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jirka Kozelský</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Jamal_jeden_prsten.png" alt="Jeden Prsten" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">The One Ring</span>
-            <h3 class="rpg-card-title">Jeden Prsten</h3>
-            <p class="rpg-card-desc">Epické fantasy v Tolkienově Středozemi. Hrdinové, cesty a přátelství větší než jakékoli nebezpečí.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jaroslav „Jamal" Malinkovič</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Sharka_cats.jpg" alt="Cats! The Conspurracy" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Cats! The Conspurracy</span>
-            <h3 class="rpg-card-title">Zachraňte koťátko Ryana</h3>
-            <p class="rpg-card-desc">Lehká kočičí komedie s konspiracemi. Zachraňte koťátko dřív, než je pozdě!</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Šárka</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Elfax_bladesy.png" alt="Blades in the Dark" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Blades in the Dark</span>
-            <h3 class="rpg-card-title">Blades in the Dark</h3>
-            <p class="rpg-card-desc">Skupinka zlodějů v gotickém průmyslovém měste Duskvol. Heisty, frakce a temné ulice.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Michal „Elfax" Šácha</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Rovan_fate.png" alt="Fate: Květný háj" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Fate</span>
-            <h3 class="rpg-card-title">Květný háj</h3>
-            <p class="rpg-card-desc">Autorské zasazení na systému Fate. Příběh, kde aspekty postav rozhodují o osudu světa.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Roman „Rovan" Vantuch</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Vojta_WeirdWest_Deadlands.png" alt="Deadlands: The Weird West" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Deadlands</span>
-            <h3 class="rpg-card-title">The Weird West</h3>
-            <p class="rpg-card-desc">Western s horrorem a magií. Divoký západ, kde nemrtví a nadpřirozeno číhají za každým rohem.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Vojtěch Marek</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Deusn_DnD.png" alt="D&D: Stará srdce, staré vzpomínky" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Dungeons &amp; Dragons</span>
-            <h3 class="rpg-card-title">Stará srdce, staré vzpomínky</h3>
-            <p class="rpg-card-desc">Klasické fantasy D&amp;D dobrodružství. Pro pamětníky i nováčky — meče, kouzla a příběh.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jaroslav „Deusn" Noga</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Sniper_chram_nadeje.png" alt="Chrám naděje" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Chrám naděje</span>
-            <h3 class="rpg-card-title">Chrám naděje</h3>
-            <p class="rpg-card-desc">Podrobnosti o hře a systému budou brzy upřesněny.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> František „Sniper" Neznaj</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Log_prisera.png" alt="Příšera týdne: Démon na North Valley High" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Příšera týdne</span>
-            <h3 class="rpg-card-title">Démon na North Valley High</h3>
-            <p class="rpg-card-desc">Střední škola v malém americkém městě. Ale co ten podivný nový učitel a záhadné události?</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Michael „Log 1=0" Kolařík</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Starec_mazes.jpeg" alt="Mazes RPG: Probuzení panství Willowby" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">Mazes RPG</span>
-            <h3 class="rpg-card-title">Probuzení panství Willowby</h3>
-            <p class="rpg-card-desc">Dungeon crawler s osobitým stylem. Tajemné panství, záhady skryté v jeho zdech a dávné prokletí.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jan „Stařec" Hykel</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
-          <div class="rpg-card-thumb"><img src="img/rpg/Ada_tarrot_weaver.jpg" alt="TarotWeaver" /></div>
-          <div class="rpg-card-body">
-            <span class="rpg-card-system">TarotWeaver</span>
-            <h3 class="rpg-card-title">TarotWeaver</h3>
-            <p class="rpg-card-desc">Narativní hra, kde tarotové karty utváří příběh. Každý tah přinese nečekaný zvrat osudu.</p>
-            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Áďa Marková</p>
-          </div>
-        </div>
-
-        <div class="rpg-card">
+        <div class="rpg-card" data-activity="24">
           <div class="rpg-card-thumb"><img src="img/rpg/Karel_family_of_blades.png" alt="A Family of Blades" /></div>
           <div class="rpg-card-body">
             <span class="rpg-card-system">A Family of Blades</span>
             <h3 class="rpg-card-title">A Family of Blades</h3>
             <p class="rpg-card-desc">Rodinná sága šermířů. Loajalita, zrada a zákulisní intriky v rodě, kde každý nosí zbraň.</p>
             <p class="rpg-card-gm"><strong>Vypravěč:</strong> Karel Doleček</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="5">
+          <div class="rpg-card-thumb"><img src="img/rpg/Alice-is-Missing.jpg" alt="Alice is Missing" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Alice is Missing</span>
+            <h3 class="rpg-card-title">Alice is Missing</h3>
+            <p class="rpg-card-desc">Narativní hra bez mluvení — veškerá komunikace probíhá přes textové zprávy v reálném čase.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Martin „Emvee" Vančura</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="6">
+          <div class="rpg-card-thumb"><img src="img/rpg/Jarda_alien.png" alt="Alien RPG: The Hunt" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Alien RPG</span>
+            <h3 class="rpg-card-title">The Hunt</h3>
+            <p class="rpg-card-desc">Napínavé sci-fi přežití v duchu filmové série. Jen jedna otázka: dokážete se dostat ven?</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jarda Slámečka</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="16">
+          <div class="rpg-card-thumb"><img src="img/rpg/Elfax_bladesy.png" alt="Blades in the Dark" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Blades in the Dark</span>
+            <h3 class="rpg-card-title">Blades in the Dark</h3>
+            <p class="rpg-card-desc">Skupinka zlodějů v gotickém průmyslovém měste Duskvol. Heisty, frakce a temné ulice.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Michal „Elfax" Šácha</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="12">
+          <div class="rpg-card-thumb"><img src="img/rpg/Jirka_coc_afflicted.webp" alt="Call of Cthulhu: Afflicted" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Call of Cthulhu</span>
+            <h3 class="rpg-card-title">Afflicted</h3>
+            <p class="rpg-card-desc">Klasický lovecraftovský horor. Investigátoři, kteří se pouštějí do toho, čeho by raději nechali.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jirka Kozelský</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="13">
+          <div class="rpg-card-thumb"><img src="img/rpg/Jirka_coc_murder_shack.jpg" alt="Call of Cthulhu: Murder Shack" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Call of Cthulhu</span>
+            <h3 class="rpg-card-title">Murder Shack</h3>
+            <p class="rpg-card-desc">Záhada vraždy na odlehlém místě. Horor s detektivním nádechem v lovecraftovském světě.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jirka Kozelský</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="10">
+          <div class="rpg-card-thumb"><img src="img/rpg/sluzebnici-jezera.jpeg" alt="Call of Cthulhu: Služebníci jezera" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Call of Cthulhu</span>
+            <h3 class="rpg-card-title">Služebníci jezera</h3>
+            <p class="rpg-card-desc">Kosmický horor dle H. P. Lovecrafta. Dokážete odhalit pravdu, aniž byste přišli o rozum?</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Mrkew</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="11">
+          <div class="rpg-card-thumb"><img src="img/rpg/Mrkew_coc_uz_jen_cernota.png" alt="Call of Cthulhu: Už jen černota" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Call of Cthulhu</span>
+            <h3 class="rpg-card-title">Už jen černota</h3>
+            <p class="rpg-card-desc">Druhé sezení Mrkewa v univerzu Lovecrafta. Temnota, záhady a hranice lidského rozumu.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Mrkew</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="7">
+          <div class="rpg-card-thumb"><img src="img/rpg/Smrq_candela_obscura.jpg" alt="Candela Obscura" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Candela Obscura</span>
+            <h3 class="rpg-card-title">Candela Obscura</h3>
+            <p class="rpg-card-desc">Gotický horor z přelomu 19. a 20. století. Investigativní vyšetřování záhadných jevů.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Radim „Smrq" Trčálek</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="3">
+          <div class="rpg-card-thumb"><img src="img/rpg/echo-predeni.jpg" alt="Cats of Catthulhu: Echo Předení" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Cats of Catthulhu</span>
+            <h3 class="rpg-card-title">Echo Předení</h3>
+            <p class="rpg-card-desc">Kosmický horor hraný za kočky. Odhalte záhadné šeptání, které pronásleduje vaši lidskou rodinu.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Ravi</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="15">
+          <div class="rpg-card-thumb"><img src="img/rpg/Sharka_cats.jpg" alt="Cats! The Conspurracy" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Cats! The Conspurracy</span>
+            <h3 class="rpg-card-title">Zachraňte koťátko Ryana</h3>
+            <p class="rpg-card-desc">Lehká kočičí komedie s konspiracemi. Zachraňte koťátko dřív, než je pozdě!</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Šárka</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="20">
+          <div class="rpg-card-thumb"><img src="img/rpg/Sniper_chram_nadeje.png" alt="Chrám naděje" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Chrám naděje</span>
+            <h3 class="rpg-card-title">Chrám naděje</h3>
+            <p class="rpg-card-desc">Podrobnosti o hře a systému budou brzy upřesněny.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> František „Sniper" Neznaj</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="18">
+          <div class="rpg-card-thumb"><img src="img/rpg/Vojta_WeirdWest_Deadlands.png" alt="Deadlands: The Weird West" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Deadlands</span>
+            <h3 class="rpg-card-title">The Weird West</h3>
+            <p class="rpg-card-desc">Western s horrorem a magií. Divoký západ, kde nemrtví a nadpřirozeno číhají za každým rohem.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Vojtěch Marek</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="4">
+          <div class="rpg-card-thumb"><img src="img/rpg/delta-green.jpeg" alt="Delta Green" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Delta Green</span>
+            <h3 class="rpg-card-title">Delta Green</h3>
+            <p class="rpg-card-desc">Tajná vládní organizace čelí nadpřirozeným hrozbám. Temný špionážní thriller s mytologií Cthulhu.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Martin „Emvee" Vančura</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="19">
+          <div class="rpg-card-thumb"><img src="img/rpg/Deusn_DnD.png" alt="D&D: Stará srdce, staré vzpomínky" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Dungeons &amp; Dragons</span>
+            <h3 class="rpg-card-title">Stará srdce, staré vzpomínky</h3>
+            <p class="rpg-card-desc">Klasické fantasy D&amp;D dobrodružství. Pro pamětníky i nováčky — meče, kouzla a příběh.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jaroslav „Deusn" Noga</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="2">
+          <div class="rpg-card-thumb"><img src="img/rpg/fallout.png" alt="Fallout: Patrioti Velké války" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Fallout RPG</span>
+            <h3 class="rpg-card-title">Patrioti Velké války</h3>
+            <p class="rpg-card-desc">Pustina, Vault 91 a komunita, která potřebuje vaši pomoc. Postavy i kostky k dispozici.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Rostislav „Cheo" Zlámal</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="17">
+          <div class="rpg-card-thumb"><img src="img/rpg/Rovan_fate.png" alt="Fate: Květný háj" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Fate</span>
+            <h3 class="rpg-card-title">Květný háj</h3>
+            <p class="rpg-card-desc">Autorské zasazení na systému Fate. Příběh, kde aspekty postav rozhodují o osudu světa.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Roman „Rovan" Vantuch</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="22">
+          <div class="rpg-card-thumb"><img src="img/rpg/Starec_mazes.jpeg" alt="Mazes RPG: Probuzení panství Willowby" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Mazes RPG</span>
+            <h3 class="rpg-card-title">Probuzení panství Willowby</h3>
+            <p class="rpg-card-desc">Dungeon crawler s osobitým stylem. Tajemné panství, záhady skryté v jeho zdech a dávné prokletí.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jan „Stařec" Hykel</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="8">
+          <div class="rpg-card-thumb"><img src="img/rpg/Count_pirati.jpg" alt="Omega: Se zkříženými hnáty" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Omega</span>
+            <h3 class="rpg-card-title">Se zkříženými hnáty</h3>
+            <p class="rpg-card-desc">Western v post-apokalyptickém světě. Přežití, střety a specifický český černý humor.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Ivo „Count" Karkoška</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="21">
+          <div class="rpg-card-thumb"><img src="img/rpg/Log_prisera.png" alt="Příšera týdne: Démon na North Valley High" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">Příšera týdne</span>
+            <h3 class="rpg-card-title">Démon na North Valley High</h3>
+            <p class="rpg-card-desc">Střední škola v malém americkém městě. Ale co ten podivný nový učitel a záhadné události?</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Michael „Log 1=0" Kolařík</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="23">
+          <div class="rpg-card-thumb"><img src="img/rpg/Ada_tarrot_weaver.jpg" alt="TarotWeaver" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">TarotWeaver</span>
+            <h3 class="rpg-card-title">TarotWeaver</h3>
+            <p class="rpg-card-desc">Narativní hra, kde tarotové karty utváří příběh. Každý tah přinese nečekaný zvrat osudu.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Áďa Marková</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="14">
+          <div class="rpg-card-thumb"><img src="img/rpg/Jamal_jeden_prsten.png" alt="Jeden Prsten" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">The One Ring</span>
+            <h3 class="rpg-card-title">Jeden Prsten</h3>
+            <p class="rpg-card-desc">Epické fantasy v Tolkienově Středozemi. Hrdinové, cesty a přátelství větší než jakékoli nebezpečí.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Jaroslav „Jamal" Malinkovič</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
+          </div>
+        </div>
+
+        <div class="rpg-card" data-activity="9">
+          <div class="rpg-card-thumb"><img src="img/rpg/Dan_Walking_dead.jpg" alt="The Walking Dead: The Wolves' Den" /></div>
+          <div class="rpg-card-body">
+            <span class="rpg-card-system">The Walking Dead Universe RPG</span>
+            <h3 class="rpg-card-title">The Wolves' Den</h3>
+            <p class="rpg-card-desc">Survival horor v zombie apokalypse. Sociální drama a morální dilemata na pozadí konce světa.</p>
+            <p class="rpg-card-gm"><strong>Vypravěč:</strong> Dan Fojtík</p>
+            <span class="rpg-card-detail-hint">Detail →</span>
           </div>
         </div>
 
@@ -478,13 +737,13 @@
   </section>
 
   <!-- VOLNY PROGRAM -->
-  <section class="section section-alt">
+  <section class="section section-alt" id="sec-volny">
     <div class="container">
       <span class="section-label">Volný program</span>
       <h2>Bez <span>registrace</span></h2>
       <p class="section-lead">Tyto aktivity jsou přístupné komukoliv — bez registrace, v rámci vstupenky na akci.</p>
 
-      <div class="rpg-card-grid free-program-grid" style="margin-top:32px;grid-template-columns:repeat(3,1fr)">
+      <div class="rpg-card-grid free-program-grid" style="grid-template-columns:repeat(3,1fr)">
 
         <div class="rpg-card">
           <div class="rpg-card-body">
@@ -539,14 +798,12 @@
   </section>
 
   <!-- REGISTRACE -->
-  <section class="section">
+  <section class="section" id="sec-registrace">
     <div class="container">
       <span class="section-label">Účast</span>
       <h2>Jak se <span>přihlásit?</span></h2>
 
-      <div class="alert">
-        <p><strong>Většina programu</strong> je dostupná bez registrace — viz sekce Volný doprovodný program. Na <strong>larp Ostrov</strong> a <strong>nesoutěžní RPG hry</strong> je potřeba se předem registrovat.</p>
-      </div>
+      <p class="section-lead">Pokud aktivita vyžaduje registraci, postupujte následujícím způsobem.</p>
 
       <div class="reg-steps">
         <div class="reg-step">
@@ -571,8 +828,7 @@
         <p><strong>Pozor!</strong> Pokud jste se k nesoutěžní RPG hře zaregistrovali jako celá družina v přednostní registraci, pohlídejte si, aby se vám hry s dalším programem nekřížily.</p>
       </div>
 
-      <div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
-        <a href="#" class="schedule-link">📅 Podrobný harmonogram — Google tabulka</a>
+      <div style="margin-top:28px">
         <span style="font-size:0.82rem;color:var(--light-gray)">Registrace pro jednotlivce: <strong style="color:var(--white)">neděle 15. 2. v 19:00</strong></span>
       </div>
     </div>
@@ -583,18 +839,295 @@
     <a href="registration.html" class="btn-dark" style="margin-top:16px">Registrovat se →</a>
   </section>
 
+  <!-- TOC desktop -->
+  <nav class="toc-desktop" aria-label="Obsah stránky">
+    <span class="toc-desktop-label">Obsah stránky</span>
+    <ul class="toc-desktop-list">
+      <li><a href="#sec-larpy"      class="toc-link">Larpy</a></li>
+      <li><a href="#sec-rpg"        class="toc-link">Nesoutěžní RPG</a></li>
+      <li><a href="#sec-volny"      class="toc-link">Volný program</a></li>
+      <li><a href="#sec-registrace" class="toc-link">Jak se přihlásit</a></li>
+    </ul>
+  </nav>
+
+  <!-- Activity detail modal -->
+  <div id="activity-overlay" class="activity-overlay" aria-hidden="true">
+    <div id="activity-modal" class="activity-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <button class="modal-close" id="modal-close" aria-label="Zavřít detail">✕</button>
+      <div class="modal-inner">
+        <div class="modal-text-col">
+          <span class="modal-type" id="modal-type"></span>
+          <h2 class="modal-title" id="modal-title"></h2>
+          <p class="modal-tagline" id="modal-tagline"></p>
+          <div class="modal-narrative" id="modal-narrative"></div>
+          <div class="modal-desc" id="modal-desc"></div>
+          <div class="modal-reg" id="modal-reg"></div>
+          <a class="modal-ext-link" id="modal-ext-link" href="" target="_blank" rel="noopener"></a>
+        </div>
+        <div class="modal-media-col">
+          <div class="modal-img-wrap">
+            <img id="modal-img" src="" alt="">
+          </div>
+          <div class="modal-stats" id="modal-stats"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="footer-placeholder"></div>
 
   <script src="nav.js"></script>
   <script src="footer.js"></script>
   <script>
-    document.querySelectorAll('.acc-trigger').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const body = document.getElementById(btn.dataset.acc);
-        const isOpen = btn.classList.contains('open');
-        btn.classList.toggle('open', !isOpen);
-        body.classList.toggle('open', !isOpen);
+    // ── TOC ──
+    const TOC_IDS      = ['sec-larpy','sec-rpg','sec-volny','sec-registrace'];
+    const tocLinks     = document.querySelectorAll('.toc-link');
+    const tocMobileLinks = document.querySelectorAll('.toc-mobile-link');
+    const tocSections  = TOC_IDS.map(id => document.getElementById(id)).filter(Boolean);
+
+    function setTocActive(id) {
+      tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+    function updateToc() {
+      let current = tocSections[0];
+      for (const el of tocSections) {
+        if (el.getBoundingClientRect().top <= 90) current = el;
+      }
+      if (current) setTocActive(current.id);
+    }
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
+
+    const tocToggleBtn  = document.getElementById('toc-toggle');
+    const tocMobileList = document.getElementById('toc-mobile-list');
+    tocToggleBtn.addEventListener('click', () => {
+      const open = tocMobileList.classList.toggle('open');
+      tocToggleBtn.setAttribute('aria-expanded', open);
+    });
+    tocMobileLinks.forEach(l => l.addEventListener('click', () => {
+      tocMobileList.classList.remove('open');
+      tocToggleBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // ── Activity modal ──
+    const ACTIVITIES = [
+      { type:'Larp', title:'Ostrov',
+        tagline:'Kdo rozhodne o osudu pirátského ostrova?',
+        desc:'Guvernér je zavražděn, Anglie zuří, piráti šíří zvěsti o pokladu a usedlíci touží hájit vlastní zájmy. Je načase rozhodnout o osudu pirátského ostrova!',
+        gm:'', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'https://larpovadatabaze.cz/larp/ostrov/cs/54407', linkLabel:'Larpová databáze',
+        img:'img/larp/pirate-treasure-island.jpg' },
+      { type:'Larp', title:'U střelené kobyly',
+        tagline:'Weird western potká Among Us.',
+        desc:'Jeden saloon, sedm westernových archetypů, které tam společně zavřel šerif. Weird western potká Among Us — a hlavní je nebrat nic z toho vážně.',
+        gm:'', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'https://larpovadatabaze.cz/larp/u-strelene-kobyly/cs/2420', linkLabel:'Larpová databáze',
+        img:'img/larp/saloon.jpeg' },
+      { type:'Fallout RPG', title:'Patrioti Velké války',
+        tagline:'Pustina, Vault 91 a komunita, která potřebuje vaši pomoc.',
+        narrative:'Válka. Válka je vždy stejná. Ta Velká málem Spojeným státům americkým přinesla naprostou zhoubu. Zanechala po sobě jen Pustinu, ve které přežívají jen ozáření ghúlové, radiací pozměnění mutanti a tu a tam také zbytky lidské civilizace, kterou před kompletním vyhlazením zachránila síť protiatomových krytů – takzvaných Vaultů. Destrukce postihla všechny státy dřívější USA, a to včetně státu Nebraska, kdysi agrikulturního srdce Ameriky. V ní se střídají pláně vyprahlé pouště s ostrůvky radioaktivních džunglí, které prosperují díky ozářeným hnojivům. A právě v jedné z takových džunglí něco je. Poklad. Nedávno nalezená mapa prozrazuje místo předválečné vojenské základny. Technologie a materiály v ní by mohly zachránit sotva přežívající komunitu Útočiště – osady, která byla vybudována kolem Vaultu 91.',
+        desc:'Fallout: Hra na hrdiny vrhá hráče do prostředí videoherní série Fallout (známého také díky seriálové adaptaci), kde na ně čeká boj o přežití, morální dilemata a charakteristický černý smysl pro humor. Srdcem hry je systém 2d20, který byl pro účely zasazení hry upraven a obohacen o mnoho herních mechanik, které by jistě byly všem fanouškům herní série velmi povědomé. Není ale nutné, abyste byli mistry historie světa Falloutu. Hra je vhodná i pro ty, kteří o tomto postapo-retro-futuristickém prostředí zatím neví zcela nic. Předpřipravené postavy i kostky budou k dispozici.',
+        gm:'Rostislav „Cheo" Zlámal', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/fallout.png' },
+      { type:'Cats of Catthulhu', title:'Echo Předení',
+        tagline:'Kosmický horor hraný za kočky.',
+        desc:'Odhalte záhadné šeptání, které pronásleduje vaši lidskou rodinu. Kosmický horor hraný za kočky.',
+        gm:'Ravi', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/echo-predeni.jpg' },
+      { type:'Delta Green', title:'Delta Green',
+        tagline:'Tajná vládní organizace čelí nadpřirozeným hrozbám.',
+        desc:'Tajná vládní organizace čelí nadpřirozeným hrozbám. Temný špionážní thriller s mytologií Cthulhu.',
+        gm:'Martin „Emvee" Vančura', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/delta-green.jpeg' },
+      { type:'Alice is Missing', title:'Alice is Missing',
+        tagline:'Narativní hra bez mluvení.',
+        desc:'Narativní hra bez mluvení — veškerá komunikace probíhá přes textové zprávy v reálném čase.',
+        gm:'Martin „Emvee" Vančura', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Alice-is-Missing.jpg' },
+      { type:'Alien RPG', title:'The Hunt',
+        tagline:'Napínavé sci-fi přežití v duchu filmové série.',
+        desc:'Napínavé sci-fi přežití v duchu filmové série. Jen jedna otázka: dokážete se dostat ven?',
+        gm:'Jarda Slámečka', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Jarda_alien.png' },
+      { type:'Candela Obscura', title:'Candela Obscura',
+        tagline:'Gotický horor z přelomu 19. a 20. století.',
+        desc:'Gotický horor z přelomu 19. a 20. století. Investigativní vyšetřování záhadných jevů.',
+        gm:'Radim „Smrq" Trčálek', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Smrq_candela_obscura.jpg' },
+      { type:'Omega', title:'Se zkříženými hnáty',
+        tagline:'Western v post-apokalyptickém světě.',
+        desc:'Western v post-apokalyptickém světě. Přežití, střety a specifický český černý humor.',
+        gm:'Ivo „Count" Karkoška', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Count_pirati.jpg' },
+      { type:'The Walking Dead Universe RPG', title:'The Wolves\' Den',
+        tagline:'Survival horor v zombie apokalypse.',
+        desc:'Survival horor v zombie apokalypse. Sociální drama a morální dilemata na pozadí konce světa.',
+        gm:'Dan Fojtík', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Dan_Walking_dead.jpg' },
+      { type:'Call of Cthulhu', title:'Služebníci jezera',
+        tagline:'Dokážete odhalit pravdu, aniž byste přišli o rozum?',
+        desc:'Kosmický horor dle H. P. Lovecrafta. Dokážete odhalit pravdu, aniž byste přišli o rozum?',
+        gm:'Mrkew', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/sluzebnici-jezera.jpeg' },
+      { type:'Call of Cthulhu', title:'Už jen černota',
+        tagline:'Temnota, záhady a hranice lidského rozumu.',
+        desc:'Druhé sezení Mrkewa v univerzu Lovecrafta. Temnota, záhady a hranice lidského rozumu.',
+        gm:'Mrkew', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Mrkew_coc_uz_jen_cernota.png' },
+      { type:'Call of Cthulhu', title:'Afflicted',
+        tagline:'Klasický lovecraftovský horor.',
+        desc:'Klasický lovecraftovský horor. Investigátoři, kteří se pouštějí do toho, čeho by raději nechali.',
+        gm:'Jirka Kozelský', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Jirka_coc_afflicted.webp' },
+      { type:'Call of Cthulhu', title:'Murder Shack',
+        tagline:'Záhada vraždy na odlehlém místě.',
+        desc:'Záhada vraždy na odlehlém místě. Horor s detektivním nádechem v lovecraftovském světě.',
+        gm:'Jirka Kozelský', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Jirka_coc_murder_shack.jpg' },
+      { type:'The One Ring', title:'Jeden Prsten',
+        tagline:'Epické fantasy v Tolkienově Středozemi.',
+        desc:'Epické fantasy v Tolkienově Středozemi. Hrdinové, cesty a přátelství větší než jakékoli nebezpečí.',
+        gm:'Jaroslav „Jamal" Malinkovič', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Jamal_jeden_prsten.png' },
+      { type:'Cats! The Conspurracy', title:'Zachraňte koťátko Ryana',
+        tagline:'Lehká kočičí komedie s konspiracemi.',
+        desc:'Lehká kočičí komedie s konspiracemi. Zachraňte koťátko dřív, než je pozdě!',
+        gm:'Šárka', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Sharka_cats.jpg' },
+      { type:'Blades in the Dark', title:'Blades in the Dark',
+        tagline:'Skupinka zlodějů v gotickém průmyslovém městě Duskvol.',
+        desc:'Skupinka zlodějů v gotickém průmyslovém městě Duskvol. Heisty, frakce a temné ulice.',
+        gm:'Michal „Elfax" Šácha', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Elfax_bladesy.png' },
+      { type:'Fate', title:'Květný háj',
+        tagline:'Autorské zasazení na systému Fate.',
+        desc:'Autorské zasazení na systému Fate. Příběh, kde aspekty postav rozhodují o osudu světa.',
+        gm:'Roman „Rovan" Vantuch', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Rovan_fate.png' },
+      { type:'Deadlands', title:'The Weird West',
+        tagline:'Western s horrorem a magií.',
+        desc:'Western s horrorem a magií. Divoký západ, kde nemrtví a nadpřirozeno číhají za každým rohem.',
+        gm:'Vojtěch Marek', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Vojta_WeirdWest_Deadlands.png' },
+      { type:'Dungeons & Dragons', title:'Stará srdce, staré vzpomínky',
+        tagline:'Klasické fantasy D&D dobrodružství.',
+        desc:'Klasické fantasy D&D dobrodružství. Pro pamětníky i nováčky — meče, kouzla a příběh.',
+        gm:'Jaroslav „Deusn" Noga', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Deusn_DnD.png' },
+      { type:'Chrám naděje', title:'Chrám naděje',
+        tagline:'Podrobnosti o hře a systému budou brzy upřesněny.',
+        desc:'Podrobnosti o hře a systému budou brzy upřesněny.',
+        gm:'František „Sniper" Neznaj', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Sniper_chram_nadeje.png' },
+      { type:'Příšera týdne', title:'Démon na North Valley High',
+        tagline:'Střední škola v malém americkém městě s tajemstvím.',
+        desc:'Střední škola v malém americkém městě. Ale co ten podivný nový učitel a záhadné události?',
+        gm:'Michael „Log 1=0" Kolařík', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Log_prisera.png' },
+      { type:'Mazes RPG', title:'Probuzení panství Willowby',
+        tagline:'Dungeon crawler s osobitým stylem.',
+        desc:'Dungeon crawler s osobitým stylem. Tajemné panství, záhady skryté v jeho zdech a dávné prokletí.',
+        gm:'Jan „Stařec" Hykel', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Starec_mazes.jpeg' },
+      { type:'TarotWeaver', title:'TarotWeaver',
+        tagline:'Narativní hra, kde tarotové karty utváří příběh.',
+        desc:'Narativní hra, kde tarotové karty utváří příběh. Každý tah přinese nečekaný zvrat osudu.',
+        gm:'Áďa Marková', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Ada_tarrot_weaver.jpg' },
+      { type:'A Family of Blades', title:'A Family of Blades',
+        tagline:'Rodinná sága šermířů.',
+        desc:'Rodinná sága šermířů. Loajalita, zrada a zákulisní intriky v rodě, kde každý nosí zbraň.',
+        gm:'Karel Doleček', players:'', duration:'', difficulty:'', reg:'Nutná předchozí registrace.',
+        link:'', linkLabel:'', img:'img/rpg/Karel_family_of_blades.png' },
+    ];
+
+    const overlay   = document.getElementById('activity-overlay');
+    const modal     = document.getElementById('activity-modal');
+    const closeBtn  = document.getElementById('modal-close');
+    let lastFocused = null;
+
+    function openModal(idx) {
+      const a = ACTIVITIES[idx];
+      document.getElementById('modal-type').textContent    = a.type;
+      document.getElementById('modal-title').textContent   = a.title;
+      document.getElementById('modal-tagline').textContent = a.tagline;
+
+      const narrativeEl = document.getElementById('modal-narrative');
+      if (a.narrative) {
+        narrativeEl.innerHTML = a.narrative.split('\n\n').map(p => `<p>${p}</p>`).join('');
+        narrativeEl.style.display = '';
+      } else {
+        narrativeEl.style.display = 'none';
+      }
+
+      document.getElementById('modal-desc').innerHTML = a.desc ? a.desc.split('\n\n').map(p => `<p>${p}</p>`).join('') : '';
+      document.getElementById('modal-reg').textContent     = a.reg;
+
+      const extLink = document.getElementById('modal-ext-link');
+      extLink.href        = a.link || '';
+      extLink.textContent = a.link ? (a.linkLabel || 'Více informací') + ' →' : '';
+
+      const img = document.getElementById('modal-img');
+      img.src = a.img;
+      img.alt = a.title;
+
+      const statDefs = [
+        { label:'Vypravěč', value: a.gm },
+        { label:'Počet hráčů',            value: a.players },
+        { label:'Délka hry',              value: a.duration },
+        { label:'Náročnost',              value: a.difficulty },
+      ];
+      document.getElementById('modal-stats').innerHTML = statDefs
+        .filter(s => s.value)
+        .map(s => `<div class="modal-stat"><div class="modal-stat-label">${s.label}</div><div class="modal-stat-value">${s.value}</div></div>`)
+        .join('');
+
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      modal.scrollTop = 0;
+      requestAnimationFrame(() => closeBtn.focus());
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    document.querySelectorAll('.rpg-card[data-activity]').forEach(card => {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.addEventListener('click', () => {
+        lastFocused = card;
+        openModal(Number(card.dataset.activity));
       });
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          lastFocused = card;
+          openModal(Number(card.dataset.activity));
+        }
+      });
+    });
+
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    closeBtn.addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+    });
+
+    modal.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(modal.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])'));
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
     });
   </script>
 </body>
