@@ -148,8 +148,6 @@
     .gm-list-item:hover::before { opacity: 0.5; transform: translateX(0); }
     .gm-list-item.active { color: var(--hot-orange); }
     .gm-list-item.active::before { content: '◈'; opacity: 1; transform: translateX(0); }
-    .gm-list-d20 { display: none; }
-
     .gm-detail-panel { position: relative; min-height: 200px; }
     .gm-card {
       background: var(--dark-gray);
@@ -208,17 +206,8 @@
     .gm-tab-content.hidden { visibility: hidden; pointer-events: none; opacity: 0; }
     .gm-card-bio { font-size: 0.9rem; color: var(--light-gray); line-height: 1.7; margin-bottom: 18px; }
     .gm-card-bio + .gm-card-bio { margin-top: -6px; }
-    .gm-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .gm-pill {
-      font-size: 0.75rem; font-weight: 600;
-      color: var(--hot-orange);
-      background: rgba(251,169,44,0.1);
-      border: 1px solid rgba(251,169,44,0.25);
-      border-radius: 20px;
-      padding: 4px 12px;
-    }
 
-    .gm-stat-group { margin-bottom: 20px; }
+.gm-stat-group { margin-bottom: 20px; }
     .gm-stat-group:last-child { margin-bottom: 0; }
     .gm-stat-group-title {
       font-size: 0.68rem;
@@ -309,7 +298,6 @@
       .gm-list-item { white-space: nowrap; flex-shrink: 0; }
       .gm-list-item:hover { transform: none; }
       .gm-card-body { grid-template-columns: 1fr; }
-      .gm-card-portrait-col { }
       .gm-card-portrait, .gm-card-portrait-placeholder { min-height: 220px; }
     }
 
@@ -394,6 +382,7 @@
 
     .section p a { text-decoration: none; }
     .section p a:hover { text-decoration: underline; }
+    .section-body { font-size: 0.9rem; color: var(--light-gray); line-height: 1.7; }
 
     /* ── Scroll offset for anchors ── */
     #sec-jak-funguje, #sec-pro-koho, #sec-herni-system, #sec-dokumenty,
@@ -516,8 +505,8 @@
       <span class="section-label">Popis turnaje</span>
       <h2>Jak turnaj <span>funguje?</span></h2>
       <p class="section-lead">Turnaj nebude „klasickou adventurou" s jedinou správnou cestou. Záleží na vás, kým vaše postavy budou a jak k zápletce přistoupí — nápaditost a schopnost překvapit Průvodce se rozhodně cení.</p>
-      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;margin-bottom:8px;">Neotřelý přístup, roleplaying a ochota riskovat budou pro vítězství přínosnější než dobrá znalost pravidel — i když pokud takovými dovednostmi vládnete, určitě je využijete také.</p>
-      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;">Příběh a celý turnaj jsou koncipované tak, abyste si hraní užili bez ohledu na výsledek a odjížděli se zážitkem, který mohou sdílet i s dalšími skupinami fanoušků JaD.</p>
+      <p class="section-body" style="margin-bottom:8px">Neotřelý přístup, roleplaying a ochota riskovat budou pro vítězství přínosnější než dobrá znalost pravidel — i když pokud takovými dovednostmi vládnete, určitě je využijete také.</p>
+      <p class="section-body">Příběh a celý turnaj jsou koncipované tak, abyste si hraní užili bez ohledu na výsledek a odjížděli se zážitkem, který mohou sdílet i s dalšími skupinami fanoušků JaD.</p>
     </div>
   </section>
 
@@ -527,8 +516,8 @@
       <span class="section-label">Pro koho</span>
       <h2>Pro koho je <span>turnaj?</span></h2>
       <p class="section-lead">Turnaj je určen jak zkušeným hráčům RPG, tak lidem, kteří mají za sebou jen několik her nebo se s Jeskyněmi a draky teprve seznamují. Nevyžaduje perfektní znalost pravidel ani zkušenosti s turnajovým hraním.</p>
-      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;margin-bottom:12px;">Nejvíce si ho užijí hráči, kteří mají rádi spolupráci v družině, řešení nečekaných situací a hraní své postavy. Důraz je kladen především na nápaditost, roleplay a schopnost reagovat na vývoj příběhu, nikoliv na optimalizaci postavy nebo znalost každého detailu pravidel.</p>
-      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;">Pokud si nejste jistí, zda je turnaj pro vás, položte si jednoduchou otázku: baví vás společně s ostatními objevovat příběh a zkoušet neobvyklá řešení? Pokud ano, pravděpodobně si Fokus Roll užijete bez ohledu na to, kolik her už máte odehráno.</p>
+      <p class="section-body" style="margin-bottom:12px">Nejvíce si ho užijí hráči, kteří mají rádi spolupráci v družině, řešení nečekaných situací a hraní své postavy. Důraz je kladen především na nápaditost, roleplay a schopnost reagovat na vývoj příběhu, nikoliv na optimalizaci postavy nebo znalost každého detailu pravidel.</p>
+      <p class="section-body">Pokud si nejste jistí, zda je turnaj pro vás, položte si jednoduchou otázku: baví vás společně s ostatními objevovat příběh a zkoušet neobvyklá řešení? Pokud ano, pravděpodobně si Fokus Roll užijete bez ohledu na to, kolik her už máte odehráno.</p>
     </div>
   </section>
 
@@ -538,8 +527,8 @@
       <span class="section-label">Herní systém</span>
       <h2>Jeskyně <span>a draci</span></h2>
       <p class="section-lead">Česká varianta 5. edice D&amp;D — jednoduchého a světově oblíbeného herního systému, který přinesl renesanci celé RPG scény.</p>
-      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;margin-bottom:12px;">Jeskyně a draci jsou s původní 5e plně kompatibilní a přináší mnoho rozšiřujících a variantních pravidel včetně odkazu na klasické Dračí doupě.</p>
-      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;">Pro účast na turnaji nemusíte mít JaD nijak podrobně nastudované — bohatě stačí přečíst si <a href="https://www.imago.cz/jeskyne-a-draci-komiks-draci-amulet" target="_blank" rel="noopener" style="color:var(--hot-orange)">osmistránkový úvodní komiks</a>, kde najdete vysvětlena všechna nejdůležitější pravidla. Pravidla jsou k dispozici také <a href="https://jadsrd.d20.cz/" target="_blank" rel="noopener" style="color:var(--hot-orange)">online</a> nebo v <a href="https://www.imago.cz/jeskyne-a-draci-ebook" target="_blank" rel="noopener" style="color:var(--hot-orange)">PDF za pay-what-you-want</a>.</p>
+      <p class="section-body" style="margin-bottom:12px">Jeskyně a draci jsou s původní 5e plně kompatibilní a přináší mnoho rozšiřujících a variantních pravidel včetně odkazu na klasické Dračí doupě.</p>
+      <p class="section-body">Pro účast na turnaji nemusíte mít JaD nijak podrobně nastudované — bohatě stačí přečíst si <a href="https://www.imago.cz/jeskyne-a-draci-komiks-draci-amulet" target="_blank" rel="noopener" style="color:var(--hot-orange)">osmistránkový úvodní komiks</a>, kde najdete vysvětlena všechna nejdůležitější pravidla. Pravidla jsou k dispozici také <a href="https://jadsrd.d20.cz/" target="_blank" rel="noopener" style="color:var(--hot-orange)">online</a> nebo v <a href="https://www.imago.cz/jeskyne-a-draci-ebook" target="_blank" rel="noopener" style="color:var(--hot-orange)">PDF za pay-what-you-want</a>.</p>
     </div>
   </section>
 
@@ -701,21 +690,21 @@
         <div class="gm-list-panel">
           <span class="gm-list-label">Vyberte vypravěče</span>
           <ul class="gm-list" id="gm-list">
-            <li class="gm-list-item active" data-gm="0"><img src="img/icon.png" class="gm-list-d20" alt="">Marek Bukovjan</li>
-            <li class="gm-list-item" data-gm="1"><img src="img/icon.png" class="gm-list-d20" alt="">Čeněk Dědič</li>
-            <li class="gm-list-item" data-gm="2"><img src="img/icon.png" class="gm-list-d20" alt="">Jan Hykel</li>
-            <li class="gm-list-item" data-gm="3"><img src="img/icon.png" class="gm-list-d20" alt="">František Jadrný</li>
-            <li class="gm-list-item" data-gm="4"><img src="img/icon.png" class="gm-list-d20" alt="">Šárka Kašparová</li>
-            <li class="gm-list-item" data-gm="5"><img src="img/icon.png" class="gm-list-d20" alt="">Jaroslav Malinkovič</li>
-            <li class="gm-list-item" data-gm="6"><img src="img/icon.png" class="gm-list-d20" alt="">Vojtěch Marek</li>
-            <li class="gm-list-item" data-gm="7"><img src="img/icon.png" class="gm-list-d20" alt="">Áďa Marková</li>
-            <li class="gm-list-item" data-gm="8"><img src="img/icon.png" class="gm-list-d20" alt="">Ondřej Mráz</li>
-            <li class="gm-list-item" data-gm="9"><img src="img/icon.png" class="gm-list-d20" alt="">František Neznaj</li>
-            <li class="gm-list-item" data-gm="10"><img src="img/icon.png" class="gm-list-d20" alt="">Jaroslav Noga</li>
-            <li class="gm-list-item" data-gm="11"><img src="img/icon.png" class="gm-list-d20" alt="">Michal Šácha</li>
-            <li class="gm-list-item" data-gm="12"><img src="img/icon.png" class="gm-list-d20" alt="">Kateřina Švehlová</li>
-            <li class="gm-list-item" data-gm="13"><img src="img/icon.png" class="gm-list-d20" alt="">Matěj Tomeček</li>
-            <li class="gm-list-item" data-gm="14"><img src="img/icon.png" class="gm-list-d20" alt="">Roman Vantuch</li>
+            <li class="gm-list-item active" data-gm="0">Marek Bukovjan</li>
+            <li class="gm-list-item" data-gm="1">Čeněk Dědič</li>
+            <li class="gm-list-item" data-gm="2">Jan Hykel</li>
+            <li class="gm-list-item" data-gm="3">František Jadrný</li>
+            <li class="gm-list-item" data-gm="4">Šárka Kašparová</li>
+            <li class="gm-list-item" data-gm="5">Jaroslav Malinkovič</li>
+            <li class="gm-list-item" data-gm="6">Vojtěch Marek</li>
+            <li class="gm-list-item" data-gm="7">Áďa Marková</li>
+            <li class="gm-list-item" data-gm="8">Ondřej Mráz</li>
+            <li class="gm-list-item" data-gm="9">František Neznaj</li>
+            <li class="gm-list-item" data-gm="10">Jaroslav Noga</li>
+            <li class="gm-list-item" data-gm="11">Michal Šácha</li>
+            <li class="gm-list-item" data-gm="12">Kateřina Švehlová</li>
+            <li class="gm-list-item" data-gm="13">Matěj Tomeček</li>
+            <li class="gm-list-item" data-gm="14">Roman Vantuch</li>
           </ul>
         </div>
 
@@ -734,7 +723,6 @@
                 <div class="gm-tabs-body">
                   <div class="gm-tab-content" id="gm-tab-bio">
                     <div id="gm-bio"></div>
-                    <div class="gm-pills" id="gm-pills"></div>
                   </div>
                   <div class="gm-tab-content hidden" id="gm-tab-stats">
                     <div id="gm-stats"></div>
@@ -792,7 +780,7 @@
           { group: 'Odbornosti',     items: ['Fantasy dobrodružství', 'Humor u stolu', 'Nečekaná překvapení'] },
           { group: 'Legendární schopnost', items: ['„To je překvapivě rozumný plán."'] },
         ],
-        bio: 'Jsem pravidelný hráč, příležitostný PJ a především člověk, co má rád fantasy.\n\nProšel jsem si klasickou plejádou systémů od DrD 1.5, DrD+, kde jsem zakotvil velmi dlouho, různé edice DnD atd. V poslední době mě baví systémy jako Zapovězené země nebo Jeden prsten.\n\nJako PJ mám za sebou nějaké kratší kampaně a několik oneshotů. U stolu mám rád smích, zábavu, ale i chvíle ticha či zděšení.', tags: [] },
+        bio: 'Jsem pravidelný hráč, příležitostný PJ a především člověk, co má rád fantasy.\n\nProšel jsem si klasickou plejádou systémů od DrD 1.5, DrD+, kde jsem zakotvil velmi dlouho, různé edice DnD atd. V poslední době mě baví systémy jako Zapovězené země nebo Jeden prsten.\n\nJako PJ mám za sebou nějaké kratší kampaně a několik oneshotů. U stolu mám rád smích, zábavu, ale i chvíle ticha či zděšení.' },
 
       { name: 'Čeněk Dědič', nick: null, photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Kněz', 'Zákonné dobro'],
@@ -803,7 +791,7 @@
           { group: 'Odbornosti',     items: ['Roleplay', 'NPC interakce', 'Smysluplné souboje'] },
           { group: 'Legendární schopnost', items: ['„Mám pro vás dobrou a špatnou zprávu."'] },
         ],
-        bio: 'Už jsem vypravěčem delší dobu a měl jsem díky tomu dost času najít si svůj styl.\n\nMám hodně rád RP a snažím se, aby si z každé interakce s NPC hráči něco odnesli. To však neznamená, že mě nezajímá souboj, ba naopak, jen nemám rád, když se ze souboje stane nezajímavá rubačka.\n\nZahrál jsem si už víc různých systémů, ale tolik jsem si jich neodvyprávěl. Nejvíc jsem zvyklý vyprávět DnD 5e a Slayers.', tags: [] },
+        bio: 'Už jsem vypravěčem delší dobu a měl jsem díky tomu dost času najít si svůj styl.\n\nMám hodně rád RP a snažím se, aby si z každé interakce s NPC hráči něco odnesli. To však neznamená, že mě nezajímá souboj, ba naopak, jen nemám rád, když se ze souboje stane nezajímavá rubačka.\n\nZahrál jsem si už víc různých systémů, ale tolik jsem si jich neodvyprávěl. Nejvíc jsem zvyklý vyprávět DnD 5e a Slayers.'  },
 
       { name: 'Jan Hykel', nick: 'Stařec', photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Mág', 'Chaotické dobro'],
@@ -814,7 +802,7 @@
           { group: 'Odbornosti',     items: ['Vyprávěcí systémy', 'Drama', 'Pulpová akce'] },
           { group: 'Legendární schopnost', items: ['„Všichni si hoďte na vnímání."'] },
         ],
-        bio: 'Herní poutník s nutkavou potřebou zkoušet nové a další RPG systémy.\n\nVyžívám se ve všem možném od Pathfindera po Fall of Magic, momentálně mě baví hry soustředěné spíš na vyprávění než mechanismy (PbtA, FitD, Resistence) a objevuju krásy pulpové akce.\n\nKreativita a drama mi přijdou zajímavější než integrita pravidel či příběhu.', tags: [] },
+        bio: 'Herní poutník s nutkavou potřebou zkoušet nové a další RPG systémy.\n\nVyžívám se ve všem možném od Pathfindera po Fall of Magic, momentálně mě baví hry soustředěné spíš na vyprávění než mechanismy (PbtA, FitD, Resistence) a objevuju krásy pulpové akce.\n\nKreativita a drama mi přijdou zajímavější než integrita pravidel či příběhu.'  },
 
       { name: 'František Jadrný', nick: 'Miky', photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Bard', 'Neutrální dobro'],
@@ -825,7 +813,7 @@
           { group: 'Odbornosti',     items: ['Roleplay', 'Budování atmosféry', 'Narativní hry'] },
           { group: 'Legendární schopnost', items: ['„To se určitě nemůže pokazit."'] },
         ],
-        bio: 'Jmenuju se Miky a různým RPG systémům se věnuji už přes 5 let.\n\nNejvíce jsem si za tu dobu oblíbil Root RPG a Monster of the Week. Nedám ale dopustit i na klasické DnD/JaD. Při vedení her rád dávám důraz na roleplay a narativ.\n\nVe hře se mnou čekejte spíše budování atmosféry a roleplay momenty než mechaniky na náročné situace.', tags: [] },
+        bio: 'Jmenuju se Miky a různým RPG systémům se věnuji už přes 5 let.\n\nNejvíce jsem si za tu dobu oblíbil Root RPG a Monster of the Week. Nedám ale dopustit i na klasické DnD/JaD. Při vedení her rád dávám důraz na roleplay a narativ.\n\nVe hře se mnou čekejte spíše budování atmosféry a roleplay momenty než mechaniky na náročné situace.'  },
 
       { name: 'Šárka Kašparová', nick: null, photo: 'img/gm/woman.jpg',
         attrs: ['Člověk', 'Hraničářka', 'Zákonné dobro'],
@@ -836,7 +824,7 @@
           { group: 'Odbornosti',     items: ['Průzkum', 'Dobrodružství', 'Kreativní řešení'] },
           { group: 'Legendární schopnost', items: ['„Jste si tím opravdu jistí?"'] },
         ],
-        bio: 'V RPG ráda hraju nebo vedu hrdinské a dobrodružné příběhy, nejčastěji fantasy, ale sci-fi je taky fajn a moje nejoblíbenější část hry bývá objevování a průzkum.\n\nBaví mě, když hráči hrají aspoň trošku kladné postavy, spolupracují a vymýšlejí odvážná řešení pro překážky na jejich cestě.\n\nNeznamená to, že jim vždycky všechno vyjde, přeci jen: čím odvážnější plán, tím vyšší riziko. Ale pokud to aspoň trochu dává smysl, dostanou šanci se o to pokusit.', tags: [] },
+        bio: 'V RPG ráda hraju nebo vedu hrdinské a dobrodružné příběhy, nejčastěji fantasy, ale sci-fi je taky fajn a moje nejoblíbenější část hry bývá objevování a průzkum.\n\nBaví mě, když hráči hrají aspoň trošku kladné postavy, spolupracují a vymýšlejí odvážná řešení pro překážky na jejich cestě.\n\nNeznamená to, že jim vždycky všechno vyjde, přeci jen: čím odvážnější plán, tím vyšší riziko. Ale pokud to aspoň trochu dává smysl, dostanou šanci se o to pokusit.'  },
 
       { name: 'Jaroslav Malinkovič', nick: 'Jamal', photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Válečník', 'Chaotické dobro'],
@@ -847,7 +835,7 @@
           { group: 'Odbornosti',     items: ['Akční scény', 'Hrdinské momenty', 'Pravidla zdravého rozumu'] },
           { group: 'Legendární schopnost', items: ['„To je sice proti pravidlům, ale..."'] },
         ],
-        bio: 'Mám rád klišé, ať už se jedná o hlášky nebo typy postav. To platí na obou stranách DM screenu. Jako vypravěč upřednostňuji sílu momentu nad pravidly.\n\nOceňuji, když hráč před akcí vysvětlí, čeho se snaží dosáhnout. Když by mohl stejného výsledku dosáhnout v rámci pravidel, proč ho nenechat udělat akci trochu víc cool podle jeho představ.\n\nZe systémů jsem si jako vypravěč nejvíc oblíbil SWADE v jeho různých podobách. Jako hráč si užívám hry, při kterých můžu házet plnou hrstí kostek (například Vampire: The Masquerade).', tags: [] },
+        bio: 'Mám rád klišé, ať už se jedná o hlášky nebo typy postav. To platí na obou stranách DM screenu. Jako vypravěč upřednostňuji sílu momentu nad pravidly.\n\nOceňuji, když hráč před akcí vysvětlí, čeho se snaží dosáhnout. Když by mohl stejného výsledku dosáhnout v rámci pravidel, proč ho nenechat udělat akci trochu víc cool podle jeho představ.\n\nZe systémů jsem si jako vypravěč nejvíc oblíbil SWADE v jeho různých podobách. Jako hráč si užívám hry, při kterých můžu házet plnou hrstí kostek (například Vampire: The Masquerade).'  },
 
       { name: 'Vojtěch Marek', nick: null, photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Hraničář', 'Neutrální dobro'],
@@ -858,7 +846,7 @@
           { group: 'Odbornosti',     items: ['Zapamatovatelná NPC', 'Dynamické souboje', 'Improvizace'] },
           { group: 'Legendární schopnost', items: ['„To je odteď oficiální lore."'] },
         ],
-        bio: 'Jsem vypravěč, kterého nejvíc baví, když hráči aktivně interagují s herním světem a nechávají se vtáhnout do příběhu. Snažím se vytvářet zapamatovatelné nehráčské postavy, které dokážou hráče rozesmát absurdními situacemi, ale i je udržet v napětí.\n\nWeird west western, temné sci-fi nebo klasické fantasy? Klidně! Hlavně aby to byl příběh, který hráče pohltí a dá jim prostor tvořit vlastní legendy a příběhy. Souboje se snažím vést dynamicky a vyhnout se jen prostým házením kostek – nabízet příležitosti k využití prostředí, taktiky a kreativity.\n\nNejvíc mě přitahují systémy, které tuto volnost podporují, jako Savage Worlds, Vampire: The Masquerade V5 nebo Legend of the Five Rings.', tags: [] },
+        bio: 'Jsem vypravěč, kterého nejvíc baví, když hráči aktivně interagují s herním světem a nechávají se vtáhnout do příběhu. Snažím se vytvářet zapamatovatelné nehráčské postavy, které dokážou hráče rozesmát absurdními situacemi, ale i je udržet v napětí.\n\nWeird west western, temné sci-fi nebo klasické fantasy? Klidně! Hlavně aby to byl příběh, který hráče pohltí a dá jim prostor tvořit vlastní legendy a příběhy. Souboje se snažím vést dynamicky a vyhnout se jen prostým házením kostek – nabízet příležitosti k využití prostředí, taktiky a kreativity.\n\nNejvíc mě přitahují systémy, které tuto volnost podporují, jako Savage Worlds, Vampire: The Masquerade V5 nebo Legend of the Five Rings.'  },
 
       { name: 'Áďa Marková', nick: null, photo: 'img/gm/woman.jpg',
         attrs: ['Člověk', 'Čarodějka', 'Neutrální dobro'],
@@ -869,7 +857,7 @@
           { group: 'Odbornosti',     items: ['Vztahy mezi postavami', 'Emocionální konflikty', 'Experimentální systémy'] },
           { group: 'Legendární schopnost', items: ['„Tohle si bude pamatovat."'] },
         ],
-        bio: 'Jsem věčně usměvavá vypravěčka, ale rozhodně u mě nečekejte, že bude všechno sluníčkové. Nejvíce se zaměřuji na příběhy, které jsou propletené složitými vztahy mezi postavami a těžkými rozhodnutími, aby si hráči užili nejen souboje s nestvůrami, ale i intenzivní emocionální konfrontace.\n\nPřestože jsem vypravěčkou teprve krátkou dobu, už jsem se toho spoustu naučila, a to nejdůležitější je, že mám velké odhodlání předávat radost z příběhů ostatním.\n\nVyzkoušela jsem už několik typů systémů – od dobře známé 5E až po méně tradiční Monsterhearts, který mi jako má vypravěčská prvotina přinesl spoustu cenných zkušeností. Ráda se vrhám do neprobádaných vod a experimentuji nejen s vyprávěním, ale i s hledáním nových systémů, protože čerstvé přístupy vždy přinesou do hry nový dech.', tags: [] },
+        bio: 'Jsem věčně usměvavá vypravěčka, ale rozhodně u mě nečekejte, že bude všechno sluníčkové. Nejvíce se zaměřuji na příběhy, které jsou propletené složitými vztahy mezi postavami a těžkými rozhodnutími, aby si hráči užili nejen souboje s nestvůrami, ale i intenzivní emocionální konfrontace.\n\nPřestože jsem vypravěčkou teprve krátkou dobu, už jsem se toho spoustu naučila, a to nejdůležitější je, že mám velké odhodlání předávat radost z příběhů ostatním.\n\nVyzkoušela jsem už několik typů systémů – od dobře známé 5E až po méně tradiční Monsterhearts, který mi jako má vypravěčská prvotina přinesl spoustu cenných zkušeností. Ráda se vrhám do neprobádaných vod a experimentuji nejen s vyprávěním, ale i s hledáním nových systémů, protože čerstvé přístupy vždy přinesou do hry nový dech.'  },
 
       { name: 'Ondřej Mráz', nick: null, photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Řemeslník', 'Neutrální dobro'],
@@ -880,7 +868,7 @@
           { group: 'Odbornosti',     items: ['Roleplay', 'Rekvizity a terény', 'Atmosféra u stolu'] },
           { group: 'Legendární schopnost', items: ['"Na tohle mám připravený model."'] },
         ],
-        bio: 'Jmenuji se Ondra a fantasy mě lákalo asi od doby, kdy jsem uměl číst.\n\nPříležitostně vyprávím už dlouho, ale aktivněji spíše poslední rok. Hrajeme hlavně domácky přežvýkané Jeskyně a draky. U těch mě nejvíce baví svižnost pravidel, která otevírá cestu k pořádnému role-play hraní.\n\nHráčům nechávám vždy dost volnosti a rád sleduji, jak problém sami vyřeší. A taky — svoje stoly se vždy snažím maximálně oživit. Stavím terény z čehokoliv, co najdu, používám fyzické rekvizity a do pozadí pouštím vhodnou hudbu a zvuky.', tags: [] },
+        bio: 'Jmenuji se Ondra a fantasy mě lákalo asi od doby, kdy jsem uměl číst.\n\nPříležitostně vyprávím už dlouho, ale aktivněji spíše poslední rok. Hrajeme hlavně domácky přežvýkané Jeskyně a draky. U těch mě nejvíce baví svižnost pravidel, která otevírá cestu k pořádnému role-play hraní.\n\nHráčům nechávám vždy dost volnosti a rád sleduji, jak problém sami vyřeší. A taky — svoje stoly se vždy snažím maximálně oživit. Stavím terény z čehokoliv, co najdu, používám fyzické rekvizity a do pozadí pouštím vhodnou hudbu a zvuky.'  },
 
       { name: 'František Neznaj', nick: 'Sniper', photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Vynálezce', 'Chaotické dobro'],
@@ -891,7 +879,7 @@
           { group: 'Odbornosti',     items: ['Domácí pravidla', 'Systémový design', 'Dějové zvraty'] },
           { group: 'Legendární schopnost', items: ['"Mám na to vlastní mechaniku."'] },
         ],
-        bio: 'Kdysi na gymplu jsem upsal svoji duši PJskému řemeslu a nezdá se, že by se to mělo změnit. DrD, Gurpsy, ADnD, DnD… a pak už ledasco, ať už směrem k Fatu či PbtA.\n\nS tím, kolik jsem toho zkusil, už neváhám si mezi systémy mechaniky půjčovat, když se to hodí. Máloco vedu bez úprav, nebo si udělám systém vlastní. No a pak je tu chuťovka Tails of Equestria, kterou šířím po republice a svědomitě rozšiřuji řady každoročních hráčů Poníků.\n\nVe hře si užívám, když si sednu s hráči a dokážeme si vzájemně nahrávat na zajímavé situace a zvraty.', tags: [] },
+        bio: 'Kdysi na gymplu jsem upsal svoji duši PJskému řemeslu a nezdá se, že by se to mělo změnit. DrD, Gurpsy, ADnD, DnD… a pak už ledasco, ať už směrem k Fatu či PbtA.\n\nS tím, kolik jsem toho zkusil, už neváhám si mezi systémy mechaniky půjčovat, když se to hodí. Máloco vedu bez úprav, nebo si udělám systém vlastní. No a pak je tu chuťovka Tails of Equestria, kterou šířím po republice a svědomitě rozšiřuji řady každoročních hráčů Poníků.\n\nVe hře si užívám, když si sednu s hráči a dokážeme si vzájemně nahrávat na zajímavé situace a zvraty.'  },
 
       { name: 'Jaroslav Noga', nick: 'Deusn', photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Černokněžník', 'Neutrální'],
@@ -902,7 +890,7 @@
           { group: 'Odbornosti',     items: ['Horor', 'Temná fantasy', 'Náročné výzvy'] },
           { group: 'Legendární schopnost', items: ['„To ticho je znepokojivé."'] },
         ],
-        bio: 'Eternal DM, který svých posledních 15 let strávil vyprávěním nejrůznějších systémů od vlastních (Úlomky Duše - vskutku nezvládnuté!) až po existující (DrD1.6, DrD2, DnD e5, Call of Cthulhu, Fate System).\n\nJako vypravěč upřednostňuji emocionální dopad příběhu na hráče vyzývající jejich vynalézavost, spolupráci a výzvu, kterou může představovat dobrá bojová situace, hádanka či dramatické odhalení.\n\nUpřednostňuji setting jako je horror, grimdark nebo dark fantasy, ale nebráním se strčit nožku do neznámých vod.', tags: [] },
+        bio: 'Eternal DM, který svých posledních 15 let strávil vyprávěním nejrůznějších systémů od vlastních (Úlomky Duše - vskutku nezvládnuté!) až po existující (DrD1.6, DrD2, DnD e5, Call of Cthulhu, Fate System).\n\nJako vypravěč upřednostňuji emocionální dopad příběhu na hráče vyzývající jejich vynalézavost, spolupráci a výzvu, kterou může představovat dobrá bojová situace, hádanka či dramatické odhalení.\n\nUpřednostňuji setting jako je horror, grimdark nebo dark fantasy, ale nebráním se strčit nožku do neznámých vod.'  },
 
       { name: 'Michal Šácha', nick: 'Elfax', photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Iluzionista', 'Neutrální dobro'],
@@ -913,7 +901,7 @@
           { group: 'Odbornosti',     items: ['Atmosféra', 'Filmové souboje', 'Horor'] },
           { group: 'Legendární schopnost', items: ['"Představte si, že kamera pomalu zabírá..."'] },
         ],
-        bio: 'Forever DM, který se rád soustředí na atmosféru a příběh.\n\nJako PH se soustředím hlavně na popisy a dramatičnost scén, což se projevuje i v soubojích, které radši beru jako akční scény z filmů/knížek než jako pouhé hody kostkou.\n\nRád zkouším různé TTRPG systémy, kde mám nejvíce zkušeností s D&D 5E. Jsem fanouškem hororu, takže mnoho mých her má alespoň nádech hororu (pokud se to hodí do hry).', tags: [] },
+        bio: 'Forever DM, který se rád soustředí na atmosféru a příběh.\n\nJako PH se soustředím hlavně na popisy a dramatičnost scén, což se projevuje i v soubojích, které radši beru jako akční scény z filmů/knížek než jako pouhé hody kostkou.\n\nRád zkouším různé TTRPG systémy, kde mám nejvíce zkušeností s D&D 5E. Jsem fanouškem hororu, takže mnoho mých her má alespoň nádech hororu (pokud se to hodí do hry).'  },
 
       { name: 'Kateřina Švehlová', nick: 'Demonica', photo: 'img/gm/woman.jpg',
         attrs: ['Člověk', 'Druidka', 'Chaotické dobro'],
@@ -924,7 +912,7 @@
           { group: 'Odbornosti',     items: ['Spoluvytváření příběhu', 'Budování světa', 'Sociální interakce'] },
           { group: 'Legendární schopnost', items: ['„Tohle jsem nečekala. Jak to chceš udělat?"'] },
         ],
-        bio: 'Jako GM i hráč jsem vyzkoušela spoustu systémů a baví mě učit se nové mechaniky a přístupy ke hře.\n\nVedla jsem jednorázové hry i dlouhodobé kampaně a užívám si hraní se známými tvářemi stejně jako se skupinkou náhodných lidí, které spojuje chuť si zahrát RPG.\n\nHlavní je pro mě zábava u stolu a dát hráčům prostor na spoluvytváření příběhu, který se tak i pro mě stává plný překvapení. Zaměřuju se na společné vykreslení postav, budování světa, sociální interakce a rychlé souboje.', tags: [] },
+        bio: 'Jako GM i hráč jsem vyzkoušela spoustu systémů a baví mě učit se nové mechaniky a přístupy ke hře.\n\nVedla jsem jednorázové hry i dlouhodobé kampaně a užívám si hraní se známými tvářemi stejně jako se skupinkou náhodných lidí, které spojuje chuť si zahrát RPG.\n\nHlavní je pro mě zábava u stolu a dát hráčům prostor na spoluvytváření příběhu, který se tak i pro mě stává plný překvapení. Zaměřuju se na společné vykreslení postav, budování světa, sociální interakce a rychlé souboje.'  },
 
       { name: 'Matěj Tomeček', nick: null, photo: 'img/gm/matej.jpg',
         attrs: ['Člověk', 'Lovec netvorů', 'Neutrální dobro'],
@@ -935,7 +923,7 @@
           { group: 'Odbornosti',     items: ['Morální dilemata', 'Dějové zvraty', 'Kreativní řešení'] },
           { group: 'Legendární schopnost', items: ['"Ano, ale..."'] },
         ],
-        bio: 'I když už to bude víc než deset let, co jsem si poprvé zahrál Dračí doupě, pořád si připadám v RPG světě jako nováček s velkou chutí objevovat.\n\nJsem fanouškem akce - soubojů, útěků, pronásledování, vloupaček a co vás jen napadne. Jako vypravěč mám ale především rád silné příběhy plné morálních dilemat a dějových zvratů, kdy mě pak baví sledovat, jak se mí hráči vypořádávají s jejich následky.\n\nZ tohoto důvodu poslední dobou preferuji otevřené systémy, jejichž mechaniky nás s hráči neomezují při vyprávění a spíše podporují naši fantazii.', tags: [] },
+        bio: 'I když už to bude víc než deset let, co jsem si poprvé zahrál Dračí doupě, pořád si připadám v RPG světě jako nováček s velkou chutí objevovat.\n\nJsem fanouškem akce - soubojů, útěků, pronásledování, vloupaček a co vás jen napadne. Jako vypravěč mám ale především rád silné příběhy plné morálních dilemat a dějových zvratů, kdy mě pak baví sledovat, jak se mí hráči vypořádávají s jejich následky.\n\nZ tohoto důvodu poslední dobou preferuji otevřené systémy, jejichž mechaniky nás s hráči neomezují při vyprávění a spíše podporují naši fantazii.'  },
 
       { name: 'Roman Vantuch', nick: 'RoVan', photo: 'img/gm/man.jpg',
         attrs: ['Člověk', 'Zloděj', 'Neutrální dobro'],
@@ -946,14 +934,13 @@
           { group: 'Odbornosti',     items: ['RPG systémy', 'Herní mechaniky', 'Objevování nových her'] },
           { group: 'Legendární schopnost', items: ['„Tohle si vypůjčíme."'] },
         ],
-        bio: 'Přestože si zahraju takřka cokoli, jsem odvěký fanoušek DxD systémů a poloprofesionální vykradač mechanik a postupů všemožných jiných her.\n\nKromě různých herních festivalů mě můžete potkat každou první sobotu v měsíci v Ostravě v čajovně Smokehill, kde pořádám otevřené hraní Z Kopce.\n\nKaždý měsíc uvádíme trochu jiný systém, takže kdybyste měli zájem zkusit si něco nového, rád se s vámi uvidím.', tags: [] },
+        bio: 'Přestože si zahraju takřka cokoli, jsem odvěký fanoušek DxD systémů a poloprofesionální vykradač mechanik a postupů všemožných jiných her.\n\nKromě různých herních festivalů mě můžete potkat každou první sobotu v měsíci v Ostravě v čajovně Smokehill, kde pořádám otevřené hraní Z Kopce.\n\nKaždý měsíc uvádíme trochu jiný systém, takže kdybyste měli zájem zkusit si něco nového, rád se s vámi uvidím.'  },
     ];
 
     const detail             = document.getElementById('gm-detail');
     const elName             = document.getElementById('gm-name');
     const elNick             = document.getElementById('gm-nick');
     const elBio              = document.getElementById('gm-bio');
-    const elPills            = document.getElementById('gm-pills');
     const elPhoto            = document.getElementById('gm-photo');
     const elPhotoPlaceholder = document.getElementById('gm-photo-placeholder');
     const elAttrs            = document.getElementById('gm-attrs');
@@ -974,7 +961,6 @@
       elName.textContent  = gm.name;
       elNick.textContent  = gm.nick ? '„' + gm.nick + '"' : '';
       elBio.innerHTML     = (gm.bio || 'Medailonek bude doplněn.').split('\n\n').map(p => `<p class="gm-card-bio">${p}</p>`).join('');
-      elPills.innerHTML   = gm.tags.map(t => `<span class="gm-pill">${t}</span>`).join('');
       elAttrs.innerHTML   = (gm.attrs || []).map(a => `<span class="gm-card-attr">${a}</span>`).join('');
       elAttrs.style.display = gm.attrs && gm.attrs.length ? '' : 'none';
       elStats.innerHTML   = (gm.stats || []).map(g =>
