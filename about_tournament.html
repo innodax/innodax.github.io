@@ -3,11 +3,482 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>O turnaji — FokusRoll</title>
+  <title>Turnaj — FokusRoll</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <style>
+    .rounds {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    @media (max-width: 720px) { .rounds { grid-template-columns: 1fr; } }
+    .round-card {
+      background: var(--gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .round-card .round-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hot-orange);
+      margin-bottom: 6px;
+    }
+    .round-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .round-card p { font-size: 0.875rem; color: var(--light-gray); }
+
+    .story-block {
+      background: var(--gray);
+      border-left: 3px solid var(--hot-orange);
+      border-radius: 0 12px 12px 0;
+      padding: 28px 32px;
+      font-size: 0.95rem;
+      color: var(--light-gray);
+      line-height: 1.8;
+      font-style: italic;
+    }
+    .story-block p + p { margin-top: 12px; }
+
+    .reg-steps { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+    .reg-step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--dark-gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .reg-step-num {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--hot-orange);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reg-step-body h4 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .reg-step-body p { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; }
+
+    .doc-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+    @media (max-width: 720px) { .doc-links { grid-template-columns: 1fr; } }
+    .doc-link {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-top: 2px solid var(--hot-orange);
+      border-radius: 16px;
+      padding: 22px 24px 24px;
+      text-decoration: none;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .doc-link:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.04) inset; }
+    .doc-link-icon { font-size: 1.5rem; color: var(--hot-orange); display: flex; margin-bottom: 6px; }
+    .doc-link strong { display: block; font-size: 27px; font-weight: 400; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; color: var(--white); }
+    .doc-link span { font-size: 0.8rem; color: var(--light-gray); line-height: 1.5; }
+    .doc-link-arrow { margin-top: auto; padding-top: 14px; font-size: 0.8rem; font-weight: 600; color: var(--hot-orange); transition: gap 0.15s; display: flex; align-items: center; gap: 4px; }
+    .doc-link:hover .doc-link-arrow { gap: 8px; }
+
+    .gm-selector {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 20px;
+      margin-top: 32px;
+      align-items: start;
+    }
+    .gm-list-panel {
+      background: var(--gray);
+      border-radius: 14px;
+      padding: 20px;
+      position: sticky;
+      top: calc(var(--nav-height) + 16px);
+    }
+    .gm-list-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light-gray);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .gm-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .gm-list-item {
+      position: relative;
+      padding: 5px 0 5px 16px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--light-gray);
+      transition: color 0.1s;
+      user-select: none;
+      list-style: none;
+    }
+    .gm-list-item::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--hot-orange);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.1s, transform 0.1s;
+    }
+    .gm-list-item:hover { color: var(--white); }
+    .gm-list-item:hover::before { opacity: 0.5; transform: translateX(0); }
+    .gm-list-item.active { color: var(--hot-orange); }
+    .gm-list-item.active::before { content: '◈'; opacity: 1; transform: translateX(0); }
+    .gm-list-d20 { display: none; }
+
+    .gm-detail-panel { position: relative; min-height: 200px; }
+    .gm-card {
+      background: var(--dark-gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 14px;
+      padding: 32px 48px;
+      transition: opacity 0.18s ease;
+    }
+    .gm-card.fading { opacity: 0; }
+
+    .gm-card-header {
+      padding: 0 0 4px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .gm-card-header-name { font-size: 3rem; font-weight: 400; color: var(--white); font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+    .gm-card-header-nick { font-size: 0.85rem; color: var(--hot-orange); }
+
+    .gm-card-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 48px;
+    }
+
+    .gm-card-bio-col {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .gm-tabs {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+      padding: 0 0 16px 0;
+    }
+    .gm-tab {
+      padding: 8px 22px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: none;
+      color: var(--light-gray);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .gm-tab:hover,
+    .gm-tab.active { background: var(--hot-orange); border-color: var(--hot-orange); color: var(--black); }
+
+    .gm-tabs-body { display: grid; }
+    .gm-tab-content { grid-area: 1 / 1; padding: 0; transition: opacity 0.15s; }
+    .gm-tab-content.hidden { visibility: hidden; pointer-events: none; opacity: 0; }
+    .gm-card-bio { font-size: 0.9rem; color: var(--light-gray); line-height: 1.7; margin-bottom: 18px; }
+    .gm-card-bio + .gm-card-bio { margin-top: -6px; }
+    .gm-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gm-pill {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--hot-orange);
+      background: rgba(251,169,44,0.1);
+      border: 1px solid rgba(251,169,44,0.25);
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+
+    .gm-stat-group { margin-bottom: 20px; }
+    .gm-stat-group:last-child { margin-bottom: 0; }
+    .gm-stat-group-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--evil-gray);
+      margin-bottom: 8px;
+    }
+    .gm-stat-item {
+      font-size: 0.88rem;
+      color: var(--light-gray);
+      padding: 3px 0;
+    }
+
+    .gm-card-portrait-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .gm-card-portrait {
+      width: 100%;
+      flex: 1;
+      min-height: 220px;
+      overflow: hidden;
+      border-radius: 6px;
+      position: relative;
+      border: 2px solid #2e2e2e;
+    }
+    .gm-card-portrait::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1.5px solid rgba(251,169,44,0.55);
+      pointer-events: none;
+      z-index: 3;
+    }
+    .gm-card-portrait::after {
+      content: '';
+      position: absolute;
+      inset: 7px;
+      pointer-events: none;
+      z-index: 4;
+      background:
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    0    / 16px 1.5px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    0    / 1.5px 16px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 0    / 16px 1.5px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 0    / 1.5px 16px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    100% / 16px 1.5px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    100% / 1.5px 16px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 100% / 16px 1.5px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 100% / 1.5px 16px no-repeat;
+    }
+    .gm-card-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .gm-card-portrait-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      opacity: 0.15;
+    }
+    .gm-card-attrs {
+      padding: 12px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: center;
+    }
+    .gm-card-attr {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--evil-gray);
+    }
+
+    @media (max-width: 720px) {
+      .gm-selector { grid-template-columns: 1fr; }
+      .gm-list-panel { position: static; padding: 14px 12px; }
+      .gm-list { flex-direction: row; overflow-x: auto; gap: 8px; padding-bottom: 4px; }
+      .gm-list-item { white-space: nowrap; flex-shrink: 0; }
+      .gm-list-item:hover { transform: none; }
+      .gm-card-body { grid-template-columns: 1fr; }
+      .gm-card-portrait-col { }
+      .gm-card-portrait, .gm-card-portrait-placeholder { min-height: 220px; }
+    }
+
+    .h-timeline { margin-top: 48px; }
+    .h-timeline-inner {
+      display: flex;
+      position: relative;
+    }
+    .h-timeline-inner::before {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--hot-orange) 5%, var(--hot-orange) 95%, transparent);
+    }
+    .h-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 10px;
+    }
+    .h-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--hot-orange);
+      border: 3px solid var(--dark-gray);
+      box-shadow: 0 0 0 2px var(--hot-orange);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+      transition: box-shadow 0.2s;
+    }
+    .h-item:hover .h-dot {
+      box-shadow: 0 0 0 3px var(--hot-orange), 0 0 14px rgba(251,169,44,0.35);
+    }
+    .h-card {
+      background: var(--gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 12px;
+      padding: 18px 16px;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+    .h-item:hover .h-card { border-color: var(--hot-orange); }
+    .h-day {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hot-orange);
+      margin-bottom: 2px;
+    }
+    .h-time { font-size: 0.8rem; color: var(--light-gray); margin-bottom: 8px; }
+    .h-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .h-card p { font-size: 0.825rem; color: var(--light-gray); line-height: 1.6; }
+
+    @media (max-width: 720px) {
+      .h-timeline-inner {
+        flex-direction: column;
+        gap: 0;
+      }
+      .h-timeline-inner::before {
+        top: 7px; bottom: 7px;
+        left: 17px; right: auto;
+        width: 2px; height: auto;
+      }
+      .h-item {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 0 0 28px 0;
+      }
+      .h-dot { margin-bottom: 0; margin-top: 0; }
+      .h-card { flex: 1; }
+    }
+
+
+    .section p a { text-decoration: none; }
+    .section p a:hover { text-decoration: underline; }
+
+    /* ── Scroll offset for anchors ── */
+    #sec-jak-funguje, #sec-pro-koho, #sec-herni-system, #sec-dokumenty,
+    #sec-pribeh, #sec-prubeh-kol, #sec-registrace, #sec-vypravecu {
+      scroll-margin-top: calc(var(--nav-height) + 12px);
+    }
+
+    /* ── TOC mobile (collapsible, shown below 1680px) ── */
+    .toc-mobile { background: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    @media (min-width: 1680px) { .toc-mobile { display: none; } }
+
+    .toc-mobile-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 24px;
+      background: none;
+      border: none;
+      color: var(--light-gray);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .toc-mobile-toggle:hover { color: var(--white); }
+    .toc-toggle-chevron { transition: transform 0.2s; flex-shrink: 0; font-style: normal; }
+    .toc-mobile-toggle[aria-expanded="true"] .toc-toggle-chevron { transform: rotate(180deg); }
+
+    .toc-mobile-list {
+      list-style: none;
+      overflow: hidden;
+      max-height: 0;
+      padding: 0 24px;
+      transition: max-height 0.28s ease, padding 0.28s;
+    }
+    .toc-mobile-list.open { max-height: 600px; padding: 4px 24px 16px; }
+
+    .toc-mobile-link {
+      display: block;
+      padding: 8px 0;
+      color: var(--light-gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color 0.15s, padding-left 0.15s;
+    }
+    .toc-mobile-link:hover { color: var(--hot-orange); padding-left: 4px; }
+    .toc-mobile-list li:last-child .toc-mobile-link { border-bottom: none; }
+
+    /* ── TOC desktop (fixed sidebar, shown 1680px+) ── */
+    .toc-desktop {
+      display: none;
+      position: fixed;
+      right: 28px;
+      top: calc(var(--nav-height) + 44px);
+      width: 152px;
+      z-index: 50;
+    }
+    @media (min-width: 1680px) { .toc-desktop { display: block; } }
+
+    .toc-desktop-label {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--evil-gray);
+      margin-bottom: 10px;
+      padding-left: 12px;
+    }
+    .toc-desktop-list { list-style: none; border-left: 1px solid rgba(255,255,255,0.07); }
+    .toc-link {
+      display: block;
+      font-size: 0.74rem;
+      color: rgba(158,158,158,0.55);
+      text-decoration: none;
+      padding: 5px 0 5px 12px;
+      line-height: 1.35;
+      transition: color 0.15s, padding-left 0.15s;
+    }
+    .toc-link:hover { color: var(--light-gray); padding-left: 15px; }
+    .toc-link.active { color: var(--hot-orange); padding-left: 15px; border-left: 2px solid var(--hot-orange); margin-left: -1px; }
+  </style>
 </head>
 <body>
 
@@ -15,82 +486,270 @@
 
   <header class="page-header">
     <div class="container">
-      <span class="section-label">O turnaji</span>
-      <h1>Jak turnaj <span>funguje?</span></h1>
-      <p class="placeholder">✏️ Doplňte krátký perex — typ turnaje, herní systém, pro koho je určen.</p>
+      <span class="section-label">Turnaj</span>
+      <h1>Turnaj v <span>Jeskyních a dracích</span></h1>
+      <p>Tříkolová RPG soutěž, kde rozhoduje nápaditost, roleplay a odvaha riskovat.</p>
     </div>
   </header>
 
-  <section class="section">
+  <!-- TOC mobile -->
+  <div class="toc-mobile">
+    <button class="toc-mobile-toggle" id="toc-toggle" aria-expanded="false">
+      <span>Obsah stránky</span>
+      <span class="toc-toggle-chevron">▾</span>
+    </button>
+    <ul class="toc-mobile-list" id="toc-mobile-list">
+      <li><a href="#sec-jak-funguje" class="toc-mobile-link">Jak turnaj funguje</a></li>
+      <li><a href="#sec-pro-koho" class="toc-mobile-link">Pro koho je turnaj</a></li>
+      <li><a href="#sec-herni-system" class="toc-mobile-link">Herní systém</a></li>
+      <li><a href="#sec-dokumenty" class="toc-mobile-link">Dokumenty</a></li>
+      <li><a href="#sec-pribeh" class="toc-mobile-link">Příběh</a></li>
+      <li><a href="#sec-prubeh-kol" class="toc-mobile-link">Průběh kol</a></li>
+      <li><a href="#sec-registrace" class="toc-mobile-link">Registrace</a></li>
+      <li><a href="#sec-vypravecu" class="toc-mobile-link">Vypravěči</a></li>
+    </ul>
+  </div>
+
+  <!-- 1. Jak turnaj funguje -->
+  <section class="section section-alt" id="sec-jak-funguje">
     <div class="container">
-      <span class="section-label">Formát</span>
+      <span class="section-label">Popis turnaje</span>
+      <h2>Jak turnaj <span>funguje?</span></h2>
+      <p class="section-lead">Turnaj nebude „klasickou adventurou" s jedinou správnou cestou. Záleží na vás, kým vaše postavy budou a jak k zápletce přistoupí — nápaditost a schopnost překvapit Průvodce se rozhodně cení.</p>
+      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;margin-bottom:8px;">Neotřelý přístup, roleplaying a ochota riskovat budou pro vítězství přínosnější než dobrá znalost pravidel — i když pokud takovými dovednostmi vládnete, určitě je využijete také.</p>
+      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;">Příběh a celý turnaj jsou koncipované tak, abyste si hraní užili bez ohledu na výsledek a odjížděli se zážitkem, který mohou sdílet i s dalšími skupinami fanoušků JaD.</p>
+    </div>
+  </section>
+
+  <!-- 2. Pro koho je turnaj -->
+  <section class="section" id="sec-pro-koho">
+    <div class="container">
+      <span class="section-label">Pro koho</span>
+      <h2>Pro koho je <span>turnaj?</span></h2>
+      <p class="section-lead">Turnaj je určen jak zkušeným hráčům RPG, tak lidem, kteří mají za sebou jen několik her nebo se s Jeskyněmi a draky teprve seznamují. Nevyžaduje perfektní znalost pravidel ani zkušenosti s turnajovým hraním.</p>
+      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;margin-bottom:12px;">Nejvíce si ho užijí hráči, kteří mají rádi spolupráci v družině, řešení nečekaných situací a hraní své postavy. Důraz je kladen především na nápaditost, roleplay a schopnost reagovat na vývoj příběhu, nikoliv na optimalizaci postavy nebo znalost každého detailu pravidel.</p>
+      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;">Pokud si nejste jistí, zda je turnaj pro vás, položte si jednoduchou otázku: baví vás společně s ostatními objevovat příběh a zkoušet neobvyklá řešení? Pokud ano, pravděpodobně si Fokus Roll užijete bez ohledu na to, kolik her už máte odehráno.</p>
+    </div>
+  </section>
+
+  <!-- 3. Herní systém -->
+  <section class="section section-alt" id="sec-herni-system">
+    <div class="container">
+      <span class="section-label">Herní systém</span>
+      <h2>Jeskyně <span>a draci</span></h2>
+      <p class="section-lead">Česká varianta 5. edice D&amp;D — jednoduchého a světově oblíbeného herního systému, který přinesl renesanci celé RPG scény.</p>
+      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;margin-bottom:12px;">Jeskyně a draci jsou s původní 5e plně kompatibilní a přináší mnoho rozšiřujících a variantních pravidel včetně odkazu na klasické Dračí doupě.</p>
+      <p style="font-size:0.9rem;color:var(--light-gray);line-height:1.7;">Pro účast na turnaji nemusíte mít JaD nijak podrobně nastudované — bohatě stačí přečíst si <a href="https://www.imago.cz/jeskyne-a-draci-komiks-draci-amulet" target="_blank" rel="noopener" style="color:var(--hot-orange)">osmistránkový úvodní komiks</a>, kde najdete vysvětlena všechna nejdůležitější pravidla. Pravidla jsou k dispozici také <a href="https://jadsrd.d20.cz/" target="_blank" rel="noopener" style="color:var(--hot-orange)">online</a> nebo v <a href="https://www.imago.cz/jeskyne-a-draci-ebook" target="_blank" rel="noopener" style="color:var(--hot-orange)">PDF za pay-what-you-want</a>.</p>
+    </div>
+  </section>
+
+  <!-- 4. Dokumenty -->
+  <section class="section" id="sec-dokumenty">
+    <div class="container">
+      <span class="section-label">Dokumenty</span>
+      <h2>Pravidla a <span>informace</span></h2>
+      <p class="section-lead">Vše potřebné pro přípravu na turnaj.</p>
+      <div class="doc-links">
+        <a href="https://docs.google.com/document/d/1JAavNz9O-nz0RvzLXpJC1ziWmeaPcEZrsPX4QbpSMpc/edit" target="_blank" rel="noopener" class="doc-link">
+          <div class="doc-link-icon"><ion-icon name="person-circle-outline"></ion-icon></div>
+          <strong>Tvorba postavy</strong>
+          <span>Podrobnosti o tvorbě postavy</span>
+          <span class="doc-link-arrow">Otevřít <span>→</span></span>
+        </a>
+        <a href="https://docs.google.com/document/d/1IPZM7hF7kY9fAR1Vxx2seiHQ4bWBDCV5GfX8SO3tiZk/edit" target="_blank" rel="noopener" class="doc-link">
+          <div class="doc-link-icon"><ion-icon name="receipt-outline"></ion-icon></div>
+          <strong>Speciální pravidla</strong>
+          <span>Pravidla platná jen pro tento turnaj</span>
+          <span class="doc-link-arrow">Otevřít <span>→</span></span>
+        </a>
+        <a href="https://docs.google.com/document/d/16sjjQW-aYUf0Qel2K9380E5vWXGHO8c7d2BygJfa8co/edit" target="_blank" rel="noopener" class="doc-link">
+          <div class="doc-link-icon"><ion-icon name="earth-outline"></ion-icon></div>
+          <strong>Informace o světě</strong>
+          <span>Podrobné informace o herním světě</span>
+          <span class="doc-link-arrow">Otevřít <span>→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Příběh -->
+  <section class="section section-alt" id="sec-pribeh">
+    <div class="container">
+      <span class="section-label">Příběh</span>
+      <h2>Úvod do <span>příběhu</span></h2>
+      <div class="story-block">
+        <p>Vývěska na náměstí byla v obležení. Znovu.</p>
+        <p>„Drak? Zase se objevil Drak?"<br>
+        „Ale prosímtě, ne všude jsou draci! A prej ho nějaká parta nakonec zlikvidovala, nějací bývalí místní strážní. Nebo to byli bardi?"<br>
+        „Ale copak bardi, ti umí jen kecat. A místní by si na něco takovýho netroufli. Byly to hraničářky a prej si ho ochočily!"<br>
+        „No já slyšel že hraničářky sežral a nakonec celý souostroví pohltila temnota..."</p>
+        <p>Podobné povídačky jsou v davu slyšet poslední měsíce pořád. Tebe ale zajímá ta nová zpráva s pečetí městské rady.</p>
+        <p><strong style="color:var(--white);font-style:normal;">Hledají se dobrodruzi a učenci!</strong></p>
+        <p>Máš zkušenosti se zbraní, magií či jinak můžeš pomoci na výpravě do Moře oblázků v Gamilské pustině, které bylo nedávno vráceno zpět do Stínu ze Světla? Pokud to tvá kuráž a tvé schopnosti dovolují, hlaš se u jižní brány v domě městské správy do jedné z průzkumných skupin. Zkušenosti s prozkoumáváním ruin prastarých civilizací výhodou. Odměna jistá!</p>
+        <p>A tahle zpráva se ti nejspíš vůbec nelíbí — ještě nedávno jen pár lidí vědělo o návratu ztracených území a teď už se tam připravují výpravy. Čarodějové, Svícníci a teď už i obchodní gilda. Rychle se vracíš ke svým společníkům a ptáš se, za jak dlouho bude připraven přemisťovací rituál. Jedná se o neobvykle pokročilou magii, naštěstí vám však jeden neobvykle pokročilý mág dluží službičku. Je to teda slušné riziko, netušíte, kam přesně se dostanete, ani co tam najdete, ale být na místě mezi prvními za to riziko stojí!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Průběh kol -->
+  <section class="section" id="sec-prubeh-kol">
+    <div class="container">
+      <span class="section-label">Harmonogram</span>
       <h2>Průběh <span>turnaje</span></h2>
-      <p class="section-lead placeholder">✏️ Doplňte popis formátu — počet kol, skupiny, vyřazovací fáze atd.</p>
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-icon">📋</div>
-          <h3>Formát</h3>
-          <p class="placeholder">Doplňte formát — např. skupinová fáze + playoff.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">⏱️</div>
-          <h3>Délka kola</h3>
-          <p class="placeholder">Doplňte délku jednoho herního kola.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">👥</div>
-          <h3>Počet hráčů</h3>
-          <p class="placeholder">Doplňte kapacitu a složení týmů / skupin.</p>
+      <p class="section-lead">Turnaj probíhá ve třech čtyřhodinových kolech od pátku do neděle. Každé kolo navazuje na předchozí část příběhu.</p>
+      <div class="h-timeline">
+        <div class="h-timeline-inner">
+
+          <div class="h-item">
+            <div class="h-dot"></div>
+            <div class="h-card">
+              <div class="h-day">Pátek večer</div>
+              <div class="h-time">19:00–23:00</div>
+              <h3>1. kolo</h3>
+              <p>Úvod do turnajového příběhu a první rozhodnutí družin.</p>
+            </div>
+          </div>
+
+          <div class="h-item">
+            <div class="h-dot"></div>
+            <div class="h-card">
+              <div class="h-day">Sobota dopoledne</div>
+              <div class="h-time">9:00–13:00</div>
+              <h3>2. kolo</h3>
+              <p>Pokračování výpravy a následky předchozích rozhodnutí.</p>
+            </div>
+          </div>
+
+          <div class="h-item">
+            <div class="h-dot"></div>
+            <div class="h-card">
+              <div class="h-day">Neděle dopoledne</div>
+              <div class="h-time">9:00–13:00</div>
+              <h3>Finále</h3>
+              <p>Závěr příběhu a poslední šance ovlivnit výsledek turnaje.</p>
+            </div>
+          </div>
+
+          <div class="h-item">
+            <div class="h-dot"></div>
+            <div class="h-card">
+              <div class="h-day">Neděle odpoledne</div>
+              <div class="h-time">15:00–16:00</div>
+              <h3>Vyhlášení výsledků</h3>
+              <p>Vyhodnocení turnaje, ocenění družin a krátká společná reflexe.</p>
+            </div>
+          </div>
+
         </div>
       </div>
+      <p style="margin-top:28px">
+        <a href="harmonogram.html" class="section-link">Zobrazit plný harmonogram →</a>
+      </p>
     </div>
   </section>
 
-  <section class="section section-alt">
+  <!-- 7. Registrace -->
+  <section class="section section-alt" id="sec-registrace">
     <div class="container">
-      <span class="section-label">Pravidla</span>
-      <h2>Pravidla <span>a hodnocení</span></h2>
-      <p class="section-lead placeholder">✏️ Doplňte klíčová pravidla nebo odkaz na plný ruleset.</p>
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-icon">⚖️</div>
-          <h3>Hodnocení</h3>
-          <p class="placeholder">Jak se boduje? Jaká jsou kritéria hodnocení?</p>
+      <span class="section-label">Registrace</span>
+      <h2>Registrace do <span>turnaje</span></h2>
+      <p class="section-lead">Registrace jako pětičlenná družina.<br>Otevřeno od 8. 2. v 19:00.</p>
+      <div class="reg-steps">
+        <div class="reg-step">
+          <div class="reg-step-num">1</div>
+          <div class="reg-step-body">
+            <h4>Základní údaje</h4>
+            <p>Vyplňte jméno, příjmení, tel. číslo a e-mail každého člena. Dále uveďte zkušenosti s RPG (začátečník / pokročilý / zkušený), zájem o stravování (bez jídla 600 Kč, s jídlem 900 Kč) a zda plánujete přespat na SVČ Fokus.</p>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-icon">🚫</div>
-          <h3>Zakázané postupy</h3>
-          <p class="placeholder">Co je zakázáno? Jaké jsou sankce?</p>
+        <div class="reg-step">
+          <div class="reg-step-num">2</div>
+          <div class="reg-step-body">
+            <h4>Výběr vypravěčů</h4>
+            <p>Vybíráte si vypravěče z předem daných trojic, aby každé kolo vedl jiný vypravěč.</p>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-icon">❓</div>
-          <h3>Rozhodčí</h3>
-          <p class="placeholder">Kdo rozhoduje spory? Jak se podává námitka?</p>
+        <div class="reg-step">
+          <div class="reg-step-num">3</div>
+          <div class="reg-step-body">
+            <h4>Nesoutěžní RPG hry</h4>
+            <p>Jako turnajová družina máte přednostní registraci na nesoutěžní RPG hry do 15. 2. Od 15. 2. se spouští registrace pro jednotlivce.</p>
+          </div>
+        </div>
+        <div class="reg-step">
+          <div class="reg-step-num">4</div>
+          <div class="reg-step-body">
+            <h4>Platba</h4>
+            <p>Po registraci obdrží každý člen e-mail s výzvou k platbě. Registrační poplatek 600 Kč je nutné zaplatit nejpozději do 14 dní. Při pozdější registraci nejpozději do pátku 13. 3. 2026. Poplatek 300 Kč za jídlo se doplácí hotově na místě.</p>
+          </div>
         </div>
       </div>
+      <p style="margin-top:28px">
+        <a href="registration.html" class="section-link">Přejít na registraci →</a>
+      </p>
     </div>
   </section>
 
-  <section class="section">
+  <!-- 8. Vypravěči -->
+  <section class="section" id="sec-vypravecu">
     <div class="container">
-      <span class="section-label">Ceny</span>
-      <h2>Co lze <span>vyhrát?</span></h2>
-      <p class="section-lead placeholder">✏️ Doplňte přehled cen pro vítěze a umístěné hráče.</p>
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-icon">🥇</div>
-          <h3>1. místo</h3>
-          <p class="placeholder">Doplňte cenu pro vítěze.</p>
+      <span class="section-label">Tým</span>
+      <h2>Naši <span>vypravěči</span></h2>
+      <p class="section-lead">Turnaj provede zkušený tým vypravěčů. Klikněte na jméno a zjistěte více.</p>
+
+      <div class="gm-selector">
+        <div class="gm-list-panel">
+          <span class="gm-list-label">Vyberte vypravěče</span>
+          <ul class="gm-list" id="gm-list">
+            <li class="gm-list-item active" data-gm="0"><img src="img/icon.png" class="gm-list-d20" alt="">Marek Bukovjan</li>
+            <li class="gm-list-item" data-gm="1"><img src="img/icon.png" class="gm-list-d20" alt="">Čeněk Dědič</li>
+            <li class="gm-list-item" data-gm="2"><img src="img/icon.png" class="gm-list-d20" alt="">Jan Hykel</li>
+            <li class="gm-list-item" data-gm="3"><img src="img/icon.png" class="gm-list-d20" alt="">František Jadrný</li>
+            <li class="gm-list-item" data-gm="4"><img src="img/icon.png" class="gm-list-d20" alt="">Šárka Kašparová</li>
+            <li class="gm-list-item" data-gm="5"><img src="img/icon.png" class="gm-list-d20" alt="">Jaroslav Malinkovič</li>
+            <li class="gm-list-item" data-gm="6"><img src="img/icon.png" class="gm-list-d20" alt="">Vojtěch Marek</li>
+            <li class="gm-list-item" data-gm="7"><img src="img/icon.png" class="gm-list-d20" alt="">Áďa Marková</li>
+            <li class="gm-list-item" data-gm="8"><img src="img/icon.png" class="gm-list-d20" alt="">Ondřej Mráz</li>
+            <li class="gm-list-item" data-gm="9"><img src="img/icon.png" class="gm-list-d20" alt="">František Neznaj</li>
+            <li class="gm-list-item" data-gm="10"><img src="img/icon.png" class="gm-list-d20" alt="">Jaroslav Noga</li>
+            <li class="gm-list-item" data-gm="11"><img src="img/icon.png" class="gm-list-d20" alt="">Michal Šácha</li>
+            <li class="gm-list-item" data-gm="12"><img src="img/icon.png" class="gm-list-d20" alt="">Kateřina Švehlová</li>
+            <li class="gm-list-item" data-gm="13"><img src="img/icon.png" class="gm-list-d20" alt="">Matěj Tomeček</li>
+            <li class="gm-list-item" data-gm="14"><img src="img/icon.png" class="gm-list-d20" alt="">Roman Vantuch</li>
+          </ul>
         </div>
-        <div class="card">
-          <div class="card-icon">🥈</div>
-          <h3>2. místo</h3>
-          <p class="placeholder">Doplňte cenu pro druhé místo.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🥉</div>
-          <h3>3. místo</h3>
-          <p class="placeholder">Doplňte cenu pro třetí místo.</p>
+
+        <div class="gm-detail-panel">
+          <div class="gm-card" id="gm-detail">
+            <div class="gm-card-header">
+              <span class="gm-card-header-name" id="gm-name"></span>
+              <span class="gm-card-header-nick" id="gm-nick"></span>
+            </div>
+            <div class="gm-card-body">
+              <div class="gm-card-bio-col">
+                <div class="gm-tabs">
+                  <button class="gm-tab active" data-tab="bio">Příběh</button>
+                  <button class="gm-tab" data-tab="stats">Charakteristika</button>
+                </div>
+                <div class="gm-tabs-body">
+                  <div class="gm-tab-content" id="gm-tab-bio">
+                    <div id="gm-bio"></div>
+                    <div class="gm-pills" id="gm-pills"></div>
+                  </div>
+                  <div class="gm-tab-content hidden" id="gm-tab-stats">
+                    <div id="gm-stats"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="gm-card-portrait-col">
+                <div class="gm-card-portrait">
+                  <img id="gm-photo" src="" alt="" style="display:none">
+                  <div class="gm-card-portrait-placeholder" id="gm-photo-placeholder">⚔️</div>
+                </div>
+                <div class="gm-card-attrs" id="gm-attrs"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -98,16 +757,293 @@
 
   <section class="cta-banner">
     <h2>Připraveni hrát?</h2>
-    <p class="placeholder" style="background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2);color:rgba(0,0,0,0.55)">
-      ✏️ Doplňte výzvu k registraci.
-    </p>
-    <br/>
+    <p>Registrace jako pětičlenná družina.</p>
+    <p>Otevřeno od 8. 2. v&nbsp;19:00.</p>
     <a href="registration.html" class="btn-dark">Registrovat se →</a>
   </section>
+
+  <!-- TOC desktop -->
+  <nav class="toc-desktop" aria-label="Obsah stránky">
+    <span class="toc-desktop-label">Obsah stránky</span>
+    <ul class="toc-desktop-list">
+      <li><a href="#sec-jak-funguje" class="toc-link">Jak turnaj funguje</a></li>
+      <li><a href="#sec-pro-koho" class="toc-link">Pro koho je turnaj</a></li>
+      <li><a href="#sec-herni-system" class="toc-link">Herní systém</a></li>
+      <li><a href="#sec-dokumenty" class="toc-link">Dokumenty</a></li>
+      <li><a href="#sec-pribeh" class="toc-link">Příběh</a></li>
+      <li><a href="#sec-prubeh-kol" class="toc-link">Průběh kol</a></li>
+      <li><a href="#sec-registrace" class="toc-link">Registrace</a></li>
+      <li><a href="#sec-vypravecu" class="toc-link">Vypravěči</a></li>
+    </ul>
+  </nav>
 
   <div id="footer-placeholder"></div>
 
   <script src="nav.js"></script>
   <script src="footer.js"></script>
+  <script>
+    const GMS = [
+      { name: 'Marek Bukovjan', nick: 'Buky', photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Bard', 'Chaotické dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Věří, že každé dobrodružství je lepší, když se u stolu někdo směje.'] },
+          { group: 'Pouto',          items: ['Má slabost pro fantasy světy, ve kterých se dá ztratit na několik hodin.'] },
+          { group: 'Vada',           items: ['Nedokáže odolat příležitosti přidat do příběhu něco podivného jen proto, aby viděl reakce hráčů.'] },
+          { group: 'Odbornosti',     items: ['Fantasy dobrodružství', 'Humor u stolu', 'Nečekaná překvapení'] },
+          { group: 'Legendární schopnost', items: ['„To je překvapivě rozumný plán."'] },
+        ],
+        bio: 'Jsem pravidelný hráč, příležitostný PJ a především člověk, co má rád fantasy.\n\nProšel jsem si klasickou plejádou systémů od DrD 1.5, DrD+, kde jsem zakotvil velmi dlouho, různé edice DnD atd. V poslední době mě baví systémy jako Zapovězené země nebo Jeden prsten.\n\nJako PJ mám za sebou nějaké kratší kampaně a několik oneshotů. U stolu mám rád smích, zábavu, ale i chvíle ticha či zděšení.', tags: [] },
+
+      { name: 'Čeněk Dědič', nick: null, photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Kněz', 'Zákonné dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Každou konverzaci považuje za potenciální začátek nové zápletky.'] },
+          { group: 'Pouto',          items: ['Je přesvědčen, že i ten poslední vesničan si zaslouží vlastní příběh.'] },
+          { group: 'Vada',           items: ['Když se objeví zajímavé NPC, nedokáže ho nechat odejít po jedné scéně.'] },
+          { group: 'Odbornosti',     items: ['Roleplay', 'NPC interakce', 'Smysluplné souboje'] },
+          { group: 'Legendární schopnost', items: ['„Mám pro vás dobrou a špatnou zprávu."'] },
+        ],
+        bio: 'Už jsem vypravěčem delší dobu a měl jsem díky tomu dost času najít si svůj styl.\n\nMám hodně rád RP a snažím se, aby si z každé interakce s NPC hráči něco odnesli. To však neznamená, že mě nezajímá souboj, ba naopak, jen nemám rád, když se ze souboje stane nezajímavá rubačka.\n\nZahrál jsem si už víc různých systémů, ale tolik jsem si jich neodvyprávěl. Nejvíc jsem zvyklý vyprávět DnD 5e a Slayers.', tags: [] },
+
+      { name: 'Jan Hykel', nick: 'Stařec', photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Mág', 'Chaotické dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Příliš dlouho nevydrží dělat věci stejně jako minule.'] },
+          { group: 'Pouto',          items: ['Je oddaný myšlence, že dobrý nápad je cennější než správný postup.'] },
+          { group: 'Vada',           items: ['Trpí neovladatelnou potřebou zkoušet nové hry, mechaniky a nápady.'] },
+          { group: 'Odbornosti',     items: ['Vyprávěcí systémy', 'Drama', 'Pulpová akce'] },
+          { group: 'Legendární schopnost', items: ['„Všichni si hoďte na vnímání."'] },
+        ],
+        bio: 'Herní poutník s nutkavou potřebou zkoušet nové a další RPG systémy.\n\nVyžívám se ve všem možném od Pathfindera po Fall of Magic, momentálně mě baví hry soustředěné spíš na vyprávění než mechanismy (PbtA, FitD, Resistence) a objevuju krásy pulpové akce.\n\nKreativita a drama mi přijdou zajímavější než integrita pravidel či příběhu.', tags: [] },
+
+      { name: 'František Jadrný', nick: 'Miky', photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Bard', 'Neutrální dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Věří, že dobře zahraná scéna je cennější než správně použitá mechanika.'] },
+          { group: 'Pouto',          items: ['Je oddaný příběhům, které si hráči budou pamatovat ještě dlouho po skončení hry.'] },
+          { group: 'Vada',           items: ['Když má na výběr mezi pravidlem a atmosférou, atmosféra obvykle vyhraje.'] },
+          { group: 'Odbornosti',     items: ['Roleplay', 'Budování atmosféry', 'Narativní hry'] },
+          { group: 'Legendární schopnost', items: ['„To se určitě nemůže pokazit."'] },
+        ],
+        bio: 'Jmenuju se Miky a různým RPG systémům se věnuji už přes 5 let.\n\nNejvíce jsem si za tu dobu oblíbil Root RPG a Monster of the Week. Nedám ale dopustit i na klasické DnD/JaD. Při vedení her rád dávám důraz na roleplay a narativ.\n\nVe hře se mnou čekejte spíše budování atmosféry a roleplay momenty než mechaniky na náročné situace.', tags: [] },
+
+      { name: 'Šárka Kašparová', nick: null, photo: 'img/gm/woman.jpg',
+        attrs: ['Člověk', 'Hraničářka', 'Zákonné dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Nikdy neodolá možnosti prozkoumat místo, které je na mapě označeno jako „tady raději nechoďte".'] },
+          { group: 'Pouto',          items: ['Má slabost pro odvážné dobrodruhy, kteří spolupracují navzdory špatným vyhlídkám.'] },
+          { group: 'Vada',           items: ['Když hráči přijdou s dostatečně odvážným plánem, jen těžko jim ho zakazuje.'] },
+          { group: 'Odbornosti',     items: ['Průzkum', 'Dobrodružství', 'Kreativní řešení'] },
+          { group: 'Legendární schopnost', items: ['„Jste si tím opravdu jistí?"'] },
+        ],
+        bio: 'V RPG ráda hraju nebo vedu hrdinské a dobrodružné příběhy, nejčastěji fantasy, ale sci-fi je taky fajn a moje nejoblíbenější část hry bývá objevování a průzkum.\n\nBaví mě, když hráči hrají aspoň trošku kladné postavy, spolupracují a vymýšlejí odvážná řešení pro překážky na jejich cestě.\n\nNeznamená to, že jim vždycky všechno vyjde, přeci jen: čím odvážnější plán, tím vyšší riziko. Ale pokud to aspoň trochu dává smysl, dostanou šanci se o to pokusit.', tags: [] },
+
+      { name: 'Jaroslav Malinkovič', nick: 'Jamal', photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Válečník', 'Chaotické dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Je přesvědčený, že každá akce je lepší, když je o něco stylovější, než by musela být.'] },
+          { group: 'Pouto',          items: ['Miluje hrdinské momenty, na které se vzpomíná ještě několik kampaní poté.'] },
+          { group: 'Vada',           items: ['Trpí chronickou slabostí pro cool nápady.'] },
+          { group: 'Odbornosti',     items: ['Akční scény', 'Hrdinské momenty', 'Pravidla zdravého rozumu'] },
+          { group: 'Legendární schopnost', items: ['„To je sice proti pravidlům, ale..."'] },
+        ],
+        bio: 'Mám rád klišé, ať už se jedná o hlášky nebo typy postav. To platí na obou stranách DM screenu. Jako vypravěč upřednostňuji sílu momentu nad pravidly.\n\nOceňuji, když hráč před akcí vysvětlí, čeho se snaží dosáhnout. Když by mohl stejného výsledku dosáhnout v rámci pravidel, proč ho nenechat udělat akci trochu víc cool podle jeho představ.\n\nZe systémů jsem si jako vypravěč nejvíc oblíbil SWADE v jeho různých podobách. Jako hráč si užívám hry, při kterých můžu házet plnou hrstí kostek (například Vampire: The Masquerade).', tags: [] },
+
+      { name: 'Vojtěch Marek', nick: null, photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Hraničář', 'Neutrální dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Je přesvědčený, že každá lokace je zajímavější, když se v ní dá něco převrhnout, zapálit nebo použít jako kryt.'] },
+          { group: 'Pouto',          items: ['Miluje příběhy, ve kterých si hráči vlastními rozhodnutími budují legendu.'] },
+          { group: 'Vada',           items: ['Jen nerad nechává souboj proběhnout obyčejně.'] },
+          { group: 'Odbornosti',     items: ['Zapamatovatelná NPC', 'Dynamické souboje', 'Improvizace'] },
+          { group: 'Legendární schopnost', items: ['„To je odteď oficiální lore."'] },
+        ],
+        bio: 'Jsem vypravěč, kterého nejvíc baví, když hráči aktivně interagují s herním světem a nechávají se vtáhnout do příběhu. Snažím se vytvářet zapamatovatelné nehráčské postavy, které dokážou hráče rozesmát absurdními situacemi, ale i je udržet v napětí.\n\nWeird west western, temné sci-fi nebo klasické fantasy? Klidně! Hlavně aby to byl příběh, který hráče pohltí a dá jim prostor tvořit vlastní legendy a příběhy. Souboje se snažím vést dynamicky a vyhnout se jen prostým házením kostek – nabízet příležitosti k využití prostředí, taktiky a kreativity.\n\nNejvíc mě přitahují systémy, které tuto volnost podporují, jako Savage Worlds, Vampire: The Masquerade V5 nebo Legend of the Five Rings.', tags: [] },
+
+      { name: 'Áďa Marková', nick: null, photo: 'img/gm/woman.jpg',
+        attrs: ['Člověk', 'Čarodějka', 'Neutrální dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Pod věčně usměvavou tváří skrývá nebezpečnou zálibu v komplikovaných vztazích a těžkých rozhodnutích.'] },
+          { group: 'Pouto',          items: ['Věří, že nejlepší příběhy vznikají ve chvíli, kdy postavy musí volit mezi dvěma špatnými možnostmi.'] },
+          { group: 'Vada',           items: ['Má tendenci otevírat témata, která měla zůstat emocionálně bezpečně pohřbená.'] },
+          { group: 'Odbornosti',     items: ['Vztahy mezi postavami', 'Emocionální konflikty', 'Experimentální systémy'] },
+          { group: 'Legendární schopnost', items: ['„Tohle si bude pamatovat."'] },
+        ],
+        bio: 'Jsem věčně usměvavá vypravěčka, ale rozhodně u mě nečekejte, že bude všechno sluníčkové. Nejvíce se zaměřuji na příběhy, které jsou propletené složitými vztahy mezi postavami a těžkými rozhodnutími, aby si hráči užili nejen souboje s nestvůrami, ale i intenzivní emocionální konfrontace.\n\nPřestože jsem vypravěčkou teprve krátkou dobu, už jsem se toho spoustu naučila, a to nejdůležitější je, že mám velké odhodlání předávat radost z příběhů ostatním.\n\nVyzkoušela jsem už několik typů systémů – od dobře známé 5E až po méně tradiční Monsterhearts, který mi jako má vypravěčská prvotina přinesl spoustu cenných zkušeností. Ráda se vrhám do neprobádaných vod a experimentuji nejen s vyprávěním, ale i s hledáním nových systémů, protože čerstvé přístupy vždy přinesou do hry nový dech.', tags: [] },
+
+      { name: 'Ondřej Mráz', nick: null, photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Řemeslník', 'Neutrální dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Pokud něco lze vyrobit z kartonu, izolepy a dobré vůle, pravděpodobně to vyrobí.'] },
+          { group: 'Pouto',          items: ['Je oddaný myšlence, že hráči by měli mít svobodu řešit problémy po svém.'] },
+          { group: 'Vada',           items: ['Nedokáže odolat příležitosti přidat další rekvizitu, kulisu nebo zvukový efekt.'] },
+          { group: 'Odbornosti',     items: ['Roleplay', 'Rekvizity a terény', 'Atmosféra u stolu'] },
+          { group: 'Legendární schopnost', items: ['"Na tohle mám připravený model."'] },
+        ],
+        bio: 'Jmenuji se Ondra a fantasy mě lákalo asi od doby, kdy jsem uměl číst.\n\nPříležitostně vyprávím už dlouho, ale aktivněji spíše poslední rok. Hrajeme hlavně domácky přežvýkané Jeskyně a draky. U těch mě nejvíce baví svižnost pravidel, která otevírá cestu k pořádnému role-play hraní.\n\nHráčům nechávám vždy dost volnosti a rád sleduji, jak problém sami vyřeší. A taky — svoje stoly se vždy snažím maximálně oživit. Stavím terény z čehokoliv, co najdu, používám fyzické rekvizity a do pozadí pouštím vhodnou hudbu a zvuky.', tags: [] },
+
+      { name: 'František Neznaj', nick: 'Sniper', photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Vynálezce', 'Chaotické dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Málokdy narazí na pravidlo, které by nešlo trochu upravit.'] },
+          { group: 'Pouto',          items: ['Je přesvědčený, že každý systém obsahuje alespoň jednu mechaniku, kterou stojí za to ukrást.'] },
+          { group: 'Vada',           items: ['Trpí neovladatelnou potřebou vytvářet vlastní varianty všeho, na co sáhne.'] },
+          { group: 'Odbornosti',     items: ['Domácí pravidla', 'Systémový design', 'Dějové zvraty'] },
+          { group: 'Legendární schopnost', items: ['"Mám na to vlastní mechaniku."'] },
+        ],
+        bio: 'Kdysi na gymplu jsem upsal svoji duši PJskému řemeslu a nezdá se, že by se to mělo změnit. DrD, Gurpsy, ADnD, DnD… a pak už ledasco, ať už směrem k Fatu či PbtA.\n\nS tím, kolik jsem toho zkusil, už neváhám si mezi systémy mechaniky půjčovat, když se to hodí. Máloco vedu bez úprav, nebo si udělám systém vlastní. No a pak je tu chuťovka Tails of Equestria, kterou šířím po republice a svědomitě rozšiřuji řady každoročních hráčů Poníků.\n\nVe hře si užívám, když si sednu s hráči a dokážeme si vzájemně nahrávat na zajímavé situace a zvraty.', tags: [] },
+
+      { name: 'Jaroslav Noga', nick: 'Deusn', photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Černokněžník', 'Neutrální'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Má podezřelou zálibu v situacích, kdy si hráči uvědomí, že udělali chybu.'] },
+          { group: 'Pouto',          items: ['Věří, že nejlepší příběhy vznikají tehdy, když jsou vykoupeny úsilím, rizikem nebo obětí.'] },
+          { group: 'Vada',           items: ['Jen těžko odolává pokušení přidat do příběhu další temné tajemství.'] },
+          { group: 'Odbornosti',     items: ['Horor', 'Temná fantasy', 'Náročné výzvy'] },
+          { group: 'Legendární schopnost', items: ['„To ticho je znepokojivé."'] },
+        ],
+        bio: 'Eternal DM, který svých posledních 15 let strávil vyprávěním nejrůznějších systémů od vlastních (Úlomky Duše - vskutku nezvládnuté!) až po existující (DrD1.6, DrD2, DnD e5, Call of Cthulhu, Fate System).\n\nJako vypravěč upřednostňuji emocionální dopad příběhu na hráče vyzývající jejich vynalézavost, spolupráci a výzvu, kterou může představovat dobrá bojová situace, hádanka či dramatické odhalení.\n\nUpřednostňuji setting jako je horror, grimdark nebo dark fantasy, ale nebráním se strčit nožku do neznámých vod.', tags: [] },
+
+      { name: 'Michal Šácha', nick: 'Elfax', photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Iluzionista', 'Neutrální dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Při popisu scény dokáže zapomenout, že hráči přišli hlavně házet kostkami.'] },
+          { group: 'Pouto',          items: ['Je oddaný myšlence, že každá scéna by měla být alespoň trochu zapamatovatelná.'] },
+          { group: 'Vada',           items: ['Nedokáže odolat příležitosti přidat do hry nádech hororu.'] },
+          { group: 'Odbornosti',     items: ['Atmosféra', 'Filmové souboje', 'Horor'] },
+          { group: 'Legendární schopnost', items: ['"Představte si, že kamera pomalu zabírá..."'] },
+        ],
+        bio: 'Forever DM, který se rád soustředí na atmosféru a příběh.\n\nJako PH se soustředím hlavně na popisy a dramatičnost scén, což se projevuje i v soubojích, které radši beru jako akční scény z filmů/knížek než jako pouhé hody kostkou.\n\nRád zkouším různé TTRPG systémy, kde mám nejvíce zkušeností s D&D 5E. Jsem fanouškem hororu, takže mnoho mých her má alespoň nádech hororu (pokud se to hodí do hry).', tags: [] },
+
+      { name: 'Kateřina Švehlová', nick: 'Demonica', photo: 'img/gm/woman.jpg',
+        attrs: ['Člověk', 'Druidka', 'Chaotické dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Nikdy si není jistá, kam se příběh vydá, a právě proto ji baví ho vyprávět.'] },
+          { group: 'Pouto',          items: ['Miluje okamžiky, kdy hráči přijdou s nápadem, který obrátil původní plán vzhůru nohama.'] },
+          { group: 'Vada',           items: ['Podezřele často pokládá otázky, na které sama nezná odpověď.'] },
+          { group: 'Odbornosti',     items: ['Spoluvytváření příběhu', 'Budování světa', 'Sociální interakce'] },
+          { group: 'Legendární schopnost', items: ['„Tohle jsem nečekala. Jak to chceš udělat?"'] },
+        ],
+        bio: 'Jako GM i hráč jsem vyzkoušela spoustu systémů a baví mě učit se nové mechaniky a přístupy ke hře.\n\nVedla jsem jednorázové hry i dlouhodobé kampaně a užívám si hraní se známými tvářemi stejně jako se skupinkou náhodných lidí, které spojuje chuť si zahrát RPG.\n\nHlavní je pro mě zábava u stolu a dát hráčům prostor na spoluvytváření příběhu, který se tak i pro mě stává plný překvapení. Zaměřuju se na společné vykreslení postav, budování světa, sociální interakce a rychlé souboje.', tags: [] },
+
+      { name: 'Matěj Tomeček', nick: null, photo: 'img/gm/matej.jpg',
+        attrs: ['Člověk', 'Lovec netvorů', 'Neutrální dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Má připravené tři dějové zvraty pro případ, že by se něco vyvíjelo podle plánu.'] },
+          { group: 'Pouto',          items: ['Je citově navázán na každé NPC, které musel během hry vymyslet.'] },
+          { group: 'Vada',           items: ['Trpí chronickou alergií na lineární příběhy.'] },
+          { group: 'Odbornosti',     items: ['Morální dilemata', 'Dějové zvraty', 'Kreativní řešení'] },
+          { group: 'Legendární schopnost', items: ['"Ano, ale..."'] },
+        ],
+        bio: 'I když už to bude víc než deset let, co jsem si poprvé zahrál Dračí doupě, pořád si připadám v RPG světě jako nováček s velkou chutí objevovat.\n\nJsem fanouškem akce - soubojů, útěků, pronásledování, vloupaček a co vás jen napadne. Jako vypravěč mám ale především rád silné příběhy plné morálních dilemat a dějových zvratů, kdy mě pak baví sledovat, jak se mí hráči vypořádávají s jejich následky.\n\nZ tohoto důvodu poslední dobou preferuji otevřené systémy, jejichž mechaniky nás s hráči neomezují při vyprávění a spíše podporují naši fantazii.', tags: [] },
+
+      { name: 'Roman Vantuch', nick: 'RoVan', photo: 'img/gm/man.jpg',
+        attrs: ['Člověk', 'Zloděj', 'Neutrální dobro'],
+        stats: [
+          { group: 'Osobnostní rys', items: ['Dokáže během několika minut najít inspiraci v systému, který právě objevil.'] },
+          { group: 'Pouto',          items: ['Je oddaný myšlence, že každý RPG systém má něco, co stojí za vyzkoušení.'] },
+          { group: 'Vada',           items: ['Jen výjimečně nechá mechaniku tam, kde ji našel.'] },
+          { group: 'Odbornosti',     items: ['RPG systémy', 'Herní mechaniky', 'Objevování nových her'] },
+          { group: 'Legendární schopnost', items: ['„Tohle si vypůjčíme."'] },
+        ],
+        bio: 'Přestože si zahraju takřka cokoli, jsem odvěký fanoušek DxD systémů a poloprofesionální vykradač mechanik a postupů všemožných jiných her.\n\nKromě různých herních festivalů mě můžete potkat každou první sobotu v měsíci v Ostravě v čajovně Smokehill, kde pořádám otevřené hraní Z Kopce.\n\nKaždý měsíc uvádíme trochu jiný systém, takže kdybyste měli zájem zkusit si něco nového, rád se s vámi uvidím.', tags: [] },
+    ];
+
+    const detail             = document.getElementById('gm-detail');
+    const elName             = document.getElementById('gm-name');
+    const elNick             = document.getElementById('gm-nick');
+    const elBio              = document.getElementById('gm-bio');
+    const elPills            = document.getElementById('gm-pills');
+    const elPhoto            = document.getElementById('gm-photo');
+    const elPhotoPlaceholder = document.getElementById('gm-photo-placeholder');
+    const elAttrs            = document.getElementById('gm-attrs');
+    const elStats            = document.getElementById('gm-stats');
+    const elTabBio           = document.getElementById('gm-tab-bio');
+    const elTabStats         = document.getElementById('gm-tab-stats');
+    const tabs               = document.querySelectorAll('.gm-tab');
+
+    function switchTab(name) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+      elTabBio.classList.toggle('hidden',   name !== 'bio');
+      elTabStats.classList.toggle('hidden', name !== 'stats');
+    }
+
+    tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+
+    function renderGM(gm) {
+      elName.textContent  = gm.name;
+      elNick.textContent  = gm.nick ? '„' + gm.nick + '"' : '';
+      elBio.innerHTML     = (gm.bio || 'Medailonek bude doplněn.').split('\n\n').map(p => `<p class="gm-card-bio">${p}</p>`).join('');
+      elPills.innerHTML   = gm.tags.map(t => `<span class="gm-pill">${t}</span>`).join('');
+      elAttrs.innerHTML   = (gm.attrs || []).map(a => `<span class="gm-card-attr">${a}</span>`).join('');
+      elAttrs.style.display = gm.attrs && gm.attrs.length ? '' : 'none';
+      elStats.innerHTML   = (gm.stats || []).map(g =>
+        `<div class="gm-stat-group">
+          <div class="gm-stat-group-title">${g.group}</div>
+          ${g.items.map(i => `<div class="gm-stat-item">${i}</div>`).join('')}
+        </div>`
+      ).join('');
+      if (gm.photo) {
+        elPhoto.src = gm.photo;
+        elPhoto.style.display = 'block';
+        elPhotoPlaceholder.style.display = 'none';
+      } else {
+        elPhoto.style.display = 'none';
+        elPhotoPlaceholder.style.display = 'flex';
+      }
+      switchTab('bio');
+    }
+
+    function selectGM(index) {
+      detail.classList.add('fading');
+      setTimeout(() => {
+        renderGM(GMS[index]);
+        detail.classList.remove('fading');
+      }, 150);
+      document.querySelectorAll('.gm-list-item').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.gm-list-item[data-gm="${index}"]`).classList.add('active');
+    }
+
+    renderGM(GMS[0]);
+
+    document.getElementById('gm-list').addEventListener('click', e => {
+      const item = e.target.closest('.gm-list-item');
+      if (!item) return;
+      selectGM(Number(item.dataset.gm));
+    });
+
+    // ── ToC ──
+    const TOC_IDS = ['sec-jak-funguje','sec-pro-koho','sec-herni-system','sec-dokumenty',
+                     'sec-pribeh','sec-prubeh-kol','sec-registrace','sec-vypravecu'];
+    const tocLinks      = document.querySelectorAll('.toc-link');
+    const tocMobileLinks = document.querySelectorAll('.toc-mobile-link');
+    const tocSections   = TOC_IDS.map(id => document.getElementById(id)).filter(Boolean);
+
+    function setTocActive(id) {
+      tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+
+    function updateToc() {
+      let current = tocSections[0];
+      for (const el of tocSections) {
+        if (el.getBoundingClientRect().top <= 90) current = el;
+      }
+      if (current) setTocActive(current.id);
+    }
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
+
+    // Mobile toggle
+    const tocToggleBtn   = document.getElementById('toc-toggle');
+    const tocMobileList  = document.getElementById('toc-mobile-list');
+    tocToggleBtn.addEventListener('click', () => {
+      const open = tocMobileList.classList.toggle('open');
+      tocToggleBtn.setAttribute('aria-expanded', open);
+    });
+    tocMobileLinks.forEach(l => l.addEventListener('click', () => {
+      tocMobileList.classList.remove('open');
+      tocToggleBtn.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
 </body>
 </html>
