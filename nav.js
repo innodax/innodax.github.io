@@ -15,11 +15,10 @@ function closeDrawer() {
       <span class="nav-logo-text">Fokus<span>Roll</span></span>
     </a>
     <ul class="nav-links">
-      <li><a href="about.html" class="nav-link">O akci</a></li>
       <li><a href="about_tournament.html" class="nav-link">Turnaj</a></li>
       <li><a href="about_rpgs.html" class="nav-link">Doprovodný program</a></li>
-      <li><a href="harmonogram.html" class="nav-link">Harmonogram</a></li>
       <li><a href="info.html" class="nav-link">Praktické info</a></li>
+      <li><a href="harmonogram.html" class="nav-link">Harmonogram</a></li>
       <li><a href="contact.html" class="nav-link">Kontakty</a></li>
     </ul>
     <div class="nav-actions">
@@ -32,11 +31,10 @@ function closeDrawer() {
   </div>
 </nav>
 <div class="nav-drawer" id="drawer">
-  <a href="about.html" onclick="closeDrawer()">O akci</a>
   <a href="about_tournament.html" onclick="closeDrawer()">Turnaj</a>
   <a href="about_rpgs.html" onclick="closeDrawer()">Doprovodný program</a>
-  <a href="harmonogram.html" onclick="closeDrawer()">Harmonogram</a>
   <a href="info.html" onclick="closeDrawer()">Praktické info</a>
+  <a href="harmonogram.html" onclick="closeDrawer()">Harmonogram</a>
   <a href="contact.html" onclick="closeDrawer()">Kontakty</a>
   <div class="drawer-auth">
     <a href="registration.html" class="drawer-cta" onclick="closeDrawer()">Registrace</a>
