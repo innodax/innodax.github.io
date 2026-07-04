@@ -118,6 +118,27 @@ body {
 }
 .section-link:hover { gap: 10px; }
 
+/* ─── LINK CARD (clickable nav card: icon + title + text + arrow) ─── */
+.link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-top: 2px solid var(--hot-orange);
+  border-radius: 16px;
+  padding: 22px 24px 24px;
+  text-decoration: none;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.link-card:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.04) inset; }
+.link-card-icon { font-size: 1.5rem; color: var(--hot-orange); display: flex; margin-bottom: 6px; }
+.link-card h3 { display: block; font-size: 27px; font-weight: 400; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; color: var(--white); }
+.link-card p { font-size: 0.8rem; color: var(--light-gray); line-height: 1.5; }
+.link-card-arrow { margin-top: auto; padding-top: 14px; font-size: 0.8rem; font-weight: 600; color: var(--hot-orange); transition: gap 0.15s; display: flex; align-items: center; gap: 4px; }
+.link-card:hover .link-card-arrow { gap: 8px; }
+
 /* ─── NAV ─── */
 .nav {
   position: fixed;

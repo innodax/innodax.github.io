@@ -51,25 +51,6 @@
 
     .doc-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
     @media (max-width: 768px) { .doc-links { grid-template-columns: 1fr; } }
-    .doc-link {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-top: 2px solid var(--hot-orange);
-      border-radius: 16px;
-      padding: 22px 24px 24px;
-      text-decoration: none;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .doc-link:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.04) inset; }
-    .doc-link-icon { font-size: 1.5rem; color: var(--hot-orange); display: flex; margin-bottom: 6px; }
-    .doc-link strong { display: block; font-size: 27px; font-weight: 400; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; color: var(--white); }
-    .doc-link span { font-size: 0.8rem; color: var(--light-gray); line-height: 1.5; }
-    .doc-link-arrow { margin-top: auto; padding-top: 14px; font-size: 0.8rem; font-weight: 600; color: var(--hot-orange); transition: gap 0.15s; display: flex; align-items: center; gap: 4px; }
-    .doc-link:hover .doc-link-arrow { gap: 8px; }
 
     .gm-selector {
       display: grid;
@@ -517,23 +498,23 @@
       <h2>Pravidla a <span>informace</span></h2>
       <p class="section-lead">Vše potřebné pro přípravu na turnaj.</p>
       <div class="doc-links">
-        <a href="https://docs.google.com/document/d/1JAavNz9O-nz0RvzLXpJC1ziWmeaPcEZrsPX4QbpSMpc/edit" target="_blank" rel="noopener" class="doc-link">
-          <div class="doc-link-icon"><ion-icon name="person-circle-outline"></ion-icon></div>
-          <strong>Tvorba postavy</strong>
-          <span>Podrobnosti o tvorbě postavy</span>
-          <span class="doc-link-arrow">Otevřít <span>→</span></span>
+        <a href="https://docs.google.com/document/d/1JAavNz9O-nz0RvzLXpJC1ziWmeaPcEZrsPX4QbpSMpc/edit" target="_blank" rel="noopener" class="link-card">
+          <div class="link-card-icon"><ion-icon name="person-circle-outline"></ion-icon></div>
+          <h3>Tvorba postavy</h3>
+          <p>Podrobnosti o tvorbě postavy</p>
+          <span class="link-card-arrow">Otevřít <span>→</span></span>
         </a>
-        <a href="https://docs.google.com/document/d/1IPZM7hF7kY9fAR1Vxx2seiHQ4bWBDCV5GfX8SO3tiZk/edit" target="_blank" rel="noopener" class="doc-link">
-          <div class="doc-link-icon"><ion-icon name="receipt-outline"></ion-icon></div>
-          <strong>Speciální pravidla</strong>
-          <span>Pravidla platná jen pro tento turnaj</span>
-          <span class="doc-link-arrow">Otevřít <span>→</span></span>
+        <a href="https://docs.google.com/document/d/1IPZM7hF7kY9fAR1Vxx2seiHQ4bWBDCV5GfX8SO3tiZk/edit" target="_blank" rel="noopener" class="link-card">
+          <div class="link-card-icon"><ion-icon name="receipt-outline"></ion-icon></div>
+          <h3>Speciální pravidla</h3>
+          <p>Pravidla platná jen pro tento turnaj</p>
+          <span class="link-card-arrow">Otevřít <span>→</span></span>
         </a>
-        <a href="https://docs.google.com/document/d/16sjjQW-aYUf0Qel2K9380E5vWXGHO8c7d2BygJfa8co/edit" target="_blank" rel="noopener" class="doc-link">
-          <div class="doc-link-icon"><ion-icon name="earth-outline"></ion-icon></div>
-          <strong>Informace o světě</strong>
-          <span>Podrobné informace o herním světě</span>
-          <span class="doc-link-arrow">Otevřít <span>→</span></span>
+        <a href="https://docs.google.com/document/d/16sjjQW-aYUf0Qel2K9380E5vWXGHO8c7d2BygJfa8co/edit" target="_blank" rel="noopener" class="link-card">
+          <div class="link-card-icon"><ion-icon name="earth-outline"></ion-icon></div>
+          <h3>Informace o světě</h3>
+          <p>Podrobné informace o herním světě</p>
+          <span class="link-card-arrow">Otevřít <span>→</span></span>
         </a>
       </div>
     </div>
@@ -647,7 +628,7 @@
           <div class="reg-step-num">4</div>
           <div class="reg-step-body">
             <h4>Platba</h4>
-            <p>Po registraci obdrží každý člen e-mail s výzvou k platbě. Registrační poplatek 600 Kč je nutné zaplatit nejpozději do 14 dní. Při pozdější registraci nejpozději do pátku 13. 3. 2026. Poplatek 300 Kč za jídlo se doplácí hotově na místě.</p>
+            <p>Po registraci obdrží každý člen e-mail s výzvou k platbě. Registrační poplatek 600 Kč je nutné zaplatit nejpozději do 14 dní. Při pozdější registraci nejpozději do pátku 13. 3. 2027. Poplatek 300 Kč za jídlo se doplácí hotově na místě.</p>
           </div>
         </div>
       </div>

@@ -6,8 +6,10 @@
   <title>FokusRoll – Tabletop RPG Tournament</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <style>
     /* ─── NAV (transparent, index only) ─── */
     .nav {
@@ -74,17 +76,18 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 14px;
-      background: rgba(251,169,44,0.15);
-      border: 1px solid rgba(251,169,44,0.5);
+      padding: 7px 16px;
+      background: var(--hot-orange);
       border-radius: 99px;
       font-size: 0.78rem;
       font-weight: 700;
-      color: var(--hot-orange);
+      color: var(--black);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(251,169,44,0.35);
     }
+    .hero-badge ion-icon { font-size: 0.95rem; flex-shrink: 0; display: block; }
     .hero h1 {
       font-size: clamp(2.8rem, 6vw, 4.5rem);
       font-weight: 700;
@@ -95,49 +98,226 @@
     }
     .hero h1 span { color: var(--hot-orange); }
     .hero-desc { font-size: 1.1rem; color: rgba(255,255,255,0.85); max-width: 480px; margin-bottom: 28px; text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
-    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
-    .hero-meta-item {
+    .hero-info {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 0.9rem;
-      color: var(--beige);
-      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 32px;
     }
-    .hero-meta-item .icon {
-      width: 32px; height: 32px;
-      background: var(--gray);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
-    }
+    .hero-info ion-icon { color: var(--hot-orange); flex-shrink: 0; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
-
-    /* ─── TEASER CARDS ─── */
-    .teaser-section { padding: var(--section-pad); }
-    .teaser-section h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 32px; }
-    .teaser-section h2 span { color: var(--hot-orange); }
-    .teaser-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    /* ─── COUNTDOWN SECTION ─── */
+    .countdown-lead {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--hot-orange);
+      margin-bottom: 20px;
     }
-    @media (max-width: 768px) { .teaser-cards { grid-template-columns: 1fr; } }
-    .teaser-card {
+    .countdown { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .countdown-item {
       background: var(--gray);
-      border-radius: 14px;
-      padding: 28px;
       border: 1px solid var(--evil-gray);
-      text-decoration: none;
-      display: flex; flex-direction: column; gap: 10px;
-      transition: outline-color 0.2s, transform 0.2s;
+      border-radius: 12px;
+      padding: 16px 20px;
+      min-width: 80px;
+      text-align: center;
     }
-    .teaser-card:hover { outline-color: var(--hot-orange); transform: translateY(-3px); }
-    .teaser-card-icon { font-size: 2rem; }
-    .teaser-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); }
-    .teaser-card p { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; flex: 1; }
-    .teaser-card-link { font-size: 0.85rem; font-weight: 600; color: var(--hot-orange); margin-top: 4px; }
+    .countdown-value {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--hot-orange);
+      line-height: 1;
+    }
+    .countdown-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--light-gray);
+      margin-top: 6px;
+    }
+    @media (max-width: 480px) {
+      .countdown { gap: 8px; }
+      .countdown-item { min-width: 64px; padding: 12px 10px; }
+      .countdown-value { font-size: 1.6rem; }
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .stat {
+      text-align: center;
+      padding: 8px 16px;
+      border-left: 1px solid var(--evil-gray);
+    }
+    .stat:first-child { border-left: none; }
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+      color: var(--hot-orange);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--light-gray);
+    }
+    @media (max-width: 768px) {
+      .stats-bar { grid-template-columns: repeat(3, 1fr); row-gap: 24px; }
+      .stat:nth-child(3n+1) { border-left: none; }
+      .stat:nth-child(n+4) { border-top: 1px solid var(--evil-gray); padding-top: 20px; }
+    }
+    @media (max-width: 480px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(3n+1) { border-left: 1px solid var(--evil-gray); }
+      .stat:nth-child(2n+1) { border-left: none; }
+      .stat:nth-child(n+3) { border-top: 1px solid var(--evil-gray); padding-top: 20px; }
+    }
+
+    /* ─── ACTIVITY CHIPS ─── */
+    .activity-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .activity-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 99px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .activity-chip ion-icon { font-size: 1.1rem; color: var(--hot-orange); flex-shrink: 0; }
+
+    /* ─── GAMES PREVIEW ─── */
+    .games-preview {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 10px;
+      margin-top: 32px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) { .games-preview { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 480px) { .games-preview { grid-template-columns: repeat(3, 1fr); } }
+    .games-preview-item {
+      aspect-ratio: 3 / 4;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--gray);
+    }
+    .games-preview-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+    .games-preview-item:hover img { transform: scale(1.08); }
+
+    /* ─── TOURNAMENT ─── */
+    .tournament-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    @media (max-width: 768px) { .tournament-inner { grid-template-columns: 1fr; } }
+    .tournament-photo {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .tournament-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 768px) { .tournament-photo { order: -1; } }
+
+    /* ─── MAP ─── */
+    .map-section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    @media (max-width: 768px) { .map-section-inner { grid-template-columns: 1fr; } }
+    .map-embed { border-radius: 16px; overflow: hidden; border: 1px solid var(--evil-gray); aspect-ratio: 4 / 3; }
+    .map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .map-address { font-size: 0.95rem; color: var(--light-gray); margin-bottom: 20px; }
+    .map-links { display: flex; flex-direction: column; gap: 10px; }
+    .map-links a { color: var(--hot-orange); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+    .map-links a:hover { text-decoration: underline; }
+
+    /* ─── GALLERY CAROUSEL (coverflow, autoplay) ─── */
+    .carousel { position: relative; height: clamp(200px, 38vw, 360px); margin-top: 40px; overflow: hidden; }
+    .carousel-full-bleed { margin-left: -24px; margin-right: -24px; width: calc(100% + 48px); height: clamp(280px, 24vw, 500px); }
+    .carousel-stage { position: relative; width: 100%; height: 100%; }
+    .carousel-slide {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: clamp(240px, 34vw, 720px);
+      aspect-ratio: 3 / 2;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--gray);
+      cursor: pointer;
+      padding: 0;
+      transform: translate(-50%, -50%) translateX(var(--x, 0px)) scale(var(--s, 1));
+      transition: transform 0.6s cubic-bezier(.4,0,.2,1), opacity 0.5s ease;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(35,35,35,0.85);
+      border: 1px solid var(--evil-gray);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.3rem;
+      z-index: 20;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .gallery-nav ion-icon { display: block; }
+    .gallery-nav:hover { border-color: var(--hot-orange); color: var(--hot-orange); }
+    .gallery-nav.prev { left: 8px; }
+    .gallery-nav.next { right: 8px; }
+    @media (max-width: 480px) { .gallery-nav { width: 36px; height: 36px; font-size: 1.1rem; } }
+
+    .gallery-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+    }
+    .gallery-lightbox.open { display: flex; }
+    .gallery-lightbox img { max-width: 100%; max-height: 100%; border-radius: 10px; display: block; }
+    .gallery-lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+    .gallery-lightbox-close ion-icon { display: block; }
+    .gallery-lightbox-close:hover { border-color: var(--hot-orange); color: var(--hot-orange); }
   </style>
 </head>
 <body>
@@ -151,62 +331,158 @@
     </video>
     <div class="hero-inner">
       <div class="hero-text">
-        <div class="hero-badge">⚔️ Turnaj v Jeskyních a Dracích</div>
-        <h1>Fokus<span>Roll</span><br/>2026</h1>
-        <p class="hero-desc">Komorní larpy, šerm, lukostřelba, deskové hry, nerf, RPG hry a kdo ví co ještě…</p>
-        <div class="hero-meta">
-          <div class="hero-meta-item">
-            <div class="icon">📅</div>
-            <span>11. – 13. 3. 2026</span>
-          </div>
-          <div class="hero-meta-item">
-            <div class="icon">📍</div>
-            <span>SVČ Fokus, Nový Jičín</span>
-          </div>
-        </div>
+        <div class="hero-badge"><ion-icon name="trophy-outline"></ion-icon> Turnaj v Jeskyních a Dracích</div>
+        <h1>Fokus<span>Roll</span><br/>2027</h1>
+        <p class="hero-desc">Třídenní turnaj v Jeskyních a dracích doplněný pestrým doprovodným programem – larpy, šerm, lukostřelba, deskovky, nerf a spousta dalšího.</p>
+        <div class="hero-info"><ion-icon name="calendar-outline"></ion-icon> 27.–29. 3. 2027 · SVČ Fokus, Nový Jičín</div>
         <div class="hero-actions">
-          <a href="registration.html" class="btn-primary">Registrovat se</a>
-          <a href="info.html" class="btn-secondary">O akci →</a>
+          <a href="registration.html" class="btn-secondary">Registrovat se →</a>
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- TEASER CARDS -->
-  <section class="teaser-section">
+  <!-- STATS -->
+  <section class="section section-alt">
     <div class="container">
-      <h2>Vše o <span>FokusRoll</span></h2>
-      <div class="teaser-cards">
-        <a href="info.html" class="teaser-card">
-          <div class="teaser-card-icon">🏰</div>
-          <h3>O akci</h3>
-          <p class="placeholder">Doplňte krátký perex – co je FokusRoll a pro koho je určen.</p>
-          <span class="teaser-card-link">Více o akci →</span>
-        </a>
-        <a href="about_tournament.html" class="teaser-card">
-          <div class="teaser-card-icon">⚔️</div>
-          <h3>O turnaji</h3>
-          <p class="placeholder">Doplňte krátký perex – formát turnaje, pravidla, ceny.</p>
-          <span class="teaser-card-link">Více o turnaji →</span>
-        </a>
-        <a href="about_rpgs.html" class="teaser-card">
-          <div class="teaser-card-icon">🎭</div>
-          <h3>Doprovodný program</h3>
-          <p class="placeholder">Doplňte krátký perex – co dalšího se na akci děje.</p>
-          <span class="teaser-card-link">Celý program →</span>
-        </a>
+      <div class="stats-bar">
+        <div class="stat">
+          <div class="stat-value">5.</div>
+          <div class="stat-label">Ročník</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Dny</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">300+</div>
+          <div class="stat-label">Návštěvníků</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">75</div>
+          <div class="stat-label">Soutěžících</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">25</div>
+          <div class="stat-label">RPG her</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOURNAMENT -->
+  <section class="section">
+    <div class="container">
+      <div class="tournament-inner">
+        <div>
+          <span class="section-label">Hlavní událost</span>
+          <h2>Turnaj v <span>Jeskyních a dracích</span></h2>
+          <p class="section-lead">Tříkolová RPG soutěž v české variantě 5. edice D&amp;D, kde rozhoduje nápaditost, roleplay a odvaha riskovat.</p>
+          <div class="activity-chips">
+            <span class="activity-chip"><ion-icon name="people-outline"></ion-icon> 5členné družiny</span>
+            <span class="activity-chip"><ion-icon name="person-circle-outline"></ion-icon> 15 zkušených vypravěčů</span>
+            <span class="activity-chip"><ion-icon name="flag-outline"></ion-icon> 3 kola od pátku do neděle</span>
+          </div>
+          <a href="about_tournament.html" class="section-link">Pravidla a registrace →</a>
+        </div>
+        <div class="tournament-photo">
+          <img src="img/home-gallery/1.jpg" alt="Hráči u stolu na turnaji FokusRoll" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Co vás čeká</span>
+      <h2>Program pro <span>každého</span></h2>
+      <p class="section-lead">Ať jste v turnaji, nebo jen na skok na sobotu – vybrat si můžete z pestré nabídky aktivit.</p>
+      <div class="activity-chips">
+        <span class="activity-chip"><ion-icon name="skull-outline"></ion-icon> RPG hry</span>
+        <span class="activity-chip"><ion-icon name="people-outline"></ion-icon> Larpy</span>
+        <span class="activity-chip"><ion-icon name="shield-outline"></ion-icon> Šerm</span>
+        <span class="activity-chip"><ion-icon name="locate-outline"></ion-icon> Lukostřelba</span>
+        <span class="activity-chip"><ion-icon name="grid-outline"></ion-icon> Deskové hry</span>
+        <span class="activity-chip"><ion-icon name="flash-outline"></ion-icon> NERF aréna</span>
+      </div>
+      <div class="games-preview">
+        <div class="games-preview-item"><img src="img/larp/pirate-treasure-island.jpg" alt="Ostrov" loading="lazy" /></div>
+        <div class="games-preview-item"><img src="img/larp/saloon.jpeg" alt="U střelené kobyly" loading="lazy" /></div>
+        <div class="games-preview-item"><img src="img/rpg/fallout.png" alt="Fallout" loading="lazy" /></div>
+        <div class="games-preview-item"><img src="img/rpg/delta-green.jpeg" alt="Delta Green" loading="lazy" /></div>
+        <div class="games-preview-item"><img src="img/rpg/Alice-is-Missing.jpg" alt="Alice is Missing" loading="lazy" /></div>
+        <div class="games-preview-item"><img src="img/rpg/Jamal_jeden_prsten.png" alt="Jeden prsten" loading="lazy" /></div>
+        <div class="games-preview-item"><img src="img/rpg/Vojta_WeirdWest_Deadlands.png" alt="Weird West: Deadlands" loading="lazy" /></div>
+        <div class="games-preview-item"><img src="img/rpg/Smrq_candela_obscura.jpg" alt="Candela Obscura" loading="lazy" /></div>
+      </div>
+      <a href="about_rpgs.html" class="section-link">Zobrazit celý program →</a>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Ohlédnutí</span>
+      <h2>Jak to <span>vypadalo</span></h2>
+      <p class="section-lead">Pár momentů z minulých ročníků FokusRoll.</p>
+    </div>
+    <div class="carousel carousel-full-bleed" id="carousel">
+      <button class="gallery-nav prev" id="carousel-prev" aria-label="Předchozí fotka"><ion-icon name="chevron-back-outline"></ion-icon></button>
+      <div class="carousel-stage" id="carousel-stage"></div>
+      <button class="gallery-nav next" id="carousel-next" aria-label="Další fotka"><ion-icon name="chevron-forward-outline"></ion-icon></button>
+    </div>
+  </section>
+
+  <!-- GALLERY LIGHTBOX -->
+  <div class="gallery-lightbox" id="gallery-lightbox">
+    <button class="gallery-lightbox-close" id="gallery-lightbox-close" aria-label="Zavřít"><ion-icon name="close-outline"></ion-icon></button>
+    <img src="" alt="" id="gallery-lightbox-img" />
+  </div>
+
+  <!-- MAP -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Kde nás najdete</span>
+      <h2>Přijeďte <span>za námi</span></h2>
+      <div class="map-section-inner">
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps?q=SV%C4%8C+Fokus,+K+Nemocnici+1082/23,+Nov%C3%BD+Ji%C4%8D%C3%adn&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa – SVČ Fokus, Nový Jičín"
+          ></iframe>
+        </div>
+        <div>
+          <p class="map-address">SVČ Fokus<br>K Nemocnici 1082/23, Nový Jičín</p>
+          <div class="map-links">
+            <a href="https://maps.app.goo.gl/u92AdAFknjgDDFLT8" target="_blank" rel="noopener">Google Mapy →</a>
+            <a href="https://mapy.com/s/huvamefama" target="_blank" rel="noopener">Mapy.cz →</a>
+            <a href="https://ul.waze.com/ul?place=ChIJMRmYJKmUE0cRVZWP8LH-vnA&ll=49.59053350%2C18.01026190&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" rel="noopener">Waze →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="section countdown-section">
+    <div class="container">
+      <p class="countdown-lead">Do startu turnaje zbývá</p>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item"><span class="countdown-value" id="cd-days">–</span><span class="countdown-label">Dní</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="cd-hours">–</span><span class="countdown-label">Hodin</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="cd-minutes">–</span><span class="countdown-label">Minut</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="cd-seconds">–</span><span class="countdown-label">Sekund</span></div>
       </div>
     </div>
   </section>
 
   <!-- CTA BANNER -->
   <section class="cta-banner">
-    <h2>Přihlaste se ještě dnes!</h2>
-    <p class="placeholder" style="background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2);color:rgba(0,0,0,0.55)">
-      ✏️ Doplňte motivační větu – deadline registrace nebo počet volných míst.
-    </p>
-    <br/>
+    <h2>Nenechte si to ujít!</h2>
+    <p>Turnajové družiny se hlásí online – registrace otevřena od 8. 2. 2027, 19:00. Chcete jen na sobotní program? Stačí přijít a zapsat se na místě.</p>
     <a href="registration.html" class="btn-dark">Registrovat se →</a>
   </section>
 
@@ -233,5 +509,171 @@
 
   <script src="nav.js"></script>
   <script src="footer.js"></script>
+  <script>
+    // ── Hero countdown ──
+    (function () {
+      const target = new Date('2027-03-27T19:00:00');
+      const els = {
+        days: document.getElementById('cd-days'),
+        hours: document.getElementById('cd-hours'),
+        minutes: document.getElementById('cd-minutes'),
+        seconds: document.getElementById('cd-seconds')
+      };
+      function pad(n) { return String(n).padStart(2, '0'); }
+      function tick() {
+        const diff = target - new Date();
+        if (diff <= 0) {
+          els.days.textContent = '0';
+          els.hours.textContent = '00';
+          els.minutes.textContent = '00';
+          els.seconds.textContent = '00';
+          return;
+        }
+        const totalSeconds = Math.floor(diff / 1000);
+        els.days.textContent = Math.floor(totalSeconds / 86400);
+        els.hours.textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
+        els.minutes.textContent = pad(Math.floor((totalSeconds % 3600) / 60));
+        els.seconds.textContent = pad(totalSeconds % 60);
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // ── Stats count-up ──
+    (function () {
+      const statEls = document.querySelectorAll('.stat-value');
+      const parsed = Array.from(statEls).map(el => {
+        const match = el.textContent.match(/^(\d+)(.*)$/);
+        return match ? { el, target: parseInt(match[1], 10), suffix: match[2] } : null;
+      }).filter(Boolean);
+
+      function animate(duration) {
+        const start = performance.now();
+        parsed.forEach(s => { s.el.textContent = '0' + s.suffix; });
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          parsed.forEach(s => {
+            s.el.textContent = Math.round(eased * s.target) + s.suffix;
+          });
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      const statsBar = document.querySelector('.stats-bar');
+      if (statsBar && parsed.length) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              animate(1400);
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.4 });
+        observer.observe(statsBar);
+      }
+    })();
+
+    // ── Gallery lightbox ──
+    const galleryLightbox = document.getElementById('gallery-lightbox');
+    const galleryLightboxImg = document.getElementById('gallery-lightbox-img');
+    function closeGalleryLightbox() { galleryLightbox.classList.remove('open'); }
+    function openGalleryLightbox(src, alt) {
+      galleryLightboxImg.src = src;
+      galleryLightboxImg.alt = alt;
+      galleryLightbox.classList.add('open');
+    }
+    document.getElementById('gallery-lightbox-close').addEventListener('click', closeGalleryLightbox);
+    galleryLightbox.addEventListener('click', e => { if (e.target === galleryLightbox) closeGalleryLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGalleryLightbox(); });
+
+    // ── Carousel (coverflow, autoplay) ──
+    (function () {
+      const photos = Array.from({ length: 20 }, (_, i) => `img/home-gallery/${i + 1}.jpg`);
+
+      const stage = document.getElementById('carousel-stage');
+      const carouselEl = document.getElementById('carousel');
+      const total = photos.length;
+      let current = 0;
+      let timer = null;
+
+      const slides = photos.map((src, i) => {
+        const el = document.createElement('div');
+        el.className = 'carousel-slide';
+        el.innerHTML = `<img src="${src}" alt="Fotka z ročníku FokusRoll" loading="lazy" />`;
+        el.addEventListener('click', () => {
+          if (i === current) {
+            openGalleryLightbox(src, 'Fotka z ročníku FokusRoll');
+          } else {
+            goTo(i);
+            restart();
+          }
+        });
+        stage.appendChild(el);
+        return el;
+      });
+
+      const prevAbs = new Array(total).fill(99);
+
+      function normalizedOffset(i) {
+        let diff = i - current;
+        if (diff > total / 2) diff -= total;
+        if (diff < -total / 2) diff += total;
+        return diff;
+      }
+
+      function render() {
+        const carouselWidth = carouselEl.offsetWidth || 1280;
+        slides.forEach((el, i) => {
+          const offset = normalizedOffset(i);
+          const abs = Math.abs(offset);
+          let scale, opacity, z;
+          if (abs === 0)      { scale = 1;    opacity = 1;    z = 10; }
+          else if (abs === 1) { scale = 0.78; opacity = 0.55; z = 5; }
+          else if (abs === 2) { scale = 0.6;  opacity = 0.25; z = 1; }
+          else                { scale = 0.6;  opacity = 0;    z = 0; }
+          // Slides far outside the visible range wrap around the back of the
+          // loop; snap them instead of animating an off-screen dash all the
+          // way across, since a transitioned jump there is wasted motion.
+          const wasHiddenFar = prevAbs[i] > 2;
+          const staysHiddenFar = abs > 2;
+          el.style.transition = (wasHiddenFar && staysHiddenFar) ? 'none' : '';
+          el.style.setProperty('--x', (offset * carouselWidth * 0.2) + 'px');
+          el.style.setProperty('--s', scale);
+          el.style.opacity = opacity;
+          el.style.zIndex = z;
+          el.style.pointerEvents = abs > 2 ? 'none' : 'auto';
+          prevAbs[i] = abs;
+        });
+      }
+
+      function goTo(i) {
+        current = ((i % total) + total) % total;
+        render();
+      }
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function start() { timer = setInterval(next, 4000); }
+      function stop() { clearInterval(timer); }
+      function restart() { stop(); start(); }
+
+      document.getElementById('carousel-prev').addEventListener('click', () => { prev(); restart(); });
+      document.getElementById('carousel-next').addEventListener('click', () => { next(); restart(); });
+      carouselEl.addEventListener('mouseenter', stop);
+      carouselEl.addEventListener('mouseleave', start);
+      window.addEventListener('resize', render);
+      document.addEventListener('visibilitychange', () => {
+        // A backgrounded tab throttles setInterval; without this, coming back
+        // to the tab fires several queued ticks in a burst, which looks like
+        // random photos jumping past faster than others.
+        if (!document.hidden) restart();
+      });
+
+      render();
+      start();
+    })();
+  </script>
 </body>
 </html>
