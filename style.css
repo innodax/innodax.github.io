@@ -371,9 +371,7 @@ body {
   border-radius: 14px;
   padding: 28px;
   border: 1px solid var(--evil-gray);
-  transition: outline-color 0.2s, transform 0.2s;
 }
-.card:hover { outline-color: var(--hot-orange); transform: translateY(-3px); }
 .card-icon { font-size: 1.8rem; margin-bottom: 14px; }
 .card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
 .card p { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; }

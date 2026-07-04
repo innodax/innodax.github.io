@@ -9,7 +9,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── Fact cards ── */
+    /* ── Card component ── */
+    .card {
+      background: var(--gray);
+      border-radius: 16px;
+      padding: 22px 22px 24px;
+      border: 1px solid var(--evil-gray);
+      display: flex;
+      flex-direction: column;
+    }
+    .card-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--hot-orange);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .card-label ion-icon { font-size: 1rem; flex-shrink: 0; display: block; }
+    .card-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .card-value--lg { font-size: 2rem; line-height: 1; margin-bottom: 16px; }
+    .card-note {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Fact-card grid ── */
     .fact-cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -18,47 +56,6 @@
     }
     @media (max-width: 720px) { .fact-cards { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 400px) { .fact-cards { grid-template-columns: 1fr; } }
-    .fact-card {
-      background: var(--gray);
-      border-radius: 16px;
-      padding: 22px 22px 24px;
-      border: 1px solid var(--evil-gray);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .fact-label {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      align-items: center;
-      gap: 8px;
-    }
-    .fact-label ion-icon { font-size: 1rem; color: var(--hot-orange); display: block; }
-    .fact-label strong {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--hot-orange);
-      line-height: 1;
-      margin: 0;
-    }
-    .fact-card span {
-      display: block;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      letter-spacing: 0.04em;
-      color: var(--white);
-      line-height: 1.25;
-      margin-top: 12px;
-    }
-    .fact-sub {
-      display: block;
-      font-size: 0.9rem;
-      color: var(--light-gray);
-      margin-top: 4px;
-      line-height: 1.5;
-    }
 
     /* ── Alert box ── */
     .alert {
@@ -86,6 +83,260 @@
     .alert li { font-size: 0.9rem; color: var(--light-gray); display: flex; align-items: baseline; gap: 8px; }
     .alert li::before { content: '—'; color: var(--hot-orange); flex-shrink: 0; }
     .alert strong { color: var(--white); }
+
+    .section-body { font-size: 0.9rem; color: var(--light-gray); line-height: 1.7; }
+
+    /* ── Arrival cards ── */
+    .arrival-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 720px) { .arrival-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 400px) { .arrival-grid { grid-template-columns: 1fr; } }
+    .arrival-card {
+      background: var(--gray);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--evil-gray);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .arrival-card-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--hot-orange);
+    }
+    .arrival-card-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+      margin-top: 4px;
+    }
+    .arrival-card-note {
+      font-size: 0.82rem;
+      color: var(--light-gray);
+      line-height: 1.55;
+    }
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray);
+      border: 1px solid var(--evil-gray);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .map-btn:hover { border-color: var(--hot-orange); color: var(--hot-orange); }
+
+    /* ── Two-col layout ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 720px) { .three-col { grid-template-columns: 1fr; } }
+    .info-card {
+      background: var(--gray);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid var(--evil-gray);
+    }
+    .info-card-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--hot-orange);
+      margin-bottom: 14px;
+    }
+    .info-card-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .info-card-note {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .dash-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .dash-list li {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .dash-list li::before { content: '—'; color: var(--hot-orange); position: absolute; left: 0; }
+    .hotel-list { list-style: none; display: flex; flex-direction: column; }
+    .hotel-list li {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--evil-gray);
+    }
+    .hotel-list li:last-child { border-bottom: none; padding-bottom: 0; }
+
+    /* ── Text columns (no boxes) ── */
+    .text-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    @media (max-width: 720px) { .text-cols { grid-template-columns: 1fr; gap: 32px; } }
+    .text-col-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .text-col-body {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .check-list li { font-size: 0.9rem; color: var(--light-gray); display: flex; align-items: baseline; gap: 10px; }
+    .check-list li::before { content: '✔'; color: var(--hot-orange); flex-shrink: 0; font-size: 0.75rem; }
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .bullet-list li { font-size: 0.9rem; color: var(--light-gray); display: flex; align-items: baseline; gap: 10px; }
+    .bullet-list li::before { content: '•'; color: var(--hot-orange); flex-shrink: 0; }
+    .bullet-list a { color: var(--hot-orange); text-decoration: none; }
+    .bullet-list a:hover { text-decoration: underline; }
+
+    /* ── Price-card grid ── */
+    .price-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) { .price-cards { grid-template-columns: 1fr; } }
+    .price-card-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .price-card-features li {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .price-card-features li::before { content: '✔'; color: var(--hot-orange); flex-shrink: 0; font-size: 0.75rem; }
+    .price-card-divider {
+      border: none;
+      border-top: 1px solid var(--evil-gray);
+      margin: 4px 0 14px;
+    }
+    .price-card-footer {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      line-height: 1.7;
+      margin-top: auto;
+    }
+    .price-card-footer strong { color: var(--white); }
+
+    /* ── Checklist ── */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 500px) { .checklist { grid-template-columns: 1fr; } }
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--gray);
+      border-radius: 12px;
+      padding: 14px 18px;
+      border: 1px solid var(--evil-gray);
+      font-size: 0.9rem;
+      color: var(--white);
+      font-weight: 500;
+    }
+    .checklist-item::before {
+      content: '☑';
+      font-size: 1.1rem;
+      color: var(--hot-orange);
+      flex-shrink: 0;
+    }
+
+    /* ── Facility grid ── */
+    .facility-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 720px) { .facility-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 400px) { .facility-grid { grid-template-columns: repeat(2, 1fr); } }
+    .facility-item {
+      background: var(--gray);
+      border-radius: 14px;
+      padding: 20px 12px 16px;
+      border: 1px solid var(--evil-gray);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.15s;
+      user-select: none;
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+    }
+    .facility-item:hover { border-color: rgba(251,169,44,0.35); }
+    .facility-item.open { border-color: var(--hot-orange); background: linear-gradient(145deg, rgba(251,169,44,0.06) 0%, var(--gray) 100%); }
+    .facility-emoji { font-size: 1.8rem; display: block; margin-bottom: 8px; }
+    .facility-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      line-height: 1.3;
+    }
+    .facility-detail {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--evil-gray);
+      font-size: 0.78rem;
+      color: var(--light-gray);
+      line-height: 1.55;
+      text-align: left;
+    }
+    .facility-item.open .facility-detail { display: block; }
 
     /* ── Accordion ── */
     .details-body h3 {
@@ -141,57 +392,87 @@
     .acc-menu-day strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--hot-orange); margin-bottom: 6px; }
     .acc-menu-day p { margin-top: 4px; }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    @media (max-width: 720px) { .info-grid { grid-template-columns: 1fr; } }
-
-    .info-block {
-      background: var(--dark-gray);
-      border-radius: 14px;
-      padding: 28px;
-      border: 1px solid var(--evil-gray);
-    }
-    .info-block-icon {
-      font-size: 1.8rem;
-      margin-bottom: 14px;
-    }
-    .info-block h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 10px;
-    }
-    .info-block p {
-      font-size: 0.875rem;
-      color: var(--light-gray);
-      line-height: 1.6;
-    }
-    .info-block .placeholder {
-      margin-top: 10px;
-    }
-
-    .info-list {
-      list-style: none;
+    /* ── TOC mobile ── */
+    .toc-mobile { background: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    @media (min-width: 1680px) { .toc-mobile { display: none; } }
+    .toc-mobile-toggle {
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .info-list li {
-      font-size: 0.875rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 24px;
+      background: none;
+      border: none;
       color: var(--light-gray);
-      padding-left: 16px;
-      position: relative;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
     }
-    .info-list li::before {
-      content: "–";
-      position: absolute;
-      left: 0;
-      color: var(--hot-orange);
+    .toc-mobile-toggle:hover { color: var(--white); }
+    .toc-toggle-chevron { transition: transform 0.2s; flex-shrink: 0; font-style: normal; }
+    .toc-mobile-toggle[aria-expanded="true"] .toc-toggle-chevron { transform: rotate(180deg); }
+    .toc-mobile-list {
+      list-style: none;
+      overflow: hidden;
+      max-height: 0;
+      padding: 0 24px;
+      transition: max-height 0.28s ease, padding 0.28s;
     }
+    .toc-mobile-list.open { max-height: 600px; padding: 4px 24px 16px; }
+    .toc-mobile-link {
+      display: block;
+      padding: 8px 0;
+      color: var(--light-gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color 0.15s, padding-left 0.15s;
+    }
+    .toc-mobile-link:hover { color: var(--hot-orange); padding-left: 4px; }
+    .toc-mobile-list li:last-child .toc-mobile-link { border-bottom: none; }
+
+    /* ── TOC desktop (fixed sidebar, shown 1680px+) ── */
+    .toc-desktop {
+      display: none;
+      position: fixed;
+      right: 28px;
+      top: calc(var(--nav-height) + 44px);
+      width: 152px;
+      z-index: 50;
+    }
+    @media (min-width: 1680px) { .toc-desktop { display: block; } }
+    .toc-desktop-label {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--evil-gray);
+      margin-bottom: 10px;
+      padding-left: 12px;
+    }
+    .toc-desktop-list { list-style: none; border-left: 1px solid rgba(255,255,255,0.07); }
+    .toc-link {
+      display: block;
+      font-size: 0.74rem;
+      color: rgba(158,158,158,0.55);
+      text-decoration: none;
+      padding: 5px 0 5px 12px;
+      line-height: 1.35;
+      transition: color 0.15s, padding-left 0.15s;
+    }
+    .toc-link:hover { color: var(--light-gray); padding-left: 15px; }
+    .toc-link.active { color: var(--hot-orange); padding-left: 15px; border-left: 2px solid var(--hot-orange); margin-left: -1px; }
+
+    /* ── Travel-card grid ── */
+    .travel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 720px) { .travel-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -202,126 +483,285 @@
     <div class="container">
       <span class="section-label">Praktické info</span>
       <h1>Vše, co <span>potřebujete vědět</span></h1>
-      <p>Informace o místě konání, dopravě, ubytování a dalších praktických věcech.</p>
+      <p>Informace o příjezdu, ubytování, stravování a zázemí na místě.</p>
     </div>
   </header>
 
+  <!-- Přehled -->
   <section class="section" style="padding-top:0">
     <div class="container">
-
       <div class="fact-cards">
-        <div class="fact-card">
-          <div class="fact-label">
+        <div class="card">
+          <div class="card-label">
             <ion-icon name="calendar-outline"></ion-icon>
-            <strong>Termín</strong>
+            <span>Termín</span>
           </div>
-          <span>Pá 27. 3. – Ne 29. 3. 2026</span>
-          <small class="fact-sub">Brány dobrodružství se otevřou v pátek večer. První kostky se roztočí v 19:00. Poslední kapitola příběhu bude dopsána v neděli ve 13:00.</small>
+          <div class="card-value">Pá 27. 3. – Ne 29. 3. 2026</div>
+          <p class="card-note">Brány dobrodružství se otevřou v pátek večer. První kostky se roztočí v 19:00. Poslední kapitola příběhu bude dopsána v neděli ve 13:00.</p>
         </div>
-        <div class="fact-card">
-          <div class="fact-label">
+        <div class="card">
+          <div class="card-label">
             <ion-icon name="location-outline"></ion-icon>
-            <strong>Místo</strong>
+            <span>Místo</span>
           </div>
-          <span>SVČ Fokus, Nový Jičín</span>
-          <small class="fact-sub">K Nemocnici 1082/23, Nový Jičín</small>
+          <div class="card-value">SVČ Fokus, Nový Jičín</div>
+          <p class="card-note">K Nemocnici 1082/23, Nový Jičín</p>
         </div>
-        <div class="fact-card">
-          <div class="fact-label">
+        <div class="card">
+          <div class="card-label">
             <ion-icon name="time-outline"></ion-icon>
-            <strong>Příjezd</strong>
+            <span>Příjezd</span>
           </div>
-          <span>Pátek 16:00–18:30</span>
-          <small class="fact-sub">Do Fokusu můžete vstoupit od 16:00. Poslední možnost registrace je v 18:30, poté už se družiny vydají vstříc svému osudu.</small>
+          <div class="card-value">Pátek 16:00–18:30</div>
+          <p class="card-note">Do Fokusu můžete vstoupit od 16:00. Poslední možnost registrace je v 18:30, poté už se družiny vydají vstříc svému osudu.</p>
         </div>
-        <div class="fact-card">
-          <div class="fact-label">
+        <div class="card">
+          <div class="card-label">
             <ion-icon name="flag-outline"></ion-icon>
-            <strong>Vyhodnocení</strong>
+            <span>Vyhodnocení</span>
           </div>
-          <span>Neděle 15:00–16:00</span>
-          <small class="fact-sub">Ohlédneme se za uplynulým víkendem, vyhodnotíme turnaj, rozdáme ocenění a zjistíme, kdo se zapíše do kronik jako hrdina a legenda.</small>
+          <div class="card-value">Neděle 15:00–16:00</div>
+          <p class="card-note">Ohlédneme se za uplynulým víkendem, vyhodnotíme turnaj, rozdáme ocenění a zjistíme, kdo se zapíše do kronik jako hrdina a legenda.</p>
         </div>
       </div>
 
-      <div class="alert" style="margin-bottom:56px">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px">
+        <a href="https://maps.app.goo.gl/u92AdAFknjgDDFLT8" class="map-btn" target="_blank" rel="noopener">
+          <ion-icon name="map-outline"></ion-icon> Google Mapy
+        </a>
+        <a href="https://mapy.com/s/huvamefama" class="map-btn" target="_blank" rel="noopener">
+          <ion-icon name="map-outline"></ion-icon> Mapy.cz
+        </a>
+        <a href="https://ul.waze.com/ul?place=ChIJMRmYJKmUE0cRVZWP8LH-vnA&ll=49.59053350%2C18.01026190&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" class="map-btn" target="_blank" rel="noopener">
+          <ion-icon name="navigate-outline"></ion-icon> Waze
+        </a>
+      </div>
+
+      <div class="alert">
         <div class="alert-title"><ion-icon name="warning-outline"></ion-icon> Životně důležité info</div>
         <ul>
           <li><span>V průběhu celé akce platí <strong>zákaz konzumace alkoholu</strong> a jiných návykových látek.</span></li>
-          <li><span>Kuřáci mohou <strong>kouřit mimo areál SVČ</strong>.</span></li>
+          <li><span>Kuřáci mohou <strong>kouřit pouze mimo areál SVČ</strong>.</span></li>
           <li><span>Platí přísný <strong>zákaz vstupu psů</strong> na akci — bez výjimek.</span></li>
-        </ul>
-      </div>
-
-      <h2 style="margin-bottom:32px">Místo <span>konání</span></h2>
-      <div class="info-grid" style="margin-bottom:56px">
-        <div class="info-block">
-          <div class="info-block-icon">📍</div>
-          <h3>Adresa</h3>
-          <span class="placeholder">Doplňte adresu místa konání.</span>
-        </div>
-        <div class="info-block">
-          <div class="info-block-icon">🗓️</div>
-          <h3>Termín</h3>
-          <p>Pátek – Neděle<br />Doplňte datum konání.</p>
-        </div>
-      </div>
-
-      <h2 style="margin-bottom:32px">Doprava</h2>
-      <div class="info-grid" style="margin-bottom:56px">
-        <div class="info-block">
-          <div class="info-block-icon">🚂</div>
-          <h3>Veřejná doprava</h3>
-          <span class="placeholder">Doplňte informace o spojení.</span>
-        </div>
-        <div class="info-block">
-          <div class="info-block-icon">🚗</div>
-          <h3>Autem</h3>
-          <span class="placeholder">Doplňte informace o parkování.</span>
-        </div>
-      </div>
-
-      <h2 style="margin-bottom:32px">Ubytování</h2>
-      <div class="info-grid" style="margin-bottom:56px">
-        <div class="info-block">
-          <div class="info-block-icon">🏠</div>
-          <h3>Ubytování na místě</h3>
-          <span class="placeholder">Doplňte informace o ubytování na místě konání.</span>
-        </div>
-        <div class="info-block">
-          <div class="info-block-icon">🏨</div>
-          <h3>Okolní ubytování</h3>
-          <span class="placeholder">Doplňte tipy na okolní ubytování (hotely, penziony, AirBnB).</span>
-        </div>
-      </div>
-
-      <h2 style="margin-bottom:32px">Stravování</h2>
-      <div class="info-grid" style="margin-bottom:56px">
-        <div class="info-block">
-          <div class="info-block-icon">🍽️</div>
-          <h3>Catering na místě</h3>
-          <span class="placeholder">Doplňte informace o stravování a občerstvení.</span>
-        </div>
-        <div class="info-block">
-          <div class="info-block-icon">☕</div>
-          <h3>Nápoje</h3>
-          <span class="placeholder">Doplňte informace o dostupnosti nápojů.</span>
-        </div>
-      </div>
-
-      <h2 style="margin-bottom:32px">Co vzít <span>s sebou</span></h2>
-      <div class="info-block">
-        <ul class="info-list">
-          <li>Vlastní kostky (D4, D6, D8, D10, D12, D20)</li>
-          <li>Papír a tužku na poznámky</li>
-          <li>Platný doklad totožnosti</li>
-          <li class="placeholder" style="padding-left:0;list-style:none">Doplňte další položky.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt">
+  <!-- TOC mobile -->
+  <div class="toc-mobile">
+    <button class="toc-mobile-toggle" id="toc-toggle" aria-expanded="false">
+      <span>Obsah stránky</span>
+      <span class="toc-toggle-chevron">▾</span>
+    </button>
+    <ul class="toc-mobile-list" id="toc-mobile-list">
+      <li><a href="#sec-registrace" class="toc-mobile-link">Registrace</a></li>
+      <li><a href="#sec-cenik" class="toc-mobile-link">Cena</a></li>
+      <li><a href="#sec-prijezd" class="toc-mobile-link">Příjezd</a></li>
+      <li><a href="#sec-cestovani" class="toc-mobile-link">Cestování</a></li>
+      <li><a href="#sec-ubytovani" class="toc-mobile-link">Ubytování</a></li>
+      <li><a href="#sec-strava" class="toc-mobile-link">Stravování</a></li>
+      <li><a href="#sec-pred-odjezdem" class="toc-mobile-link">Před odjezdem</a></li>
+      <li><a href="#sec-faq" class="toc-mobile-link">Časté dotazy</a></li>
+    </ul>
+  </div>
+
+  <!-- Registrace -->
+  <section class="section section-alt" id="sec-registrace">
+    <div class="container">
+      <span class="section-label">Registrace</span>
+      <h2>Jak se <span>přihlásit</span></h2>
+      <p class="section-body">Po dokončení registrace v systému SVČ Fokus vám na e-mail přijde přihláška.</p>
+      <p class="section-body">Přihlášku si prosím vytiskněte, vyplňte a přineste s sebou na registraci. Pokud budete chtít během akce opustit areál SVČ Fokus, musíte mít podepsaný souhlas zákonného zástupce.</p>
+    </div>
+  </section>
+
+  <!-- Cena -->
+  <section class="section" id="sec-cenik">
+    <div class="container">
+      <span class="section-label">Cena</span>
+      <h2>Kolik stojí <span>vstupné</span></h2>
+      <p class="section-lead">Přehled cen turnaje i doprovodného programu.</p>
+      <div class="price-cards">
+        <div class="card">
+          <div class="card-label"><ion-icon name="trophy-outline"></ion-icon> Turnajový víkend</div>
+          <div class="card-value card-value--lg">600 Kč</div>
+          <p class="card-note" style="margin-top:-8px;margin-bottom:14px"><strong style="color:var(--white)">volitelně + 300 Kč za stravu</strong></p>
+          <ul class="price-card-features">
+            <li>Turnaj</li>
+            <li>Doprovodný program</li>
+            <li>Přespání</li>
+            <li>Pitný režim</li>
+          </ul>
+          <hr class="price-card-divider" />
+          <div class="price-card-footer">
+            Příplatek za jídlo se doplácí na místě v hotovosti, ale pokud máte o jídlo zájem, musíte to potvrdit již v rámci registrace.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label"><ion-icon name="dice-outline"></ion-icon> Sobotní program</div>
+          <div class="card-value card-value--lg">200 Kč</div>
+          <ul class="price-card-features">
+            <li>RPG / LARPy</li>
+            <li>Volný program</li>
+            <li>Přespání</li>
+            <li>Pitný režim</li>
+          </ul>
+          <div class="price-card-footer">
+            Platba na místě v hotovosti
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Příjezd -->
+  <section class="section section-alt" id="sec-prijezd">
+    <div class="container">
+      <span class="section-label">Příjezd</span>
+      <h2>Jak a kdy <span>dorazit</span></h2>
+      <p class="section-lead">Vyberte si správný čas příjezdu podle programu, kterého se účastníte.</p>
+      <div class="text-col-heading">Turnaj</div>
+      <p class="section-body">Pokud se účastníte turnaje, doporučujeme dorazit v pátek mezi 16:00 a 18:30. Budete mít dostatek času na registraci, ubytování i přípravu před začátkem prvního kola. Turnaj začíná v 19:00.</p>
+      <div class="text-col-heading" style="margin-top:20px">Doprovodný program</div>
+      <p class="section-body">Na doprovodný program můžete dorazit kdykoliv v průběhu soboty podle harmonogramu jednotlivých aktivit. Doporučujeme přijít alespoň 15 minut před začátkem vybrané hry nebo programu.</p>
+      <div class="text-col-heading" style="margin-top:20px">Pozdní příjezd</div>
+      <p class="section-body">Pokud víte, že dorazíte později, dejte nám prosím co nejdříve vědět. U turnaje se pokusíme najít vhodné řešení, pozdní příjezd ale může ovlivnit průběh prvního kola.</p>
+    </div>
+  </section>
+
+  <!-- Cestování -->
+  <section class="section" id="sec-cestovani">
+    <div class="container">
+      <span class="section-label">Cestování</span>
+      <h2>Jak se <span>dostat</span></h2>
+      <p class="section-lead">Vyberte si způsob dopravy, který vám nejlépe vyhovuje.</p>
+      <div class="travel-grid">
+        <div class="card">
+          <div class="card-label">
+            <ion-icon name="car-outline"></ion-icon>
+            <span>Autem</span>
+          </div>
+          <p class="card-note">Parkování je k dispozici podél ulice Janáčkovy sady u vjezdu do SVČ. Hned za střediskem je park a vedle něj další parkoviště. O víkendech lze stát také u blízké knihovny.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">
+            <ion-icon name="train-outline"></ion-icon>
+            <span>Vlakem</span>
+          </div>
+          <p class="card-note">Vystupte v Suchdole nad Odrou (frekventovaný spoj RegioJet Ostrava–Brno) a přesedněte na místní spoj do stanice Nový Jičín město. Odtud je to necelý kilometr pěšky přímo do SVČ Fokus.</p>
+          <ul class="bullet-list">
+            <li><a href="https://mapy.cz/s/namefajomu" target="_blank" rel="noopener">Trasa na mapy.cz</a></li>
+            <li><a href="https://goo.gl/maps/aackfYf6vdqjxRkB8" target="_blank" rel="noopener">Trasa na Google Maps</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-label">
+            <ion-icon name="bus-outline"></ion-icon>
+            <span>Autobusem</span>
+          </div>
+          <p class="card-note">Z Ostravy nebo jiných větších měst přijedete přímo na nádraží v Novém Jičíně. Zastavuje zde i RegioJet na lince Ostrava–Brno. Z nádraží je SVČ Fokus vzdálena necelý kilometr pěšky.</p>
+          <ul class="bullet-list">
+            <li><a href="https://mapy.cz/s/ceracuhebe" target="_blank" rel="noopener">Trasa na mapy.cz</a></li>
+            <li><a href="https://goo.gl/maps/Cj4kqYrEKSpuXibG8" target="_blank" rel="noopener">Trasa na Google Maps</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ubytování -->
+  <section class="section section-alt" id="sec-ubytovani">
+    <div class="container">
+      <span class="section-label">Ubytování</span>
+      <h2>Kde <span>přespat</span></h2>
+      <p class="section-lead">Vyberte si mezi společným přespáním ve SVČ Fokus nebo vlastním ubytováním v Novém Jičíně.</p>
+      <div class="text-cols">
+        <div>
+          <div class="text-col-heading"><ion-icon name="bed-outline"></ion-icon> Přespání v areálu</div>
+          <p class="text-col-body">Účastníci turnaje mohou přespat přímo v prostorách SVČ Fokus. Spí se společně v připravených místnostech na vlastních karimatkách nebo matracích. Přespání je zahrnuto v ceně turnaje.</p>
+          <ul class="check-list">
+            <li>Sprchy</li>
+            <li>Toalety</li>
+            <li>Rychlovarná konvice</li>
+            <li>Mikrovlnka</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-col-heading"><ion-icon name="business-outline"></ion-icon> Alternativní ubytování</div>
+          <p class="text-col-body">Přespání ve SVČ Fokus není povinné. Můžete využít některý z hotelů nebo penzionů v Novém Jičíně. Ubytování není zahrnuto v ceně turnaje, ale všechna doporučená místa se nacházejí v rozumné vzdálenosti od SVČ Fokus.</p>
+          <ul class="bullet-list">
+            <li><a href="https://www.hotelpraha-nj.cz/" target="_blank" rel="noopener">Hotel Praha</a></li>
+            <li><a href="https://www.penzion-udubu.cz/" target="_blank" rel="noopener">Penzion U Dubu</a></li>
+            <li><a href="https://www.hotelabacie.cz/" target="_blank" rel="noopener">Hotel Abácie</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stravování -->
+  <section class="section" id="sec-strava">
+    <div class="container">
+      <span class="section-label">Stravování</span>
+      <h2>Co se bude <span>jíst</span></h2>
+      <p class="section-lead">Podívejte se na orientační jídelníček pro celý víkend.</p>
+      <div class="three-col">
+        <div>
+          <div class="text-col-heading">Pátek</div>
+          <p class="text-col-body"><em>Večeře</em> — bramborový guláš s chlebem</p>
+        </div>
+        <div>
+          <div class="text-col-heading">Sobota</div>
+          <p class="text-col-body">
+            <em>Snídaně</em> — švédský stůl (sýr, salám, vejce, párky, máslo, pečivo, chléb…)<br>
+            <em>Oběd</em> — čočková polévka, moravský vrabec, zelí, houskový knedlík<br>
+            <em>Večeře</em> — boloňská omáčka, těstoviny, sýr
+          </p>
+        </div>
+        <div>
+          <div class="text-col-heading">Neděle</div>
+          <p class="text-col-body">
+            <em>Snídaně</em> — švédský stůl (jogurty, ovesná kaše, müsli, mléko, džem, pečivo…)<br>
+            <em>Oběd</em> — drůbeží polévka, kuřecí rizoto se zeleninou, sýr, okurka
+          </p>
+          <p style="font-size:0.8rem;color:var(--light-gray);opacity:0.7"><em>Změna jídelníčku vyhrazena.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Před odjezdem -->
+  <section class="section section-alt" id="sec-pred-odjezdem">
+    <div class="container">
+      <span class="section-label">Před odjezdem</span>
+      <h2>Co si <span>vzít s sebou</span></h2>
+      <p class="section-lead">Krátký seznam věcí, které se vám během víkendu budou hodit.</p>
+      <div class="text-cols">
+        <div>
+          <div class="text-col-heading">Obecná výbava</div>
+          <ul class="check-list">
+            <li>Vytištěná přihláška</li>
+            <li>Přezůvky (nutné se přezout při vstupu do SVČ Fokus)</li>
+            <li>Potřeby pro hraní RPG (sada kostek, karta postavy, tužka a papír)</li>
+            <li>Nabíječka na telefon</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-col-heading">Pokud přespáváte ve SVČ Fokus</div>
+          <ul class="check-list">
+            <li>Karimatka nebo nafukovací matrace</li>
+            <li>Spacák</li>
+            <li>Hygienické potřeby</li>
+            <li>Ručník</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="sec-faq">
     <div class="container">
 
       <span class="section-label">Organizační</span>
@@ -352,60 +792,6 @@
             <button class="acc-trigger" data-acc="mladiství">Co musí vědět účastníci do 18 let? <span class="acc-arrow">▼</span></button>
             <div class="acc-body" id="mladiství">
               <p>Pokud budete chtít během akce opustit areál SVČ Fokus, musíte mít podepsaný souhlas zákonného zástupce.</p>
-            </div>
-          </div>
-        </div>
-
-        <h3>Ubytování a zázemí</h3>
-        <div class="accordion">
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="spani">Kde budu spát? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="spani">
-              <p>Přespání v prostorách SVČ Fokus je zahrnuto v ceně akce. Stačí si přivézt vlastní karimatku a spacák.</p>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="zazemi">Jaké je zázemí na místě? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="zazemi">
-              <p>V prostorách SVČ Fokus budete mít po celou dobu akce k dispozici:</p>
-              <ul class="acc-list">
-                <li>sociální zařízení,</li>
-                <li>sprchy,</li>
-                <li>mikrovlnnou troubu,</li>
-                <li>rychlovarnou konvici.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="vlastni-ubyt">Chci vlastní ubytování. Jaké mám možnosti? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="vlastni-ubyt">
-              <p>Pokud preferujete vlastní ubytování, můžete využít některé z okolních zařízení. Ubytování mimo SVČ Fokus není součástí ceny akce.</p>
-              <ul class="acc-list">
-                <li>Hotel Praha</li>
-                <li>Penzion U Dubu</li>
-                <li>Hotel Abácie</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <h3>Co si vzít s sebou</h3>
-        <div class="accordion">
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="na-prespan">Co budu potřebovat na přespání? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="na-prespan">
-              <p>Pokud plánujete přespat v prostorách SVČ Fokus, nezapomeňte si přivézt:</p>
-              <ul class="acc-list">
-                <li>karimatku,</li>
-                <li>spacák,</li>
-                <li>přezůvky.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="na-hrani">Co budu potřebovat na hraní? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="na-hrani">
-              <p>Na samotné hraní doporučujeme také vlastní kostky, tužku a další oblíbené herní pomůcky.</p>
             </div>
           </div>
         </div>
@@ -472,33 +858,26 @@
           </div>
         </div>
 
-        <h3>Info k cestování</h3>
-        <div class="accordion">
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="autem">Autem <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="autem">
-              <p>Pokud přijedete autem, nabízí se dostatek místa k parkování v blízkosti SVČ Fokus. První možnost k parkování je podél ulice Janáčkovy sady u vjezdu do SVČ. Hned za střediskem je park a vedle něj další parkoviště. V případě nedostatku místa je možné stát také u blízké knihovny, kde je o víkendech neomezené parkování.</p>
-              <p>Viz <a href="https://mapy.cz" target="_blank" rel="noopener">mapy.cz</a>. Verzi pro Google Maps najdete v textu.</p>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="vlakem">Vlakem <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="vlakem">
-              <p>Při cestě vlakem se dopravíte do stanice Suchdol nad Odrou (stanice např. frekventovaného spoje společnosti RegioJet na trati Ostrava–Brno aj.), kde přesednete na místní spoj do Nového Jičína. Ten vás za pár minut doveze na stanici Nový Jičín město. Odtud stačí dojít necelý kilometr přímo na SVČ Fokus.</p>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="autobusem">Autobusem <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="autobusem">
-              <p>Z blízkých větších měst (např. Ostrava) můžete přijet autobusem na místní autobusové nádraží. Tyto spoje bývají poměrně frekventované a dobře dostupné. Staví zde i autobus společnosti RegioJet na pravidelné lince Ostrava–Brno. Z autobusového nádraží pak stačí dojít necelý kilometr přímo na SVČ Fokus.</p>
-            </div>
-          </div>
-        </div>
 
       </div><!-- /.details-body -->
 
     </div>
   </section><!-- /.section-alt -->
+
+  <!-- TOC desktop -->
+  <nav class="toc-desktop" aria-label="Obsah stránky">
+    <span class="toc-desktop-label">Obsah stránky</span>
+    <ul class="toc-desktop-list">
+      <li><a href="#sec-registrace" class="toc-link">Registrace</a></li>
+      <li><a href="#sec-cenik" class="toc-link">Cena</a></li>
+      <li><a href="#sec-prijezd" class="toc-link">Příjezd</a></li>
+      <li><a href="#sec-cestovani" class="toc-link">Cestování</a></li>
+      <li><a href="#sec-ubytovani" class="toc-link">Ubytování</a></li>
+      <li><a href="#sec-strava" class="toc-link">Stravování</a></li>
+      <li><a href="#sec-pred-odjezdem" class="toc-link">Před odjezdem</a></li>
+      <li><a href="#sec-faq" class="toc-link">Časté dotazy</a></li>
+    </ul>
+  </nav>
 
   <div id="footer-placeholder"></div>
 
@@ -513,6 +892,45 @@
         const isOpen = btn.classList.contains('open');
         btn.classList.toggle('open', !isOpen);
         body.classList.toggle('open', !isOpen);
+      });
+    });
+
+    // ── ToC ──
+    const TOC_IDS = ['sec-registrace','sec-cenik','sec-prijezd','sec-cestovani',
+                     'sec-ubytovani','sec-strava','sec-pred-odjezdem','sec-faq'];
+    const tocLinks       = document.querySelectorAll('.toc-link');
+    const tocMobileLinks = document.querySelectorAll('.toc-mobile-link');
+    const tocSections    = TOC_IDS.map(id => document.getElementById(id)).filter(Boolean);
+
+    function setTocActive(id) {
+      tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+    function updateToc() {
+      let current = tocSections[0];
+      for (const el of tocSections) {
+        if (el.getBoundingClientRect().top <= 90) current = el;
+      }
+      if (current) setTocActive(current.id);
+    }
+    window.addEventListener('scroll', updateToc, { passive: true });
+    updateToc();
+
+    const tocToggleBtn  = document.getElementById('toc-toggle');
+    const tocMobileList = document.getElementById('toc-mobile-list');
+    tocToggleBtn.addEventListener('click', () => {
+      const open = tocMobileList.classList.toggle('open');
+      tocToggleBtn.setAttribute('aria-expanded', open);
+    });
+    tocMobileLinks.forEach(l => l.addEventListener('click', () => {
+      tocMobileList.classList.remove('open');
+      tocToggleBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    document.querySelectorAll('.facility-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isOpen = btn.classList.contains('open');
+        document.querySelectorAll('.facility-item').forEach(b => b.classList.remove('open'));
+        if (!isOpen) btn.classList.add('open');
       });
     });
   </script>
