@@ -293,11 +293,13 @@
 
     @media (max-width: 768px) {
       .gm-selector { grid-template-columns: 1fr; }
-      .gm-list-panel { position: static; padding: 14px 12px; }
+      .gm-list-panel { position: static; padding: 14px 12px; min-width: 0; }
       .gm-list { flex-direction: row; overflow-x: auto; gap: 8px; padding-bottom: 4px; }
       .gm-list-item { white-space: nowrap; flex-shrink: 0; }
       .gm-list-item:hover { transform: none; }
+      .gm-card { padding: 24px 20px; min-width: 0; }
       .gm-card-body { grid-template-columns: 1fr; }
+      .gm-card-bio-col, .gm-card-portrait-col { min-width: 0; }
       .gm-card-portrait, .gm-card-portrait-placeholder { min-height: 220px; }
     }
 

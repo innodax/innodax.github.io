@@ -15,7 +15,11 @@
       "Bash(curl -s -o /dev/null -w \"info.html: %{http_code}\\\\n\" http://localhost:8080/info.html)",
       "Bash(curl -s -o /dev/null -w \"about.html: %{http_code}\\\\n\" http://localhost:8080/about.html)",
       "Bash(python3 -m http.server 8080)",
-      "Bash(echo \"PID=$!\")"
+      "Bash(echo \"PID=$!\")",
+      "Bash(node -e ' *)",
+      "Bash(pkill -f \"http.server 8934\")",
+      "Bash(rm -f /tmp/claude-1000/-home-innoda-GIT-fokusroll/89014901-d32f-49f9-9694-3bf71c2ece56/scratchpad/*.png)",
+      "Bash(grep *)"
     ]
   }
 }
