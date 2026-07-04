@@ -46,9 +46,9 @@
       gap: 14px;
       margin-top: 32px;
     }
-    @media (max-width: 1000px) { .rpg-card-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 680px)  { .rpg-card-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 420px)  { .rpg-card-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 1024px) { .rpg-card-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px)  { .rpg-card-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px)  { .rpg-card-grid { grid-template-columns: 1fr; } }
 
     .rpg-card {
       background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
@@ -148,7 +148,7 @@
 
     /* ── TOC mobile (collapsible, shown below 1680px) ── */
     .toc-mobile { background: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    @media (min-width: 1680px) { .toc-mobile { display: none; } }
+    @media (min-width: 1536px) { .toc-mobile { display: none; } }
 
     .toc-mobile-toggle {
       width: 100%;
@@ -199,7 +199,7 @@
       width: 152px;
       z-index: 50;
     }
-    @media (min-width: 1680px) { .toc-desktop { display: block; } }
+    @media (min-width: 1536px) { .toc-desktop { display: block; } }
 
     .toc-desktop-label {
       display: block;
@@ -400,7 +400,7 @@
     }
     .modal-stat-value { font-size: 0.875rem; font-weight: 600; color: var(--white); }
 
-    @media (max-width: 680px) {
+    @media (max-width: 640px) {
       .activity-overlay { padding: 0; align-items: flex-end; }
       .activity-modal { border-radius: 20px 20px 0 0; max-height: 92vh; }
       .modal-inner { grid-template-columns: 1fr; }
