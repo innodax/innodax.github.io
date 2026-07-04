@@ -370,23 +370,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* ─── CARDS ─── */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-@media (max-width: 768px) { .cards-grid { grid-template-columns: 1fr; } }
-
-.card {
-  background: var(--dark-gray);
-  border-radius: 14px;
-  padding: 28px;
-  border: 1px solid var(--evil-gray);
-}
-.card-icon { font-size: 1.8rem; margin-bottom: 14px; }
-.card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-.card p { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; }
 
 /* ─── REGISTRACE CTA BANNER ─── */
 .cta-banner {
