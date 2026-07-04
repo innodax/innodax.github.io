@@ -338,60 +338,6 @@
     }
     .facility-item.open .facility-detail { display: block; }
 
-    /* ── Accordion ── */
-    .details-body h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: -0.01em;
-      margin-top: 40px;
-      margin-bottom: 16px;
-    }
-    .details-body h3:first-child { margin-top: 0; }
-    .accordion { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
-    .acc-item {
-      background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-top: 2px solid rgba(255,255,255,0.18);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
-    }
-    .acc-trigger {
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 20px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--white);
-      text-align: left;
-      transition: background 0.15s;
-    }
-    .acc-trigger:hover { background: rgba(255,255,255,0.03); }
-    .acc-arrow { font-size: 0.7rem; color: var(--white); transition: transform 0.2s; flex-shrink: 0; opacity: 0.4; }
-    .acc-trigger.open .acc-arrow { transform: rotate(180deg); opacity: 0.8; }
-    .acc-body { display: none; padding: 0 22px 22px; border-top: 1px solid rgba(255,255,255,0.07); }
-    .acc-body.open { display: block; }
-    .acc-body p { color: var(--light-gray); font-size: 0.9rem; line-height: 1.75; margin-top: 16px; margin-bottom: 0; }
-    .acc-body p + p { margin-top: 12px; }
-    .acc-body strong { color: var(--white); }
-    .acc-body a { color: var(--hot-orange); }
-    .acc-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
-    .acc-list li { font-size: 0.9rem; color: var(--light-gray); padding-left: 14px; position: relative; }
-    .acc-list li::before { content: '—'; color: var(--hot-orange); position: absolute; left: 0; }
-    .acc-warning { color: var(--hot-orange); font-weight: 600; margin-top: 16px; }
-    .acc-menu { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; margin-bottom: 4px; }
-    .acc-menu-day strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--hot-orange); margin-bottom: 6px; }
-    .acc-menu-day p { margin-top: 4px; }
-
     /* ── TOC mobile ── */
     .toc-mobile { background: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.06); }
     @media (min-width: 1536px) { .toc-mobile { display: none; } }
@@ -562,7 +508,6 @@
       <li><a href="#sec-ubytovani" class="toc-mobile-link">Ubytování</a></li>
       <li><a href="#sec-strava" class="toc-mobile-link">Stravování</a></li>
       <li><a href="#sec-pred-odjezdem" class="toc-mobile-link">Před odjezdem</a></li>
-      <li><a href="#sec-faq" class="toc-mobile-link">Časté dotazy</a></li>
     </ul>
   </div>
 
@@ -761,109 +706,6 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section" id="sec-faq">
-    <div class="container">
-
-      <span class="section-label">Organizační</span>
-      <h2>Často kladené <span>otázky</span></h2>
-
-      <div class="details-body">
-
-        <h3>Účast a registrace</h3>
-        <div class="accordion">
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="dorazit">Kdy mám dorazit? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="dorazit">
-              <p>Na místo můžete dorazit už od 16:00.</p>
-              <p>V 18:00 prosím buďte na místě, abyste stihli registraci. Nejpozději v 18:30 byste již měli být přítomni na zahájení akce.</p>
-              <p>V prostorách SVČ Fokus budou ještě probíhat některé kroužky, proto prosíme o trpělivost během příjezdu. Uděláme vše pro to, aby se program rozběhl podle plánu.</p>
-              <p>Závěrečné vyhodnocení turnaje proběhne v neděli mezi 15:00 a 16:00.</p>
-              <p>Po vyhlášení výsledků bude následovat také krátká reflexe turnaje. Pokud vás budou zajímat neobjevené části příběhu, alternativní řešení nebo otázky k dobrodružství, rádi vám vše zodpovíme.</p>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="registrace">Jak funguje registrace? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="registrace">
-              <p>Po dokončení registrace v systému SVČ Fokus vám na e-mail přijde přihláška.</p>
-              <p>Přihlášku si prosím vytiskněte, vyplňte a přineste s sebou na registraci.</p>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="mladiství">Co musí vědět účastníci do 18 let? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="mladiství">
-              <p>Pokud budete chtít během akce opustit areál SVČ Fokus, musíte mít podepsaný souhlas zákonného zástupce.</p>
-            </div>
-          </div>
-        </div>
-
-        <h3>Vstupné a stravování</h3>
-        <div class="accordion">
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="vikend">Kolik stojí víkendová vstupenka? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="vikend">
-              <p>Cena za celý víkend činí <strong>600 Kč</strong>.</p>
-              <p>V ceně je zahrnuto:</p>
-              <ul class="acc-list">
-                <li>účast v turnaji Jeskyně a draci,</li>
-                <li>kompletní doprovodný program,</li>
-                <li>pitný režim po celou dobu akce,</li>
-                <li>možnost přespání v prostorách SVČ Fokus.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="sobota">Co když chci jen sobotní program? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="sobota">
-              <p>Pokud se chcete zúčastnit pouze sobotního programu, cena činí <strong>200 Kč</strong> a platí se na místě v hotovosti.</p>
-              <p>V ceně je zahrnuto:</p>
-              <ul class="acc-list">
-                <li>doprovodný program,</li>
-                <li>až dvě RPG hry nebo larpy dle nabídky,</li>
-                <li>deskové hry, NERF aréna, larpový šerm, lukostřelba,</li>
-                <li>pitný režim,</li>
-                <li>možnost přespání v prostorách SVČ Fokus.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="stravovani">Jak funguje stravování? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="stravovani">
-              <p>Pitný režim (káva, čaj a voda) je pro všechny účastníky zahrnut v základní ceně.</p>
-              <p>Za příplatek <strong>300 Kč</strong> vám zajistíme stravování po celou dobu akce. Stravování začíná páteční večeří a končí nedělním obědem. Celková cena vstupenky se stravou je tedy <strong>900 Kč</strong>.</p>
-              <p class="acc-warning">Zájem o stravování je nutné potvrdit již při registraci. Příplatek za jídlo se doplácí na místě v hotovosti.</p>
-            </div>
-          </div>
-          <div class="acc-item">
-            <button class="acc-trigger" data-acc="jidelnicek">Co se bude jíst? <span class="acc-arrow">▼</span></button>
-            <div class="acc-body" id="jidelnicek">
-              <div class="acc-menu">
-                <div class="acc-menu-day">
-                  <strong>Pátek</strong>
-                  <p><em>Večeře</em> — bramborový guláš s chlebem</p>
-                </div>
-                <div class="acc-menu-day">
-                  <strong>Sobota</strong>
-                  <p><em>Snídaně</em> — švédský stůl (sýr, salám, vejce, párky, máslo, pečivo, chléb…)</p>
-                  <p><em>Oběd</em> — čočková polévka, moravský vrabec, zelí, houskový knedlík</p>
-                  <p><em>Večeře</em> — boloňská omáčka, těstoviny, sýr</p>
-                </div>
-                <div class="acc-menu-day">
-                  <strong>Neděle</strong>
-                  <p><em>Snídaně</em> — švédský stůl (jogurty, ovesná kaše, müsli, mléko, džem, pečivo…)</p>
-                  <p><em>Oběd</em> — drůbeží polévka, kuřecí rizoto se zeleninou, sýr, okurka</p>
-                </div>
-              </div>
-              <p><em>Změna jídelníčku vyhrazena.</em></p>
-            </div>
-          </div>
-        </div>
-
-
-      </div><!-- /.details-body -->
-
-    </div>
-  </section><!-- /.section-alt -->
-
   <!-- TOC desktop -->
   <nav class="toc-desktop" aria-label="Obsah stránky">
     <span class="toc-desktop-label">Obsah stránky</span>
@@ -875,7 +717,6 @@
       <li><a href="#sec-ubytovani" class="toc-link">Ubytování</a></li>
       <li><a href="#sec-strava" class="toc-link">Stravování</a></li>
       <li><a href="#sec-pred-odjezdem" class="toc-link">Před odjezdem</a></li>
-      <li><a href="#sec-faq" class="toc-link">Časté dotazy</a></li>
     </ul>
   </nav>
 
@@ -885,19 +726,9 @@
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script>
-    document.querySelectorAll('.acc-trigger').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.acc;
-        const body = document.getElementById(id);
-        const isOpen = btn.classList.contains('open');
-        btn.classList.toggle('open', !isOpen);
-        body.classList.toggle('open', !isOpen);
-      });
-    });
-
     // ── ToC ──
     const TOC_IDS = ['sec-registrace','sec-cenik','sec-prijezd','sec-cestovani',
-                     'sec-ubytovani','sec-strava','sec-pred-odjezdem','sec-faq'];
+                     'sec-ubytovani','sec-strava','sec-pred-odjezdem'];
     const tocLinks       = document.querySelectorAll('.toc-link');
     const tocMobileLinks = document.querySelectorAll('.toc-mobile-link');
     const tocSections    = TOC_IDS.map(id => document.getElementById(id)).filter(Boolean);
