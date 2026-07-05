@@ -31,6 +31,7 @@ function closeDrawer() {
   </div>
 </nav>
 <div class="nav-drawer" id="drawer">
+  <a href="index.html" onclick="closeDrawer()">Domů</a>
   <a href="turnaj.html" onclick="closeDrawer()">Turnaj</a>
   <a href="doprovodny-program.html" onclick="closeDrawer()">Doprovodný program</a>
   <a href="info.html" onclick="closeDrawer()">Praktické info</a>
@@ -59,5 +60,8 @@ function closeDrawer() {
     const open = burger.classList.toggle('open');
     drawer.classList.toggle('open', open);
     document.body.style.overflow = open ? 'hidden' : '';
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
   });
 })();

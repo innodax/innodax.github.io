@@ -177,7 +177,7 @@ body {
   margin-left: 32px;
 }
 .nav-links a {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--black);
   text-decoration: none;
@@ -211,6 +211,7 @@ body {
   opacity: 1;
   transform: translateX(0) scale(1);
 }
+.nav-link.active { color: var(--white); }
 
 .nav-actions {
   display: flex;
@@ -224,20 +225,24 @@ body {
   padding: 9px 20px;
   background: var(--black);
   color: var(--white);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   border-radius: 8px;
   text-decoration: none;
   white-space: nowrap;
+  transition: opacity 0.15s, transform 0.1s;
 }
+.nav-cta:hover { opacity: 0.82; transform: translateY(-1px); }
 .nav-login {
   padding: 9px 15px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--black);
   text-decoration: none;
   border-radius: 8px;
+  transition: color 0.15s;
 }
+.nav-login:hover { color: var(--white); }
 
 .nav-burger {
   display: none;
@@ -270,7 +275,7 @@ body {
 .nav-drawer {
   display: none;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 6px;
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -287,7 +292,7 @@ body {
   display: block;
   padding: 16px 20px;
   border-radius: 10px;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--black);
   text-decoration: none;
