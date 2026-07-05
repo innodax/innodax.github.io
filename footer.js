@@ -13,6 +13,7 @@
       <li><a href="harmonogram.html">Harmonogram</a></li>
       <li><a href="kontakty.html">Kontakty</a></li>
       <li><a href="registrace.html">Registrace</a></li>
+      <li><a href="prihlaseni.html">Přihlášení</a></li>
     </ul>
   </div>
 </footer>

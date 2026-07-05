@@ -347,83 +347,6 @@
       scroll-margin-top: calc(var(--nav-height) + 12px);
     }
 
-    /* ── TOC mobile (collapsible, shown below 1680px) ── */
-    .toc-mobile { background: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    @media (min-width: 1536px) { .toc-mobile { display: none; } }
-
-    .toc-mobile-toggle {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 13px 24px;
-      background: none;
-      border: none;
-      color: var(--light-gray);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-    }
-    .toc-mobile-toggle:hover { color: var(--white); }
-    .toc-toggle-chevron { transition: transform 0.2s; flex-shrink: 0; font-style: normal; }
-    .toc-mobile-toggle[aria-expanded="true"] .toc-toggle-chevron { transform: rotate(180deg); }
-
-    .toc-mobile-list {
-      list-style: none;
-      overflow: hidden;
-      max-height: 0;
-      padding: 0 24px;
-      transition: max-height 0.28s ease, padding 0.28s;
-    }
-    .toc-mobile-list.open { max-height: 600px; padding: 4px 24px 16px; }
-
-    .toc-mobile-link {
-      display: block;
-      padding: 8px 0;
-      color: var(--light-gray);
-      text-decoration: none;
-      font-size: 0.85rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: color 0.15s, padding-left 0.15s;
-    }
-    .toc-mobile-link:hover { color: var(--hot-orange); padding-left: 4px; }
-    .toc-mobile-list li:last-child .toc-mobile-link { border-bottom: none; }
-
-    /* ── TOC desktop (fixed sidebar, shown 1680px+) ── */
-    .toc-desktop {
-      display: none;
-      position: fixed;
-      right: 28px;
-      top: calc(var(--nav-height) + 44px);
-      width: 152px;
-      z-index: 50;
-    }
-    @media (min-width: 1536px) { .toc-desktop { display: block; } }
-
-    .toc-desktop-label {
-      display: block;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--evil-gray);
-      margin-bottom: 10px;
-      padding-left: 12px;
-    }
-    .toc-desktop-list { list-style: none; border-left: 1px solid rgba(255,255,255,0.07); }
-    .toc-link {
-      display: block;
-      font-size: 0.74rem;
-      color: rgba(158,158,158,0.55);
-      text-decoration: none;
-      padding: 5px 0 5px 12px;
-      line-height: 1.35;
-      transition: color 0.15s, padding-left 0.15s;
-    }
-    .toc-link:hover { color: var(--light-gray); padding-left: 15px; }
-    .toc-link.active { color: var(--hot-orange); padding-left: 15px; border-left: 2px solid var(--hot-orange); margin-left: -1px; }
   </style>
 </head>
 <body>
@@ -726,6 +649,7 @@
 
   <script src="nav.js"></script>
   <script src="footer.js"></script>
+  <script src="toc.js"></script>
   <script>
     const GMS = [
       { name: 'Marek Bukovjan', nick: 'Buky', photo: 'img/gm/man.jpg',
@@ -956,37 +880,7 @@
     });
 
     // ── ToC ──
-    const TOC_IDS = ['sec-jak-funguje','sec-pro-koho','sec-herni-system','sec-dokumenty',
-                     'sec-pribeh','sec-prubeh-kol','sec-registrace','sec-vypravecu'];
-    const tocLinks      = document.querySelectorAll('.toc-link');
-    const tocMobileLinks = document.querySelectorAll('.toc-mobile-link');
-    const tocSections   = TOC_IDS.map(id => document.getElementById(id)).filter(Boolean);
-
-    function setTocActive(id) {
-      tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
-    }
-
-    function updateToc() {
-      let current = tocSections[0];
-      for (const el of tocSections) {
-        if (el.getBoundingClientRect().top <= 90) current = el;
-      }
-      if (current) setTocActive(current.id);
-    }
-    window.addEventListener('scroll', updateToc, { passive: true });
-    updateToc();
-
-    // Mobile toggle
-    const tocToggleBtn   = document.getElementById('toc-toggle');
-    const tocMobileList  = document.getElementById('toc-mobile-list');
-    tocToggleBtn.addEventListener('click', () => {
-      const open = tocMobileList.classList.toggle('open');
-      tocToggleBtn.setAttribute('aria-expanded', open);
-    });
-    tocMobileLinks.forEach(l => l.addEventListener('click', () => {
-      tocMobileList.classList.remove('open');
-      tocToggleBtn.setAttribute('aria-expanded', 'false');
-    }));
+    initToc(['sec-jak-funguje', 'sec-pro-koho', 'sec-herni-system', 'sec-dokumenty', 'sec-pribeh', 'sec-prubeh-kol', 'sec-registrace', 'sec-vypravecu']);
   </script>
 </body>
 </html>
