@@ -116,7 +116,18 @@ body {
   text-decoration: none;
   transition: gap 0.15s;
 }
-.section-link:hover { gap: 10px; }
+.section-link:hover { gap: 10px; text-decoration: underline; }
+
+/* Inline text links in body copy get an underline on hover; links inside
+   card components keep their own hover treatment (no underline). */
+.section-body a,
+.section-lead a {
+  text-decoration: none;
+}
+.section-body a:hover,
+.section-lead a:hover {
+  text-decoration: underline;
+}
 
 /* ─── LINK CARD (clickable nav card: icon + title + text + arrow) ─── */
 .link-card {
