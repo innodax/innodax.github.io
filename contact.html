@@ -8,70 +8,73 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <style>
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: start;
+    .contact-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 56px;
+      margin-top: 28px;
     }
-    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
-
-    .contact-cards { display: flex; flex-direction: column; gap: 16px; }
     .contact-card {
-      background: var(--gray);
-      border-radius: 12px;
-      padding: 20px 24px;
-      border: 1px solid var(--evil-gray);
-      display: flex; gap: 16px; align-items: center;
+      display: flex; gap: 14px; align-items: center;
       text-decoration: none;
-      transition: outline-color 0.2s;
+      width: fit-content;
     }
-    .contact-card:hover { outline-color: var(--hot-orange); }
     .contact-card .icon {
-      width: 44px; height: 44px;
-      background: rgba(251,169,44,0.1);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; flex-shrink: 0;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      color: var(--hot-orange);
+      display: flex;
     }
-    .contact-card strong { display: block; font-size: 0.85rem; font-weight: 700; color: var(--white); }
-    .contact-card span { font-size: 0.875rem; color: var(--light-gray); }
+    .contact-card span { font-size: 0.95rem; color: var(--hot-orange); font-weight: 600; }
+    .contact-card:hover span { text-decoration: underline; }
 
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--light-gray); }
-    .form-group input,
-    .form-group textarea {
-      background: var(--gray);
-      border: 1px solid var(--evil-gray);
-      border-radius: 8px;
-      padding: 11px 14px;
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.15s;
-      width: 100%;
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 32px;
     }
-    .form-group input:focus,
-    .form-group textarea:focus { border-color: var(--hot-orange); }
-    .form-group textarea { resize: vertical; min-height: 120px; }
-    .form-submit {
-      display: inline-flex;
-      padding: 13px 28px;
-      background: var(--hot-orange);
-      color: var(--black);
-      font-size: 0.95rem;
-      font-weight: 700;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: opacity 0.15s;
-      align-self: flex-start;
+    @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr; max-width: 320px; margin-left: auto; margin-right: auto; } }
+    .team-member { text-align: center; }
+    .team-photo {
+      width: 260px;
+      aspect-ratio: 3 / 4;
+      margin: 0 auto 16px;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid #2e2e2e;
     }
-    .form-submit:hover { opacity: 0.88; }
+    .team-photo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1.5px solid rgba(251,169,44,0.55);
+      pointer-events: none;
+      z-index: 3;
+    }
+    .team-photo::after {
+      content: '';
+      position: absolute;
+      inset: 7px;
+      pointer-events: none;
+      z-index: 4;
+      background:
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    0    / 16px 1.5px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    0    / 1.5px 16px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 0    / 16px 1.5px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 0    / 1.5px 16px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    100% / 16px 1.5px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    100% / 1.5px 16px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 100% / 16px 1.5px no-repeat,
+        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 100% / 1.5px 16px no-repeat;
+    }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .team-member h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .team-member p { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -83,54 +86,50 @@
       <span class="section-label">Kontakty</span>
       <h1>Máte <span>otázku?</span></h1>
       <p>Napište nám – rádi odpovíme na dotazy ohledně registrace, turnaje i programu.</p>
+      <div class="contact-cards">
+        <a href="mailto:fokusroll@email.cz" class="contact-card">
+          <div class="icon"><ion-icon name="mail-outline"></ion-icon></div>
+          <div>
+            <span>fokusroll@email.cz</span>
+          </div>
+        </a>
+        <a href="tel:608340428" class="contact-card">
+          <div class="icon"><ion-icon name="call-outline"></ion-icon></div>
+          <div>
+            <span>608 340 428 (Matěj Tomeček)</span>
+          </div>
+        </a>
+        <a href="https://discord.com/invite/GcmkcQakXZ" target="_blank" rel="noopener" class="contact-card">
+          <div class="icon"><ion-icon name="logo-discord"></ion-icon></div>
+          <div>
+            <span>Připojte se na náš Discord</span>
+          </div>
+        </a>
+      </div>
     </div>
   </header>
 
-  <section class="section">
+  <!-- TEAM -->
+  <section class="section section-alt">
     <div class="container">
-      <div class="contact-grid">
-        <div class="contact-cards">
-          <h2 style="margin-bottom:24px">Kde nás <span>najdete?</span></h2>
-          <a href="#" class="contact-card">
-            <div class="icon">✉️</div>
-            <div>
-              <strong>E-mail</strong>
-              <span class="placeholder">Doplňte e-mailovou adresu.</span>
-            </div>
-          </a>
-          <a href="#" class="contact-card">
-            <div class="icon">📘</div>
-            <div>
-              <strong>Facebook</strong>
-              <span class="placeholder">Doplňte odkaz na Facebook stránku.</span>
-            </div>
-          </a>
-          <a href="#" class="contact-card">
-            <div class="icon">📍</div>
-            <div>
-              <strong>Místo konání</strong>
-              <span class="placeholder">Doplňte adresu.</span>
-            </div>
-          </a>
+      <span class="section-label">Tým</span>
+      <h2>Kdo stojí <span>za FokusRoll</span></h2>
+      <p class="section-lead">FokusRoll by nevznikl bez desítek dobrovolníků, kteří mu věnují svůj čas – za všemi ale stojí pár lidí, na které se můžete obrátit jako první.</p>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="team-photo"><img src="img/contact/matej.jpg" alt="Matěj Tomeček" loading="lazy" /></div>
+          <h3>Matěj Tomeček</h3>
+          <p>Program a RPG aktivity – komorní larpy i hlavní turnaj.</p>
         </div>
-
-        <div>
-          <h2 style="margin-bottom:24px">Napište <span>nám</span></h2>
-          <form class="contact-form" onsubmit="return false">
-            <div class="form-group">
-              <label for="name">Jméno</label>
-              <input type="text" id="name" name="name" placeholder="Vaše jméno" />
-            </div>
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <input type="email" id="email" name="email" placeholder="vas@email.cz" />
-            </div>
-            <div class="form-group">
-              <label for="message">Zpráva</label>
-              <textarea id="message" name="message" placeholder="Vaše zpráva..."></textarea>
-            </div>
-            <button type="submit" class="form-submit">Odeslat zprávu</button>
-          </form>
+        <div class="team-member">
+          <div class="team-photo"><img src="img/contact/jan.jpg" alt="Jan Němec" loading="lazy" /></div>
+          <h3>Jan Němec</h3>
+          <p>Logistika na místě a organizační záležitosti.</p>
+        </div>
+        <div class="team-member">
+          <div class="team-photo"><img src="img/contact/martin.jpg" alt="Martin „Brendy“ Brandejs" loading="lazy" /></div>
+          <h3>Martin „Brendy“ Brandejs</h3>
+          <p>Registrace účastníků.</p>
         </div>
       </div>
     </div>
