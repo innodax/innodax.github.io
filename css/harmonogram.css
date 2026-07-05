@@ -1,0 +1,64 @@
+.day-tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+.day-tab {
+  padding:8px 22px; border-radius:99px;
+  border:1px solid rgba(255,255,255,0.12);
+  background:none; color:var(--light-gray);
+  font-family:'Inter',sans-serif; font-size:0.82rem;
+  font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
+  cursor:pointer; transition:background 0.15s,color 0.15s,border-color 0.15s;
+}
+.day-tab.active,.day-tab:hover { background:var(--hot-orange); border-color:var(--hot-orange); color:var(--black); }
+
+.cal-legend { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:20px; }
+.legend-item { display:flex; align-items:center; gap:6px; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--light-gray); }
+.legend-dot { width:10px; height:10px; border-radius:3px; }
+.dot-turnaj { background:var(--hot-orange); }
+.dot-rpg    { background:#63b3ed; }
+.dot-larp   { background:#9ae6b4; }
+.dot-volny  { background:#b794f4; }
+.dot-food   { background:rgba(255,255,255,0.25); }
+
+:root { --lw:148px; --hw:120px; }
+
+.cal-day { display:none; }
+.cal-day.active { display:block; }
+
+.cal-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:12px; border:1px solid rgba(255,255,255,0.07); }
+.cal-inner { display:flex; flex-direction:column; }
+
+.cal-header { display:flex; position:sticky; top:0; z-index:5; background:var(--gray); border-bottom:1px solid rgba(255,255,255,0.08); }
+.cal-header-spacer { width:var(--lw); flex-shrink:0; border-right:1px solid rgba(255,255,255,0.06); }
+.cal-hour-label { width:var(--hw); flex-shrink:0; font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.28); padding:9px 0 9px 8px; border-left:1px dashed rgba(255,255,255,0.07); border-bottom:1px solid rgba(255,255,255,0.08); box-sizing:border-box; }
+
+.cal-track { display:flex; min-height:56px; border-bottom:1px solid rgba(255,255,255,0.09); }
+.cal-track:last-child { border-bottom:none; }
+.cal-track-label { width:var(--lw); flex-shrink:0; padding:6px 12px 6px 12px; display:flex; align-items:center; position:sticky; left:0; z-index:3; background:var(--gray); border-right:1px solid rgba(255,255,255,0.06); }
+.cl-room { font-size:0.7rem; font-weight:800; letter-spacing:0.01em; line-height:1.25; }
+.cl-gm   { font-size:0.58rem; margin-top:2px; opacity:0.45; font-weight:500; }
+
+.label-prizemi   .cl-room { color:#63b3ed; }
+.label-patro1    .cl-room { color:#9ae6b4; }
+.label-pristavba .cl-room { color:#a0aec0; }
+.label-patro2    .cl-room { color:var(--hot-orange); }
+
+.cal-track-content {
+  position:relative; flex-shrink:0;
+  border-bottom:1px solid rgba(255,255,255,0.09);
+  background-image:repeating-linear-gradient(90deg,transparent,transparent calc(var(--hw) - 1px),rgba(255,255,255,0.08) calc(var(--hw) - 1px),rgba(255,255,255,0.08) var(--hw));
+}
+.cal-track:last-child .cal-track-content { border-bottom:none; }
+
+.cal-sep { min-height:26px; }
+.cal-sep .cal-track-label { font-size:0.58rem; letter-spacing:0.09em; text-transform:uppercase; color:rgba(255,255,255,0.2); font-weight:700; }
+.cal-sep .cal-track-content { background:rgba(255,255,255,0.018); }
+
+.cal-card { position:absolute; top:5px; bottom:5px; border-radius:8px; padding:6px 9px; overflow:hidden; z-index:1; box-sizing:border-box; cursor:default; transition:filter 0.15s; }
+.cal-card:hover { filter:brightness(1.2); }
+.cal-card-title { font-family:'Bebas Neue',sans-serif; font-size:0.9rem; letter-spacing:0.03em; line-height:1.2; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cal-card-sub { font-size:0.6rem; margin-top:2px; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:0.65; }
+
+.card-turnaj { background:linear-gradient(135deg,rgba(251,169,44,.28),rgba(251,169,44,.1)); border:1px solid rgba(251,169,44,.32); border-top:2px solid var(--hot-orange); }
+.card-rpg    { background:linear-gradient(135deg,rgba(99,179,237,.22),rgba(99,179,237,.08)); border:1px solid rgba(99,179,237,.26); border-top:2px solid #63b3ed; }
+.card-larp   { background:linear-gradient(135deg,rgba(154,230,180,.22),rgba(154,230,180,.08)); border:1px solid rgba(154,230,180,.26); border-top:2px solid #9ae6b4; }
+.card-volny  { background:linear-gradient(135deg,rgba(183,148,244,.2),rgba(183,148,244,.07)); border:1px solid rgba(183,148,244,.24); border-top:2px solid #b794f4; }
+.card-food   { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-top:2px solid rgba(255,255,255,0.2); }

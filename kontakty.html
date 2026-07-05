@@ -10,72 +10,7 @@
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <style>
-    .contact-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 56px;
-      margin-top: 28px;
-    }
-    .contact-card {
-      display: flex; gap: 14px; align-items: center;
-      text-decoration: none;
-      width: fit-content;
-    }
-    .contact-card .icon {
-      font-size: 1.3rem;
-      flex-shrink: 0;
-      color: var(--hot-orange);
-      display: flex;
-    }
-    .contact-card span { font-size: 0.95rem; color: var(--hot-orange); font-weight: 600; }
-    .contact-card:hover span { text-decoration: underline; }
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      margin-top: 32px;
-    }
-    @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr; max-width: 320px; margin-left: auto; margin-right: auto; } }
-    .team-member { text-align: center; }
-    .team-photo {
-      width: 260px;
-      aspect-ratio: 3 / 4;
-      margin: 0 auto 16px;
-      border-radius: 6px;
-      overflow: hidden;
-      position: relative;
-      border: 2px solid #2e2e2e;
-    }
-    .team-photo::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 1.5px solid rgba(251,169,44,0.55);
-      pointer-events: none;
-      z-index: 3;
-    }
-    .team-photo::after {
-      content: '';
-      position: absolute;
-      inset: 7px;
-      pointer-events: none;
-      z-index: 4;
-      background:
-        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    0    / 16px 1.5px no-repeat,
-        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    0    / 1.5px 16px no-repeat,
-        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 0    / 16px 1.5px no-repeat,
-        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 0    / 1.5px 16px no-repeat,
-        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    100% / 16px 1.5px no-repeat,
-        linear-gradient(var(--hot-orange), var(--hot-orange)) 0    100% / 1.5px 16px no-repeat,
-        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 100% / 16px 1.5px no-repeat,
-        linear-gradient(var(--hot-orange), var(--hot-orange)) 100% 100% / 1.5px 16px no-repeat;
-    }
-    .team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-    .team-member h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-    .team-member p { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; }
-  </style>
+  <link rel="stylesheet" href="css/kontakty.css" />
 </head>
 <body>
 

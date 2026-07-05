@@ -1,0 +1,99 @@
+.card-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+.card-value--lg { font-size: 2rem; line-height: 1; margin-bottom: 16px; }
+.card-note {
+  font-size: 0.875rem;
+  color: var(--light-gray);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Fact-card grid ── */
+.fact-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 48px;
+}
+@media (max-width: 768px) { .fact-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .fact-cards { grid-template-columns: 1fr; } }
+
+.section-body { font-size: 0.9rem; color: var(--light-gray); line-height: 1.7; }
+
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 768px) { .three-col { grid-template-columns: 1fr; } }
+
+/* ── Text columns (no boxes) ── */
+.text-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+@media (max-width: 768px) { .text-cols { grid-template-columns: 1fr; gap: 32px; } }
+.text-col-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-body + .text-col-heading { margin-top: 20px; }
+.text-col-body {
+  font-size: 0.9rem;
+  color: var(--light-gray);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+/* ── Icon list (shared by check-list, bullet-list, alert, price-card-features) ── */
+.icon-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.icon-list li { font-size: 0.9rem; color: var(--light-gray); display: flex; align-items: baseline; gap: 10px; }
+.icon-list li::before { color: var(--hot-orange); flex-shrink: 0; }
+.icon-list a { color: var(--hot-orange); text-decoration: none; }
+.icon-list a:hover { text-decoration: underline; }
+.card-note + .icon-list { margin-top: 14px; }
+.icon-list--check li::before { content: '✔'; font-size: 0.75rem; }
+.icon-list--bullet li::before { content: '•'; }
+.icon-list--dash { gap: 6px; }
+.icon-list--dash li { gap: 8px; }
+.icon-list--dash li::before { content: '–'; }
+
+/* ── Price-card grid ── */
+.price-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 640px) { .price-cards { grid-template-columns: 1fr; } }
+.price-card-features { margin-bottom: 16px; }
+.price-card-divider {
+  border: none;
+  border-top: 1px solid var(--evil-gray);
+  margin: 4px 0 14px;
+}
+.price-card-footer {
+  font-size: 0.875rem;
+  color: var(--light-gray);
+  line-height: 1.7;
+  margin-top: auto;
+}
+.price-card-footer strong { color: var(--white); }
+
+/* ── Travel-card grid ── */
+.travel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 768px) { .travel-grid { grid-template-columns: 1fr; } }
