@@ -7,12 +7,12 @@
       <span class="footer-brand-text">Fokus<span>Roll</span></span>
     </a>
     <ul class="footer-links">
-      <li><a href="about_tournament.html">Turnaj</a></li>
-      <li><a href="about_rpgs.html">Doprovodný program</a></li>
+      <li><a href="turnaj.html">Turnaj</a></li>
+      <li><a href="doprovodny-program.html">Doprovodný program</a></li>
       <li><a href="info.html">Praktické info</a></li>
       <li><a href="harmonogram.html">Harmonogram</a></li>
-      <li><a href="contact.html">Kontakty</a></li>
-      <li><a href="registration.html">Registrace</a></li>
+      <li><a href="kontakty.html">Kontakty</a></li>
+      <li><a href="registrace.html">Registrace</a></li>
     </ul>
   </div>
 </footer>
