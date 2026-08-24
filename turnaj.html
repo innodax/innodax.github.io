@@ -34,11 +34,11 @@
       <li><a href="#sec-jak-funguje" class="toc-mobile-link">Jak turnaj funguje</a></li>
       <li><a href="#sec-pro-koho" class="toc-mobile-link">Pro koho je turnaj</a></li>
       <li><a href="#sec-herni-system" class="toc-mobile-link">Herní systém</a></li>
-      <li><a href="#sec-dokumenty" class="toc-mobile-link">Dokumenty</a></li>
-      <li><a href="#sec-pribeh" class="toc-mobile-link">Příběh</a></li>
+      <!-- <li><a href="#sec-dokumenty" class="toc-mobile-link">Dokumenty</a></li> -->
+      <!-- <li><a href="#sec-pribeh" class="toc-mobile-link">Příběh</a></li> -->
       <li><a href="#sec-prubeh-kol" class="toc-mobile-link">Průběh kol</a></li>
-      <li><a href="#sec-registrace" class="toc-mobile-link">Registrace</a></li>
-      <li><a href="#sec-vypravecu" class="toc-mobile-link">Vypravěči</a></li>
+      <!-- <li><a href="#sec-registrace" class="toc-mobile-link">Registrace</a></li> -->
+      <!-- <li><a href="#sec-vypravecu" class="toc-mobile-link">Vypravěči</a></li> -->
     </ul>
   </div>
 
@@ -76,6 +76,7 @@
   </section>
 
   <!-- 4. Dokumenty -->
+  <!--
   <section class="section" id="sec-dokumenty">
     <div class="container">
       <span class="section-label">Dokumenty</span>
@@ -103,8 +104,10 @@
       </div>
     </div>
   </section>
+  -->
 
   <!-- 5. Příběh -->
+  <!--
   <section class="section section-alt" id="sec-pribeh">
     <div class="container">
       <span class="section-label">Příběh</span>
@@ -122,6 +125,7 @@
       </div>
     </div>
   </section>
+  -->
 
   <!-- 6. Průběh kol -->
   <section class="section" id="sec-prubeh-kol">
@@ -174,13 +178,14 @@
 
         </div>
       </div>
-      <p style="margin-top:28px">
+      <!-- <p style="margin-top:28px">
         <a href="harmonogram.html" class="section-link">Zobrazit plný harmonogram →</a>
-      </p>
+      </p> -->
     </div>
   </section>
 
   <!-- 7. Registrace -->
+  <!--
   <section class="section section-alt" id="sec-registrace">
     <div class="container">
       <span class="section-label">Registrace</span>
@@ -221,8 +226,10 @@
       </p>
     </div>
   </section>
+  -->
 
   <!-- 8. Vypravěči -->
+  <!--
   <section class="section" id="sec-vypravecu">
     <div class="container">
       <span class="section-label">Tým</span>
@@ -285,13 +292,16 @@
       </div>
     </div>
   </section>
+  -->
 
+  <!--
   <section class="cta-banner">
     <h2>Připraveni hrát?</h2>
     <p>Registrace jako pětičlenná družina.</p>
     <p>Otevřeno od 8. 2. v&nbsp;19:00.</p>
     <a href="registrace.html" class="btn-dark">Registrovat se →</a>
   </section>
+  -->
 
   <!-- TOC desktop -->
   <nav class="toc-desktop" aria-label="Obsah stránky">
@@ -300,11 +310,11 @@
       <li><a href="#sec-jak-funguje" class="toc-link">Jak turnaj funguje</a></li>
       <li><a href="#sec-pro-koho" class="toc-link">Pro koho je turnaj</a></li>
       <li><a href="#sec-herni-system" class="toc-link">Herní systém</a></li>
-      <li><a href="#sec-dokumenty" class="toc-link">Dokumenty</a></li>
-      <li><a href="#sec-pribeh" class="toc-link">Příběh</a></li>
+      <!-- <li><a href="#sec-dokumenty" class="toc-link">Dokumenty</a></li> -->
+      <!-- <li><a href="#sec-pribeh" class="toc-link">Příběh</a></li> -->
       <li><a href="#sec-prubeh-kol" class="toc-link">Průběh kol</a></li>
-      <li><a href="#sec-registrace" class="toc-link">Registrace</a></li>
-      <li><a href="#sec-vypravecu" class="toc-link">Vypravěči</a></li>
+      <!-- <li><a href="#sec-registrace" class="toc-link">Registrace</a></li> -->
+      <!-- <li><a href="#sec-vypravecu" class="toc-link">Vypravěči</a></li> -->
     </ul>
   </nav>
 
@@ -481,69 +491,71 @@
         bio: 'Přestože si zahraju takřka cokoli, jsem odvěký fanoušek DxD systémů a poloprofesionální vykradač mechanik a postupů všemožných jiných her.\n\nKromě různých herních festivalů mě můžete potkat každou první sobotu v měsíci v Ostravě v čajovně Smokehill, kde pořádám otevřené hraní Z Kopce.\n\nKaždý měsíc uvádíme trochu jiný systém, takže kdybyste měli zájem zkusit si něco nového, rád se s vámi uvidím.'  },
     ];
 
-    const detail             = document.getElementById('gm-detail');
-    const elName             = document.getElementById('gm-name');
-    const elNick             = document.getElementById('gm-nick');
-    const elBio              = document.getElementById('gm-bio');
-    const elPhoto            = document.getElementById('gm-photo');
-    const elPhotoPlaceholder = document.getElementById('gm-photo-placeholder');
-    const elAttrs            = document.getElementById('gm-attrs');
-    const elStats            = document.getElementById('gm-stats');
-    const elTabBio           = document.getElementById('gm-tab-bio');
-    const elTabStats         = document.getElementById('gm-tab-stats');
-    const tabs               = document.querySelectorAll('.gm-tab');
+    if (document.getElementById('gm-list')) {
+      const detail             = document.getElementById('gm-detail');
+      const elName             = document.getElementById('gm-name');
+      const elNick             = document.getElementById('gm-nick');
+      const elBio              = document.getElementById('gm-bio');
+      const elPhoto            = document.getElementById('gm-photo');
+      const elPhotoPlaceholder = document.getElementById('gm-photo-placeholder');
+      const elAttrs            = document.getElementById('gm-attrs');
+      const elStats            = document.getElementById('gm-stats');
+      const elTabBio           = document.getElementById('gm-tab-bio');
+      const elTabStats         = document.getElementById('gm-tab-stats');
+      const tabs               = document.querySelectorAll('.gm-tab');
 
-    function switchTab(name) {
-      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
-      elTabBio.classList.toggle('hidden',   name !== 'bio');
-      elTabStats.classList.toggle('hidden', name !== 'stats');
+      const switchTab = (name) => {
+        tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+        elTabBio.classList.toggle('hidden',   name !== 'bio');
+        elTabStats.classList.toggle('hidden', name !== 'stats');
+      };
+
+      tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+
+      const renderGM = (gm) => {
+        elName.textContent  = gm.name;
+        elNick.textContent  = gm.nick ? '„' + gm.nick + '"' : '';
+        elBio.innerHTML     = (gm.bio || 'Medailonek bude doplněn.').split('\n\n').map(p => `<p class="gm-card-bio">${p}</p>`).join('');
+        elAttrs.innerHTML   = (gm.attrs || []).map(a => `<span class="gm-card-attr">${a}</span>`).join('');
+        elAttrs.style.display = gm.attrs && gm.attrs.length ? '' : 'none';
+        elStats.innerHTML   = (gm.stats || []).map(g =>
+          `<div class="gm-stat-group">
+            <div class="gm-stat-group-title">${g.group}</div>
+            ${g.items.map(i => `<div class="gm-stat-item">${i}</div>`).join('')}
+          </div>`
+        ).join('');
+        if (gm.photo) {
+          elPhoto.src = gm.photo;
+          elPhoto.style.display = 'block';
+          elPhotoPlaceholder.style.display = 'none';
+        } else {
+          elPhoto.style.display = 'none';
+          elPhotoPlaceholder.style.display = 'flex';
+        }
+        switchTab('bio');
+      };
+
+      const selectGM = (index) => {
+        detail.classList.add('fading');
+        setTimeout(() => {
+          renderGM(GMS[index]);
+          detail.classList.remove('fading');
+        }, 150);
+        document.querySelectorAll('.gm-list-item').forEach(el => el.classList.remove('active'));
+        document.querySelector(`.gm-list-item[data-gm="${index}"]`).classList.add('active');
+      };
+
+      renderGM(GMS[0]);
+
+      document.getElementById('gm-list').addEventListener('click', e => {
+        const item = e.target.closest('.gm-list-item');
+        if (!item) return;
+        selectGM(Number(item.dataset.gm));
+      });
     }
-
-    tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
-
-    function renderGM(gm) {
-      elName.textContent  = gm.name;
-      elNick.textContent  = gm.nick ? '„' + gm.nick + '"' : '';
-      elBio.innerHTML     = (gm.bio || 'Medailonek bude doplněn.').split('\n\n').map(p => `<p class="gm-card-bio">${p}</p>`).join('');
-      elAttrs.innerHTML   = (gm.attrs || []).map(a => `<span class="gm-card-attr">${a}</span>`).join('');
-      elAttrs.style.display = gm.attrs && gm.attrs.length ? '' : 'none';
-      elStats.innerHTML   = (gm.stats || []).map(g =>
-        `<div class="gm-stat-group">
-          <div class="gm-stat-group-title">${g.group}</div>
-          ${g.items.map(i => `<div class="gm-stat-item">${i}</div>`).join('')}
-        </div>`
-      ).join('');
-      if (gm.photo) {
-        elPhoto.src = gm.photo;
-        elPhoto.style.display = 'block';
-        elPhotoPlaceholder.style.display = 'none';
-      } else {
-        elPhoto.style.display = 'none';
-        elPhotoPlaceholder.style.display = 'flex';
-      }
-      switchTab('bio');
-    }
-
-    function selectGM(index) {
-      detail.classList.add('fading');
-      setTimeout(() => {
-        renderGM(GMS[index]);
-        detail.classList.remove('fading');
-      }, 150);
-      document.querySelectorAll('.gm-list-item').forEach(el => el.classList.remove('active'));
-      document.querySelector(`.gm-list-item[data-gm="${index}"]`).classList.add('active');
-    }
-
-    renderGM(GMS[0]);
-
-    document.getElementById('gm-list').addEventListener('click', e => {
-      const item = e.target.closest('.gm-list-item');
-      if (!item) return;
-      selectGM(Number(item.dataset.gm));
-    });
 
     // ── ToC ──
-    initToc(['sec-jak-funguje', 'sec-pro-koho', 'sec-herni-system', 'sec-dokumenty', 'sec-pribeh', 'sec-prubeh-kol', 'sec-registrace', 'sec-vypravecu']);
+    initToc(['sec-jak-funguje', 'sec-pro-koho', 'sec-herni-system', 'sec-prubeh-kol']);
   </script>
 </body>
 </html>

@@ -376,6 +376,13 @@ body {
   max-width: 600px;
   margin-bottom: 40px;
 }
+.section-text {
+  font-size: 0.95rem;
+  color: var(--light-gray);
+  max-width: 600px;
+  margin-top: 24px;
+  margin-bottom: 20px;
+}
 
 
 /* ─── REGISTRACE CTA BANNER ─── */
