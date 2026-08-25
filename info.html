@@ -68,6 +68,7 @@
       <div class="alert">
         <div class="alert-title"><ion-icon name="warning-outline"></ion-icon> Životně důležité info</div>
         <ul class="icon-list icon-list--dash">
+          <li><span>Nezapomeňte na <strong>vytištěnou přihlášku</strong>.</span></li>
           <li><span>V průběhu celé akce platí <strong>zákaz konzumace alkoholu</strong> a jiných návykových látek.</span></li>
           <li><span>Kuřáci mohou <strong>kouřit pouze mimo areál SVČ</strong>.</span></li>
           <li><span>Platí přísný <strong>zákaz vstupu psů</strong> na akci – bez výjimek.</span></li>
@@ -83,7 +84,7 @@
       <span class="toc-toggle-chevron">▾</span>
     </button>
     <ul class="toc-mobile-list" id="toc-mobile-list">
-      <li><a href="#sec-registrace" class="toc-mobile-link">Registrace</a></li>
+      <!-- <li><a href="#sec-registrace" class="toc-mobile-link">Registrace</a></li> -->
       <li><a href="#sec-cenik" class="toc-mobile-link">Cena</a></li>
       <li><a href="#sec-prijezd" class="toc-mobile-link">Příjezd</a></li>
       <li><a href="#sec-cestovani" class="toc-mobile-link">Cestování</a></li>
@@ -94,6 +95,7 @@
   </div>
 
   <!-- Registrace -->
+  <!--
   <section class="section section-alt" id="sec-registrace">
     <div class="container">
       <span class="section-label">Registrace</span>
@@ -102,6 +104,7 @@
       <p class="section-body">Přihlášku si prosím vytiskněte, vyplňte a přineste s sebou na registraci. Pokud budete chtít během akce opustit areál SVČ Fokus, musíte mít podepsaný souhlas zákonného zástupce.</p>
     </div>
   </section>
+  -->
 
   <!-- Cena -->
   <section class="section" id="sec-cenik">
@@ -129,7 +132,7 @@
           <div class="card-label"><ion-icon name="dice-outline"></ion-icon> Sobotní program</div>
           <div class="card-value card-value--lg">200 Kč</div>
           <ul class="icon-list icon-list--check price-card-features">
-            <li>RPG / LARPy</li>
+            <li>RPG / larpy</li>
             <li>Volný program</li>
             <li>Přespání</li>
             <li>Pitný režim</li>
@@ -161,7 +164,7 @@
   <section class="section" id="sec-cestovani">
     <div class="container">
       <span class="section-label">Cestování</span>
-      <h2>Jak se <span>dostat</span></h2>
+      <h2>Jak se k nám <span>dopravit</span></h2>
       <p class="section-lead">Vyberte si způsob dopravy, který vám nejlépe vyhovuje.</p>
       <div class="travel-grid">
         <div class="card">
@@ -187,7 +190,7 @@
             <ion-icon name="bus-outline"></ion-icon>
             <span>Autobusem</span>
           </div>
-          <p class="card-note">Z Ostravy nebo jiných větších měst přijedete přímo na nádraží v Novém Jičíně. Zastavuje zde i RegioJet na lince Ostrava–Brno. Z nádraží je SVČ Fokus vzdálena necelý kilometr pěšky.</p>
+          <p class="card-note">Z Ostravy nebo jiných větších měst přijedete přímo na nádraží v Novém Jičíně. Zastavuje zde i RegioJet na lince Ostrava–Brno. Z nádraží je SVČ Fokus vzdálen necelý kilometr pěšky.</p>
           <ul class="icon-list icon-list--bullet">
             <li><a href="https://mapy.cz/s/ceracuhebe" target="_blank" rel="noopener">Trasa na mapy.cz</a></li>
             <li><a href="https://goo.gl/maps/Cj4kqYrEKSpuXibG8" target="_blank" rel="noopener">Trasa na Google Maps</a></li>
@@ -268,7 +271,6 @@
         <div>
           <div class="text-col-heading">Obecná výbava</div>
           <ul class="icon-list icon-list--check">
-            <li>Vytištěná přihláška</li>
             <li>Přezůvky (nutné se přezout při vstupu do SVČ Fokus)</li>
             <li>Potřeby pro hraní RPG (sada kostek, karta postavy, tužka a papír)</li>
             <li>Nabíječka na telefon</li>
@@ -291,7 +293,7 @@
   <nav class="toc-desktop" aria-label="Obsah stránky">
     <span class="toc-desktop-label">Obsah stránky</span>
     <ul class="toc-desktop-list">
-      <li><a href="#sec-registrace" class="toc-link">Registrace</a></li>
+      <!-- <li><a href="#sec-registrace" class="toc-link">Registrace</a></li> -->
       <li><a href="#sec-cenik" class="toc-link">Cena</a></li>
       <li><a href="#sec-prijezd" class="toc-link">Příjezd</a></li>
       <li><a href="#sec-cestovani" class="toc-link">Cestování</a></li>
@@ -308,7 +310,7 @@
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="toc.js"></script>
   <script>
-    initToc(['sec-registrace', 'sec-cenik', 'sec-prijezd', 'sec-cestovani', 'sec-ubytovani', 'sec-strava', 'sec-pred-odjezdem']);
+    initToc(['sec-cenik', 'sec-prijezd', 'sec-cestovani', 'sec-ubytovani', 'sec-strava', 'sec-pred-odjezdem']);
   </script>
   <script src="footer.js"></script>
 </body>

@@ -74,13 +74,13 @@
           <p class="section-lead">Tříkolová RPG soutěž v české variantě 5. edice D&amp;D, kde rozhoduje nápaditost, roleplay a odvaha riskovat.</p>
           <div class="activity-chips">
             <span class="activity-chip"><ion-icon name="people-outline"></ion-icon> 5členné družiny</span>
-            <span class="activity-chip"><ion-icon name="person-circle-outline"></ion-icon> 15 zkušených vypravěčů</span>
+            <span class="activity-chip"><ion-icon name="person-circle-outline"></ion-icon> Zkušení vypravěči</span>
             <span class="activity-chip"><ion-icon name="flag-outline"></ion-icon> 3 kola od pátku do neděle</span>
           </div>
           <!-- <a href="turnaj.html" class="section-link">Pravidla a registrace →</a> -->
         </div>
         <div class="tournament-photo">
-          <img src="img/home-gallery/home1.jpg" alt="Hráči u stolu na turnaji FokusRoll" loading="lazy" />
+          <img src="img/home-gallery/skupina.jpg" alt="Hráči u stolu na turnaji FokusRoll" loading="lazy" />
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
     <div class="container">
       <span class="section-label">Co vás čeká</span>
       <h2>Program pro <span>každého</span></h2>
-      <p class="section-lead">Ať jste v turnaji, nebo jen na skok na sobotu – vybrat si můžete z pestré nabídky aktivit.</p>
+      <p class="section-lead">Ať už jste přišli na turnaj nebo jen v sobotu na skok, vybrat si můžete z pestré nabídky aktivit.</p>
       <div class="activity-chips">
         <span class="activity-chip"><ion-icon name="skull-outline"></ion-icon> RPG hry</span>
         <span class="activity-chip"><ion-icon name="people-outline"></ion-icon> Larpy</span>
@@ -370,7 +370,7 @@
       function next() { goTo(current + 1); }
       function prev() { goTo(current - 1); }
 
-      function start() { timer = setInterval(next, 4000); }
+      function start() { stop(); timer = setInterval(next, 4000); }
       function stop() { clearInterval(timer); }
       function restart() { stop(); start(); }
 

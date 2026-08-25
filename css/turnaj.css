@@ -1,3 +1,8 @@
+.icon-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-top: 16px; }
+.icon-list li { font-size: 0.95rem; color: var(--light-gray); display: flex; align-items: baseline; gap: 10px; line-height: 1.6; }
+.icon-list li::before { color: var(--hot-orange); flex-shrink: 0; }
+.icon-list--check li::before { content: '✔'; font-size: 0.75rem; }
+
 .story-block {
   background: var(--gray);
   border-left: 3px solid var(--hot-orange);
