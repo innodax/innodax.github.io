@@ -1,3 +1,21 @@
+.pro-koho-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; margin-top: 8px; }
+.info-card { background: var(--dark-gray); border: 1px solid var(--evil-gray); border-radius: 12px; padding: 24px; }
+.info-card p { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; margin: 0; }
+.question-card { border-left: 3px solid var(--hot-orange); }
+.question-card-icon { font-size: 1.75rem; color: var(--hot-orange); display: block; margin-bottom: 12px; }
+.question-card-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--hot-orange); margin-bottom: 10px; }
+.question-card .question-card-question { font-size: 1.1rem; font-weight: 600; color: var(--white); line-height: 1.4; margin-bottom: 14px; }
+.question-card .question-card-answer { font-size: 0.875rem; color: var(--light-gray); line-height: 1.6; margin: 0; }
+@media (max-width: 768px) { .pro-koho-grid { grid-template-columns: 1fr; } }
+
+.herni-system-inner { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+.herni-system-logo { max-width: 220px; }
+.herni-system-logo img { width: 100%; height: auto; display: block; }
+@media (max-width: 768px) {
+  .herni-system-inner { grid-template-columns: 1fr; }
+  .herni-system-logo { order: -1; max-width: 160px; margin: 0 auto; }
+}
+
 .icon-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-top: 16px; }
 .icon-list li { font-size: 0.95rem; color: var(--light-gray); display: flex; align-items: baseline; gap: 10px; line-height: 1.6; }
 .icon-list li::before { color: var(--hot-orange); flex-shrink: 0; }

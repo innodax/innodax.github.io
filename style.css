@@ -456,6 +456,11 @@ footer {
   max-width: var(--max-w);
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.footer-top {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
@@ -480,6 +485,18 @@ footer {
   transition: color 0.15s;
 }
 .footer-links a:hover { color: var(--white); }
+.footer-contact { display: flex; gap: 32px; flex-wrap: wrap; }
+.footer-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--light-gray);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-contact a ion-icon { font-size: 1rem; color: var(--white); }
+.footer-contact a:hover { color: var(--white); }
 
 /* ─── TOC (table of contents sidebar, used on info/turnaj/doprovodny-program) ─── */
 .toc-mobile { background: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.06); }
