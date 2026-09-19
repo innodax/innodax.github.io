@@ -19,7 +19,6 @@
 .card-note a { color: var(--hot-orange); text-decoration: none; }
 .card-note a:hover { text-decoration: underline; }
 
-/* ── Fact-card grid ── */
 .fact-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -38,7 +37,6 @@
 }
 @media (max-width: 768px) { .three-col { grid-template-columns: 1fr; } }
 
-/* ── Text columns (no boxes) ── */
 .text-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -61,7 +59,6 @@
   line-height: 1.65;
   margin-bottom: 16px;
 }
-/* ── Icon list (shared by check-list, bullet-list, alert, price-card-features) ── */
 .icon-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
 .icon-list li { font-size: 0.9rem; color: var(--light-gray); display: flex; align-items: baseline; gap: 10px; }
 .icon-list li::before { color: var(--hot-orange); flex-shrink: 0; }
@@ -74,7 +71,6 @@
 .icon-list--dash li { gap: 8px; }
 .icon-list--dash li::before { content: '–'; }
 
-/* ── Price-card grid ── */
 .price-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -95,7 +91,6 @@
 }
 .price-card-footer strong { color: var(--white); }
 
-/* ── Travel-card grid ── */
 .travel-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

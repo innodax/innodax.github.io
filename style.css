@@ -1,6 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-
 :root {
   --black: #000000;
   --dark-gray: #232323;
@@ -15,15 +14,12 @@
   --max-w: 1280px;
   --section-pad: 88px 24px;
 
-  /* Breakpoint reference (content-based, not device-specific).
-     CSS custom properties can't be read inside @media conditions,
-     so these values must be hardcoded in each @media rule — keep them in sync. */
-  --breakpoint-xs: 480px;  /* Small phones */
-  --breakpoint-sm: 640px;  /* Small tablets, large phones */
-  --breakpoint-md: 768px;  /* Tablets */
-  --breakpoint-lg: 1024px; /* Laptops, small desktops */
-  --breakpoint-xl: 1280px; /* Desktops */
-  --breakpoint-2xl: 1536px; /* Large screens */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
 }
 
 html { font-size: 18px; scroll-behavior: smooth; }
@@ -35,7 +31,6 @@ body {
   line-height: 1.6;
 }
 
-/* ─── UTILITIES ─── */
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
 .section-label {
@@ -48,48 +43,6 @@ body {
   margin-bottom: 12px;
 }
 
-/* ─── BUTTONS ─── */
-.btn-secondary {
-  display: inline-flex;
-  padding: 13px 28px;
-  background: transparent;
-  color: var(--beige);
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 10px;
-  text-decoration: none;
-  border: 1px solid var(--evil-gray);
-  transition: color 0.15s, border-color 0.15s, transform 0.1s;
-}
-.btn-secondary:hover { color: var(--white); border-color: var(--white); transform: translateY(-1px); }
-
-.btn-dark {
-  display: inline-flex;
-  padding: 14px 32px;
-  background: var(--black);
-  color: var(--white);
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: opacity 0.15s, transform 0.1s;
-}
-.btn-dark:hover { opacity: 0.82; transform: translateY(-1px); }
-
-.section-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--hot-orange);
-  text-decoration: none;
-  transition: gap 0.15s;
-}
-.section-link:hover { gap: 10px; text-decoration: underline; }
-
-/* Inline text links in body copy get an underline on hover; links inside
-   card components keep their own hover treatment (no underline). */
 .section-body a,
 .section-lead a {
   text-decoration: none;
@@ -99,28 +52,6 @@ body {
   text-decoration: underline;
 }
 
-/* ─── LINK CARD (clickable nav card: icon + title + text + arrow) ─── */
-.link-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 100%), var(--gray);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-top: 2px solid var(--hot-orange);
-  border-radius: 16px;
-  padding: 22px 24px 24px;
-  text-decoration: none;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04) inset;
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-.link-card:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.04) inset; }
-.link-card-icon { font-size: 1.5rem; color: var(--hot-orange); display: flex; margin-bottom: 6px; }
-.link-card h3 { display: block; font-size: 27px; font-weight: 400; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; color: var(--white); }
-.link-card p { font-size: 0.8rem; color: var(--light-gray); line-height: 1.5; }
-.link-card-arrow { margin-top: auto; padding-top: 14px; font-size: 0.8rem; font-weight: 600; color: var(--hot-orange); transition: gap 0.15s; display: flex; align-items: center; gap: 4px; }
-.link-card:hover .link-card-arrow { gap: 8px; }
-
-/* ─── NAV ─── */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -149,8 +80,8 @@ body {
   flex-shrink: 0;
 }
 .nav-logo-icon {
-  width: 36px;
-  height: 36px;
+  width: 45px;
+  height: 45px;
   background: transparent;
   border-radius: 8px;
   display: flex;
@@ -162,7 +93,7 @@ body {
 }
 .nav-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
 .nav-logo-text {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--white);
   letter-spacing: -0.02em;
@@ -201,7 +132,7 @@ body {
   width: 14px;
   height: 14px;
   flex-shrink: 0;
-  background: url('img/icon.png') no-repeat center / contain;
+  background: url('img/logos/d20.png') no-repeat center / contain;
   opacity: 0;
   transform: translateX(-6px) scale(0.7);
   transition: opacity 140ms ease, transform 180ms ease;
@@ -219,31 +150,6 @@ body {
   gap: 8px;
   margin-left: auto;
 }
-.nav-cta {
-  display: inline-flex;
-  align-items: center;
-  padding: 9px 20px;
-  background: var(--black);
-  color: var(--white);
-  font-size: 0.9rem;
-  font-weight: 700;
-  border-radius: 8px;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: opacity 0.15s, transform 0.1s;
-}
-.nav-cta:hover { opacity: 0.82; transform: translateY(-1px); }
-.nav-login {
-  padding: 9px 15px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--black);
-  text-decoration: none;
-  border-radius: 8px;
-  transition: color 0.15s;
-}
-.nav-login:hover { color: var(--white); }
-
 .nav-burger {
   display: none;
   flex-direction: column;
@@ -298,34 +204,6 @@ body {
   text-decoration: none;
   text-align: center;
 }
-.drawer-auth { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
-.drawer-cta {
-  display: block;
-  text-align: center;
-  padding: 16px;
-  background: var(--black);
-  color: var(--white);
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: opacity 0.15s;
-}
-.drawer-cta:hover { opacity: 0.8; }
-.drawer-login {
-  display: block;
-  text-align: center;
-  padding: 16px;
-  background: rgba(0,0,0,0.1);
-  color: var(--black);
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.15s;
-}
-.drawer-login:hover { background: rgba(0,0,0,0.18); }
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -336,7 +214,6 @@ body {
   .nav-burger { display: flex; }
 }
 
-/* ─── PAGE HEADER (subpages) ─── */
 .page-header {
   padding: calc(var(--nav-height) + 56px) 24px 56px;
   background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(251,169,44,0.08) 0%, transparent 70%);
@@ -358,7 +235,6 @@ body {
   max-width: 560px;
 }
 
-/* ─── SECTIONS ─── */
 .section { padding: var(--section-pad); }
 .section-alt { background: var(--gray); }
 .section h2 {
@@ -384,14 +260,23 @@ body {
   margin-bottom: 20px;
 }
 
-
-/* ─── REGISTRACE CTA BANNER ─── */
 .cta-banner {
+  position: relative;
   background: var(--hot-orange);
   padding: 72px 24px;
   text-align: center;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0 5%;
+  background: url('img/logos/fokusroll-logo.svg') center / 100% auto no-repeat;
+  opacity: 0.3;
 }
 .cta-banner h2 {
+  position: relative;
+  z-index: 1;
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -399,13 +284,14 @@ body {
   margin-bottom: 12px;
 }
 .cta-banner p {
+  position: relative;
+  z-index: 1;
   font-size: 1.05rem;
   color: rgba(0,0,0,0.6);
   max-width: 480px;
   margin: 0 auto 36px;
 }
 
-/* ─── SPONSORS ─── */
 .sponsors { padding: 64px 24px; }
 .sponsors h3 {
   text-align: center;
@@ -446,7 +332,6 @@ body {
   opacity: 1;
 }
 
-/* ─── FOOTER ─── */
 footer {
   background: var(--black);
   border-top: 1px solid var(--gray);
@@ -468,14 +353,14 @@ footer {
 }
 .footer-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .footer-brand-icon {
-  width: 30px; height: 30px;
+  width: 45px; height: 45px;
   border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
   font-size: 15px;
   overflow: hidden;
 }
 .footer-brand-icon img { width: 100%; height: 100%; object-fit: contain; }
-.footer-brand-text { font-size: 1rem; font-weight: 700; color: var(--white); }
+.footer-brand-text { font-size: 1.5rem; font-weight: 700; color: var(--white); }
 .footer-brand-text span { color: var(--hot-orange); }
 .footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
 .footer-links a {
@@ -498,7 +383,6 @@ footer {
 .footer-contact a ion-icon { font-size: 1rem; color: var(--white); }
 .footer-contact a:hover { color: var(--white); }
 
-/* ─── TOC (table of contents sidebar, used on info/turnaj/doprovodny-program) ─── */
 .toc-mobile { background: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.06); }
 @media (min-width: 1536px) { .toc-mobile { display: none; } }
 .toc-mobile-toggle {
@@ -571,7 +455,6 @@ footer {
 .toc-link:hover { color: var(--light-gray); padding-left: 15px; }
 .toc-link.active { color: var(--hot-orange); padding-left: 15px; border-left: 2px solid var(--hot-orange); margin-left: -1px; }
 
-/* ─── ALERT (callout box) ─── */
 .alert {
   background: linear-gradient(145deg, rgba(251,169,44,0.1) 0%, rgba(251,169,44,0.03) 100%);
   border-radius: 16px;
@@ -596,7 +479,6 @@ footer {
 .alert p { font-size: 0.9rem; color: var(--light-gray); line-height: 1.7; margin: 0; }
 .alert p + p { margin-top: 8px; }
 
-/* ─── CARD (static info card, used for price cards, sidebar info cards) ─── */
 .card {
   background: var(--gray);
   border-radius: 16px;
@@ -619,22 +501,3 @@ footer {
 }
 .card-label ion-icon { font-size: 1rem; flex-shrink: 0; display: block; }
 
-/* ─── FORM (shared base for login/registration forms) ─── */
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label { font-size: 0.85rem; font-weight: 600; color: var(--light-gray); }
-.form-group input,
-.form-group select,
-.form-group textarea {
-  border: 1px solid var(--evil-gray);
-  border-radius: 8px;
-  padding: 11px 14px;
-  color: var(--white);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.15s;
-  width: 100%;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus { border-color: var(--hot-orange); }
